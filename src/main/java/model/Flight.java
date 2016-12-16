@@ -228,13 +228,11 @@ public class Flight{
     }
 
 
-    public boolean checkInvalidDates(LocalDate departDate, LocalDate returnDate) {
-
-        boolean isValid = false;
+    public boolean isDateInvalid(LocalDate departDate, LocalDate returnDate) {
+        boolean isValid = true;
         if (departDate != null && returnDate != null) {
             if (departDate.isAfter(returnDate)) {
                 isValid = false;
-//                UtilityClass.errorMessageDatesNotPossible();  breaks test
             } else {
                 isValid = true;
             }
@@ -243,50 +241,14 @@ public class Flight{
     }
 
 
-
-    public String getDepartTime() {
-        return departTime;
+    public boolean isWeekend(String dayOfWeek) {
+        boolean isWeekend = false;
+        if(dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
+            isWeekend = true;
+        }
+        return isWeekend;
     }
 
-    public void setDepartTime(String departTime) {
-        this.departTime = departTime;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public Double getDeapartPrice() {
-        return deapartPrice;
-    }
-
-    public void setDeapartPrice(Double deapartPrice) {
-        this.deapartPrice = deapartPrice;
-    }
-
-    public Double getReturnPrice() {
-        return returnPrice;
-    }
-
-    public void setReturnPrice(Double returnPrice) {
-        this.returnPrice = returnPrice;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
 
     public void setPrice(Double price) {
         this.price = price;

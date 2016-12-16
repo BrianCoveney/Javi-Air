@@ -36,7 +36,7 @@ public class CreditCard {
     }
 
 
-    public String validateName(String input) {
+    private String validateName(String input) {
         String validText = "^[\\p{L} .'-]+$";
 
         try {
@@ -83,10 +83,7 @@ public class CreditCard {
         }
 
         return isValid;
-
     }
-
-
 
 
     public String validateCCVNumber(String inputCCV) {
@@ -104,14 +101,9 @@ public class CreditCard {
     }
 
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
         validateName(name);
-
     }
 
     public void setAddress1(String address1) {

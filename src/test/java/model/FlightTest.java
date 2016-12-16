@@ -14,12 +14,13 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class FlightTest {
 
+    private Flight flight;
     private LocalDate now = LocalDate.now();
     private LocalDate afterNow = LocalDate.now().plusYears(1);
     private LocalDate beforeNow = LocalDate.now().minusYears(1);
-    private Flight flight;
-    private double validDouble = 100.0;
-    private double inValidDouble = Consts.TWO_HND;
+    private static final String TUE = "TUESDAY";
+
+
 
     @Before
     public void setUp() throws Exception {
@@ -28,18 +29,26 @@ public class FlightTest {
 
     @Test
     public void getFlightPrice() throws Exception {
-        boolean result1 = flight.checkInvalidDates(now, afterNow);
+        boolean result1 = flight.isDateInvalid(now, afterNow);
         assertTrue(result1);
     }
 
     @Test
     public void checkInvalidDates() throws Exception {
 
-        assertEquals(true, flight.checkInvalidDates(now, afterNow));
+        assertEquals(true, flight.isDateInvalid(now, afterNow));
 
         // cannot book return flight, before depart flight time
-        assertEquals(false, flight.checkInvalidDates(now, beforeNow));
+        assertEquals(false, flight.isDateInvalid(now, beforeNow));
 
+    }
+
+    @Test
+    public void isWeekend() throws Exception {
+
+        assertEquals(true, flight.isWeekend(Consts.SAT));
+
+        assertEquals(false, flight.isWeekend(TUE));
 
     }
 

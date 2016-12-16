@@ -34,7 +34,7 @@ public class MainScene extends Application {
     private final ToggleGroup toggleGroupFlightTimes_2 = new ToggleGroup();
     ObservableList<Integer> spinnerObservableList = FXCollections.observableArrayList();
     private ImageView imageViewReturn, imageViewDept;
-    private Button buttonCancel, buttonContinue, buttonBack, buttonPurchase, buttonSpaRes;
+    private Button buttonCancel, buttonContinue, buttonPurchase;
     private ComboBox<String> comboOrigin;
     private ComboBox<String> comboDestination;
     private RadioButton radioBtn1, radioBtn2, radioBtn3, radioBtn4, radioBtn5, radioBtn6, radioBtn7, radioBtn8;
@@ -51,7 +51,7 @@ public class MainScene extends Application {
     private double dateReturnPrice;
     private double flightPrice;
     private double currentPrice;
-    private LocalDate ldDepartDate, ldReturnDate;
+    private LocalDate ldDepartDate, ldReturnDate, dateDept, dateReturn;
     private GridPane gridPaneLeft;
     private Stage window;
     private Scene scene1, scene2;
@@ -62,7 +62,6 @@ public class MainScene extends Application {
     private ObservableList<DatePicker> dpDateOfBirthList = FXCollections.observableArrayList();
     private ObservableList<RadioButton> radioBtnListBag = FXCollections.observableArrayList();
     private ObservableList<CheckBox> checkboxListSpanish = FXCollections.observableArrayList();
-
     public TextField fName, fName2, fName3, fName4, fName5, fName6, fName7, fName8,
             lName, lName2, lName3, lName4, lName5, lName6, lName7, lName8,
             custDNI1,custDNI2, custDNI3, custDNI4, custDNI5, custDNI6, custDNI7, custDNI8;
@@ -71,10 +70,6 @@ public class MainScene extends Application {
     private Spinner<Integer> spinnerPassengerNo;
     // reference to the model.Passenger and FLight objects
     private List<Passenger> passengerList = FXCollections.observableArrayList();
-
-    private List<LocalDate> dobList = FXCollections.observableArrayList();
-    private ObservableList<Flight> flightList = FXCollections.observableArrayList();
-    private ObservableList<CreditCard> creditCardList = FXCollections.observableArrayList();
 
     private Passenger passenger1, passenger2, passenger3, passenger4, passenger5, passenger6, passenger7, passenger8;
     private Flight flight, flightForChild, flightForBaby;
@@ -145,10 +140,7 @@ public class MainScene extends Application {
         tfCCVNumber.setPromptText("CCV Number");
 
         buttonPurchase = new Button("Purchase Now");
-        buttonPurchase.setOnAction(event -> {
-            createCreditCard();
-
-        });
+        buttonPurchase.setOnAction(event -> createCreditCard());
 
         gridPane.add(tfCCName, 0, 1);
         gridPane.add(tfCCAddress1, 0, 2);
@@ -182,8 +174,6 @@ public class MainScene extends Application {
                 dpCCExpiryDate.getValue(),
                 tfCCVNumber.getText());
 
-
-
         if(!cardNum.isEmpty() && mCreditCard.validateCreditCardNumber(cardNum)) {
             UtilityClass.orderReceived();
         } else {
@@ -191,8 +181,6 @@ public class MainScene extends Application {
         }
 
     }
-
-
 
 
     private GridPane createTopGridPane() {
@@ -207,19 +195,14 @@ public class MainScene extends Application {
         radioButtonReturn.fire(); // return btn on by default
 
 
-
-
         toggleGroupFlights.selectedToggleProperty().addListener(observable -> {
             if (toggleGroupFlights.getSelectedToggle() == radioButtonOneWay) {
                 datePickerReturn.setDisable(true);
                 imageViewReturn.setVisible(false);
-
                 radioButtonReturnTime1.setVisible(false);
                 radioButtonReturnTime2.setVisible(false);
                 radioButtonReturnTime1.setManaged(false);
                 radioButtonReturnTime2.setManaged(false);
-
-
 
             } else if (toggleGroupFlights.getSelectedToggle() == radioButtonReturn) {
                 datePickerReturn.setDisable(false);
@@ -232,23 +215,18 @@ public class MainScene extends Application {
             }
         });
 
-
         radioButtonDeptTime1 = new RadioButton();
         radioButtonDeptTime2 = new RadioButton();
         radioButtonReturnTime1 = new RadioButton();
         radioButtonReturnTime2 = new RadioButton();
 
-
-
         vBoxRadioBtns1 = new VBox(10);
         vBoxRadioBtns1.getChildren().addAll(radioButtonDeptTime1, radioButtonDeptTime2);
         vBoxRadioBtns1.setMinWidth(200);
 
-
         vBoxRadioBtns2 = new VBox(10);
         vBoxRadioBtns2.getChildren().addAll(radioButtonReturnTime1, radioButtonReturnTime2);
         vBoxRadioBtns2.setMinWidth(200);
-
 
         labelOrigin = new Label("From: ");
         comboOrigin = new ComboBox<>();
@@ -264,7 +242,6 @@ public class MainScene extends Application {
             datePickerReturn.getEditor().clear();
             datePickerDeparture.setValue(null);
             datePickerReturn.setValue(null);
-
 
 
             if (comboOrigin.getItems().contains(comboOrigin.getValue())) {
@@ -325,9 +302,7 @@ public class MainScene extends Application {
             if (comboDestination.getSelectionModel().isEmpty()) {
                 UtilityClass.errorMessageFlight();
             }
-
             displaySelectedFlights();
-
 
         });
 
@@ -372,24 +347,32 @@ public class MainScene extends Application {
 
 
         try {
-            if (dptFlight.equals(Consts.CORK)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
-            } else if (dptFlight.equals(Consts.MADRID)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
-            } else if (dptFlight.equals(Consts.PARIS)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.STANSTED, Consts.MALAGA);
-            } else if (dptFlight.equals(Consts.STANSTED)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.MALAGA);
-            } else if (dptFlight.equals(Consts.MALAGA)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED);
-            } else if (dptFlight.equals(Consts.ST_BRIEUC) || dptFlight.equals(Consts.JERSEY)) {
-                comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+            switch (dptFlight) {
+                case Consts.CORK:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                    break;
+                case Consts.MADRID:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.CORK, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                    break;
+                case Consts.PARIS:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.STANSTED, Consts.MALAGA);
+                    break;
+                case Consts.STANSTED:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.MALAGA);
+                    break;
+                case Consts.MALAGA:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED);
+                    break;
+                case Consts.ST_BRIEUC:
+                case Consts.JERSEY:
+                    comboDestination.getItems().clear();
+                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                    break;
             }
         } catch (Exception e) {
             e.getMessage();
@@ -444,27 +427,30 @@ public class MainScene extends Application {
 
     // take the returned 'flightPrice' from getSelectedFlight() and add 20% if day is Fri - Sun
     private Double getSelectDate(ActionEvent event) {
+
+        ldDepartDate = datePickerDeparture.getValue();
+        ldReturnDate = datePickerReturn.getValue();
+
         try {
             if (event.getSource().equals(datePickerDeparture)) {
-                ldDepartDate = datePickerDeparture.getValue();
-                // set variable to the day of the week, from the selected date
-                String dayOfWeek = ldDepartDate.getDayOfWeek().name();
+                String dayOfWeekDpt = ldDepartDate.getDayOfWeek().name();
 
-                if (dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
+                // flight refers to the Flight object
+                if (flight.isWeekend(dayOfWeekDpt)) {
                     dateDepartPrice = flightPrice + flightPrice * 0.2;
                 } else {
                     dateDepartPrice = flightPrice;
                 }
             } else if (event.getSource().equals(datePickerReturn)) {
-                ldReturnDate = datePickerReturn.getValue();
-                String dayOfWeek = ldReturnDate.getDayOfWeek().name();
-                if (dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
+                String dayOfWeekRtn = ldReturnDate.getDayOfWeek().name();
+                if (flight.isWeekend(dayOfWeekRtn)) {
                     dateReturnPrice = flightPrice + flightPrice * 0.2;
                 } else {
                     dateReturnPrice = flightPrice;
                 }
             }
             currentPrice = dateDepartPrice + dateReturnPrice;
+
         } catch (NullPointerException e) {
             e.getMessage();
         }
@@ -472,14 +458,16 @@ public class MainScene extends Application {
         return currentPrice;
     }
 
+
     private void checkForInvalidDates() {
         LocalDate departDate = datePickerDeparture.getValue();
         LocalDate returnDate = datePickerReturn.getValue();
 
-        Flight f = new Flight();
+        flight = new Flight();
 
-        if(!f.checkInvalidDates(departDate, returnDate)) {
+        if(!flight.isDateInvalid(departDate, returnDate)) {
             datePickerReturn.getEditor().setText(null);
+            UtilityClass.errorMessageDatesNotPossible();
         }
 
     }
@@ -508,8 +496,8 @@ public class MainScene extends Application {
 
     private FlightTimes displaySelectedFlights() {
 
-        LocalDate dateDept = datePickerDeparture.getValue();
-        LocalDate dateReturn = datePickerReturn.getValue();
+        dateDept = datePickerDeparture.getValue();
+        dateReturn = datePickerReturn.getValue();
 
         dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
@@ -597,7 +585,7 @@ public class MainScene extends Application {
 
         }
 
-        //  model.Flight has only one time slot
+        //  Flight has only one time slot
         else {
             radioButtonReturnTime2.setVisible(false);
             radioButtonDeptTime2.setVisible(false);
@@ -668,9 +656,7 @@ public class MainScene extends Application {
 
         spinnerPassengerNo.valueProperty();
 
-        spinnerPassengerNo.valueProperty().addListener(observable -> {
-            spinnerPassengerNumberListener();
-        });
+        spinnerPassengerNo.valueProperty().addListener(observable -> spinnerPassengerNumberListener());
 
 
         gridPaneLeft.add(spinnerLabel, 1, 2);
@@ -1101,20 +1087,20 @@ public class MainScene extends Application {
                     childPrice = Consts.CHILD_PRICE * 2 + bagPrice - spaPrice;
 
 
-                    // add model.Passenger and model.Flight objects to the ListView displayed in the next scene (after Continue button is selected)
+                    // add Passenger and Flight objects to the ListView displayed in the next scene (after Continue button is selected)
                     if (passengerList.get(i).isPassengerInfant()) {
 
                         setFlightPriceInfants();
 
                         if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter +
+                            listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
                                             flightForBaby.toString(),
                                              "\tTotal: \t\t\t\t\t\t = €" + Consts.BABY_PRICE + " (Babies fly free, but do not get a seat nor a checked bag)");
                         }
                         else if(radioButtonOneWay.isSelected()) {
 
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter +
+                            listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toStringSingleFlight(),
                                             flightForBaby.toStringSingleFlight(),
                                             "\tTotal: \t\t\t\t\t\t = €" + Consts.BABY_PRICE + " (Babies fly free, but do not get a seat nor a checked bag)");
@@ -1125,14 +1111,14 @@ public class MainScene extends Application {
                         setFlightPriceChild();
 
                         if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter +
+                            listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
                                             flightForChild.toString(),
                                             "\tTotal: \t\t\t\t\t\t = €" + childPrice);
                         }
                         else if(radioButtonOneWay.isSelected()) {
 
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter +
+                            listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toStringSingleFlight(),
                                             flightForChild.toStringSingleFlight(),
                                             "\tTotal: \t\t\t\t\t\t = €" + childPrice);
@@ -1155,9 +1141,7 @@ public class MainScene extends Application {
                                             flight.toStringSingleFlight(),
                                             "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                         }
-
                     }
-
 
                 }
             } catch (Exception e) {
@@ -1173,7 +1157,6 @@ public class MainScene extends Application {
             buttonBack.setOnAction(event -> {
                 listView.getItems().clear();
                 window.setScene(scene1);
-
 
             });
         } catch (IllegalArgumentException iae) {
@@ -1211,10 +1194,7 @@ public class MainScene extends Application {
                         }
 
 
-
-
                         if (spinnerPassengerNo.getValue() == i) {
-
 
 
                             if(mPassenger.isSpanishSelected() == true && !mPassenger.validateDNINumber()){
@@ -1263,11 +1243,7 @@ public class MainScene extends Application {
         buttonCancel.setOnAction(event -> UtilityClass.confirmBoxCloseApp());
 
         buttonContinue = new Button("Continue");
-        buttonContinue.setOnAction(event -> {
-
-            validateForEmptyFields();
-
-        });
+        buttonContinue.setOnAction(event -> validateForEmptyFields());
 
         HBox hBox = new HBox();
         hBox.setSpacing(20);
@@ -1282,7 +1258,5 @@ public class MainScene extends Application {
 
         return anchorPane;
     }
-
-
 
 }
