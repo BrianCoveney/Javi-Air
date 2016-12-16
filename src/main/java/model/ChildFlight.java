@@ -1,12 +1,15 @@
 package model;
 
+import helpers.Consts;
+
 /**
  * Created by brian on 12/12/16.
  */
 public class ChildFlight extends Flight {
 
-    private static final Double CHILD_PRICE = 60.0;
     private double price;
+
+    public ChildFlight() {}
 
     public ChildFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
         super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
@@ -14,10 +17,12 @@ public class ChildFlight extends Flight {
     }
 
 
-    @Override
-    public void setPrice(Double price) {
-        this.price = CHILD_PRICE;
+    public double setChildPrice() {
+        return this.price = Consts.CHILD_PRICE;
     }
 
+    public double setTotalChildPrice() {
+        return this.price = Consts.CHILD_PRICE * 2;
+    }
 
 }

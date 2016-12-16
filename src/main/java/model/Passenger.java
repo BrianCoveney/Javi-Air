@@ -1,5 +1,7 @@
 package model;
 
+import helpers.Consts;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +21,8 @@ public class Passenger {
     private String numberDNI;
     private boolean isInfant, isChild, isAdult, isOverFive;
 
+
+    public Passenger(){}
 
     public Passenger(String numberDNI){
         this.numberDNI = numberDNI;
@@ -228,12 +232,12 @@ public class Passenger {
     }
 
 
-    public String spanishSelectedString() {
-        String value;
-        if (isSpanishSelected() == true) {
-            value = "Yes";
+    public double spanishRebateValue() {
+        double value;
+        if (isSpanishSelected()) {
+            value = Consts.SPANISH_REBATE;
         } else{
-            value = "No";
+            value = Consts.NO_SPANISH_REBATE;
         }
         return value;
     }
@@ -253,7 +257,7 @@ public class Passenger {
                 "\tLast name:\t\t " + this.lastName +
                 "\n" +
                 "\tDate of birth:\t\t " + formattedDob +
-                "\n\t" + "Spanish Repate: \t " + spanishSelectedString() +
+                "\n\t" + "Spanish Repate: \t €" + spanishRebateValue() * 2 +
                 "\n\t" + "Baggage: \t\t €" + setBaggagePriceReturn();
     }
 
@@ -271,7 +275,7 @@ public class Passenger {
                 "\tLast name:\t\t " + this.lastName +
                 "\n" +
                 "\tDate of birth:\t\t " + formattedDob +
-                "\n\t" + "Spanish Repate: \t " + spanishSelectedString() +
+                "\n\t" + "Spanish Repate: \t €" + spanishRebateValue() +
                 "\n\t" + "Baggage: \t\t €" + setBaggagePriceSingle();
     }
 

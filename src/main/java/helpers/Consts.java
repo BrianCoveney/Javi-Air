@@ -9,9 +9,12 @@ public class Consts {
 
 
     public static final int MAX_PASSENGER_NO = 8;
-
+    public static final Double INFANT_PRICE = 0.0;
     public static final Double CHILD_PRICE = 60.0;
-    public static final Double BABY_PRICE = 0.0;
+    public static final double SPANISH_REBATE = 15.0;
+    public static final double NO_SPANISH_REBATE = 0.0;
+
+
     // constants - flight airports
     public static final String CORK = "ORK";
     public static final String MADRID = "MAD";

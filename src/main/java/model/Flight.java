@@ -260,6 +260,10 @@ public class Flight{
 
     public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
 
+
+//    public abstract double setChildPrice();
+
+
     @Override
     public String toString() {
         return "\tDepart: \t\t\t" + displayDeptDetails() +

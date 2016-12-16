@@ -75,7 +75,8 @@ public class MainScene extends Application {
     private Flight flight, flightForChild, flightForBaby;
     private CreditCard mCreditCard;
     private FlightTimes flightTimes;
-
+    private InfantFlight infantFlight;
+    private ChildFlight childFlight;
 
 
 
@@ -905,11 +906,6 @@ public class MainScene extends Application {
     }
 
 
-
-
-
-
-
     private void spinnerPassengerNumberListener() {
 
         if (spinnerPassengerNo.getValue() == 0) {
@@ -966,8 +962,6 @@ public class MainScene extends Application {
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
 
-
-
         // constructor
         flight = new Flight(
                 dptFlight,       // setOrigin() from variable in this method
@@ -982,9 +976,11 @@ public class MainScene extends Application {
     private void setFlightPriceChild() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
-        double childPrice = Consts.CHILD_PRICE;
-        double childPriceTotal = childPrice * 2;
 
+        // ChildFlight object
+        childFlight = new ChildFlight();
+        double childPrice = childFlight.setChildPrice();
+        double childTotalPrice = childFlight.setTotalChildPrice();
 
         // constructor
         flightForChild = new ChildFlight(
@@ -992,7 +988,7 @@ public class MainScene extends Application {
                 rtnFlight,
                 childPrice,
                 childPrice,
-                childPriceTotal,
+                childTotalPrice,
                 selectedDeptTime,
                 selectedReturnTime);
 
@@ -1002,7 +998,12 @@ public class MainScene extends Application {
     private void setFlightPriceInfants() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
-        double infantPrice = Consts.BABY_PRICE;
+
+        // InfantFlight object
+        infantFlight = new InfantFlight();
+        double infantPrice = infantFlight.setInfantPrice();
+        double infantTotalPrice = infantFlight.setTotalInfantPrice();
+
 
         // constructor
         flightForBaby = new Flight(
@@ -1010,7 +1011,7 @@ public class MainScene extends Application {
                 rtnFlight,
                 infantPrice,
                 infantPrice,
-                infantPrice,
+                infantTotalPrice,
                 selectedDeptTime,
                 selectedReturnTime);
     }
@@ -1093,17 +1094,20 @@ public class MainScene extends Application {
                         setFlightPriceInfants();
 
                         if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll("\nPassenger " + mCounter +
+                            listView.getItems().addAll(
+                                    "\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
                                             flightForBaby.toString(),
-                                             "\tTotal: \t\t\t\t\t\t = €" + Consts.BABY_PRICE + " (Babies fly free, but do not get a seat nor a checked bag)");
+                                             "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setTotalInfantPrice() +
+                                                     " (Babies fly free, but do not get a seat nor a checked bag)");
                         }
                         else if(radioButtonOneWay.isSelected()) {
 
-                            listView.getItems().addAll("\nPassenger " + mCounter +
-                                            passengerList.get(mCounter - 1).toStringSingleFlight(),
+                            listView.getItems().addAll(
+                                    "\nPassenger " + mCounter + passengerList.get(mCounter - 1).toStringSingleFlight(),
                                             flightForBaby.toStringSingleFlight(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + Consts.BABY_PRICE + " (Babies fly free, but do not get a seat nor a checked bag)");
+                                            "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setTotalInfantPrice() +
+                                                   " (Babies fly free, but do not get a seat nor a checked bag)");
                         }
 
                     } else if (passengerList.get(i).isPassengerAChild()) {
