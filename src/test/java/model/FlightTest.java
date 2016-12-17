@@ -24,7 +24,7 @@ public class FlightTest {
 
     @Before
     public void setUp() throws Exception {
-        this.flight = new Flight();
+        this.flight = new AdultFlight();
     }
 
     @Test

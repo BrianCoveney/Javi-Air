@@ -16,12 +16,13 @@ public class ChildFlight extends Flight {
         setPrice(price);
     }
 
-
-    public double setChildPrice() {
+    @Override
+    public double setPriceSingle() {
         return this.price = Consts.CHILD_PRICE;
     }
 
-    public double setTotalChildPrice() {
+    @Override
+    public double setPriceReturn() {
         return this.price = Consts.CHILD_PRICE * 2;
     }
 

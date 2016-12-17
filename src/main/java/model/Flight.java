@@ -7,7 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by brian on 22/10/16.
  */
-public class Flight{
+public abstract class Flight{
 
     private String origin;
     private String destination;
@@ -33,6 +33,10 @@ public class Flight{
         this.returnTime = returnTime;
     }
 
+
+    public abstract double setPriceSingle();
+
+    public abstract double setPriceReturn();
 
 
     public FlightTimes getFlightTimes(String dptFlight, String rtnFlight) {
@@ -241,6 +245,7 @@ public class Flight{
     }
 
 
+
     public boolean isWeekend(String dayOfWeek) {
         boolean isWeekend = false;
         if(dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
@@ -248,7 +253,6 @@ public class Flight{
         }
         return isWeekend;
     }
-
 
     public void setPrice(Double price) {
         this.price = price;
@@ -260,8 +264,6 @@ public class Flight{
 
     public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
 
-
-//    public abstract double setChildPrice();
 
 
     @Override

@@ -16,17 +16,15 @@ public class InfantFlight extends Flight {
         setPrice(price);
     }
 
-
-    public double setInfantPrice() {
-        return this.price = Consts.INFANT_PRICE;
-    }
-
-    public double setTotalInfantPrice() {
+    @Override
+    public double setPriceSingle() {
         return this.price = Consts.INFANT_PRICE;
     }
 
     @Override
-    public String toString() {
-        return String.valueOf(price);
+    public double setPriceReturn() {
+        return this.price = Consts.INFANT_PRICE;
     }
+
+
 }

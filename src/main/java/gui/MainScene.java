@@ -79,10 +79,10 @@ public class MainScene extends Application {
     private ChildFlight childFlight;
 
 
-
     public static void main(String[] args) {
         launch(args);
     }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -101,7 +101,6 @@ public class MainScene extends Application {
 
         this.nextSceneVBox = new VBox();
         scene2 = new Scene(this.nextSceneVBox, 700, 700);
-
 
         scene1.getStylesheets().add("/stylesheet.css");
         primaryStage.setScene(scene1);
@@ -160,7 +159,6 @@ public class MainScene extends Application {
         return gridPane;
     }
 
-
     private void createCreditCard() {
 
         String cardNum = tfCCNumber.getText();
@@ -182,7 +180,6 @@ public class MainScene extends Application {
         }
 
     }
-
 
     private GridPane createTopGridPane() {
         GridPane gridPane = new GridPane();
@@ -272,7 +269,6 @@ public class MainScene extends Application {
             }
         });
 
-
         labelDateDeparture = new Label("Depart");
         datePickerDeparture = new DatePicker();
         datePickerDeparture.setPromptText("pick a date");
@@ -283,7 +279,6 @@ public class MainScene extends Application {
             getSelectDate(event);
 
         });
-
 
         labelDateReturn = new Label("Return");
         datePickerReturn = new DatePicker();
@@ -296,7 +291,6 @@ public class MainScene extends Application {
 
 
         });
-
 
         Button btnFlightSelect = new Button("Flight");
         btnFlightSelect.setOnAction(event -> {
@@ -404,7 +398,6 @@ public class MainScene extends Application {
                             setStyle("-fx-background-color: #ffc0cb;");
                         }
 
-
                         if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.ST_BRIEUC)) {
                             // Disable March and April
                             if (item.getMonth().equals(Month.APRIL) || item.getMonth().equals(Month.MARCH)) {
@@ -418,7 +411,6 @@ public class MainScene extends Application {
                                 setStyle("-fx-background-color: #ffc0cb;");
                             }
                         }
-
                     }
                 };
             }
@@ -464,7 +456,7 @@ public class MainScene extends Application {
         LocalDate departDate = datePickerDeparture.getValue();
         LocalDate returnDate = datePickerReturn.getValue();
 
-        flight = new Flight();
+        flight = new AdultFlight();
 
         if(!flight.isDateInvalid(departDate, returnDate)) {
             datePickerReturn.getEditor().setText(null);
@@ -478,10 +470,8 @@ public class MainScene extends Application {
         dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
-
-        Flight f = new Flight();
+        Flight f = new AdultFlight();
         flightPrice = f.getFlightPrice(dptFlight, rtnFlight);
-
 
         // Disable March and/or April in the DatePicker.
         // Also disable date before current time and after 6 months from now.
@@ -512,16 +502,12 @@ public class MainScene extends Application {
                 UtilityClass.errorMessageDate();
 
             } else {
-
                 setFlightPriceAdult();
 
-
-                Flight f = new Flight();
+                Flight f = new AdultFlight();
                 flightTimes = f.getFlightTimes(dptFlight, rtnFlight);
 
-
                 displayFlightDetails();
-
             }
         } catch (Exception e) {
             e.getMessage();
@@ -585,7 +571,6 @@ public class MainScene extends Application {
             });
 
         }
-
         //  Flight has only one time slot
         else {
             radioButtonReturnTime2.setVisible(false);
@@ -640,12 +625,9 @@ public class MainScene extends Application {
         StackPane.setAlignment(gridPaneLeft, Pos.TOP_LEFT);
         stackPaneLeft.getChildren().addAll(gridPaneLeft);
 
-
         Label spinnerLabel = new Label("No. of passengers:");
 
-
         spinnerObservableList.addAll(0, 1, 2, 3, 4, 5, 6, 7, 8);
-
 
         spinnerPassengerNo = new Spinner<>();
         spinnerPassengerNo.getStyleClass().add("mySpinner");
@@ -659,11 +641,9 @@ public class MainScene extends Application {
 
         spinnerPassengerNo.valueProperty().addListener(observable -> spinnerPassengerNumberListener());
 
-
         gridPaneLeft.add(spinnerLabel, 1, 2);
         gridPaneLeft.add(spinnerPassengerNo, 1, 3);
         GridPane.setMargin(spinnerPassengerNo, new Insets(10, 0, 50, 50));
-
 
         // RHS Pane
         StackPane stackPaneRight = new StackPane();
@@ -861,7 +841,6 @@ public class MainScene extends Application {
                 } catch (Exception ex) {
                     ex.getMessage();
                 }
-
             });
         }
     }
@@ -924,7 +903,6 @@ public class MainScene extends Application {
         try {
             for (int i = 0; i <= Consts.MAX_PASSENGER_NO; i++) {
 
-
                 if (spinnerPassengerNo.getValue() == i) {
 
                     tfFirstNamesList.get(i - 1).setDisable(false);
@@ -945,9 +923,7 @@ public class MainScene extends Application {
                     dpDateOfBirthList.get(i).getEditor().clear();
                     radioBtnListBag.get(i).setSelected(false);
                     checkboxListSpanish.get(i).setSelected(false);
-
                 }
-
             }
         } catch (Exception e) {
             e.getMessage();
@@ -963,7 +939,7 @@ public class MainScene extends Application {
 
 
         // constructor
-        flight = new Flight(
+        flight = new AdultFlight(
                 dptFlight,       // setOrigin() from variable in this method
                 rtnFlight,       // setDestination() from variable in this method
                 dateDepartPrice,    // setDepartPrice() from the return of getSelectDate()
@@ -979,8 +955,8 @@ public class MainScene extends Application {
 
         // ChildFlight object
         childFlight = new ChildFlight();
-        double childPrice = childFlight.setChildPrice();
-        double childTotalPrice = childFlight.setTotalChildPrice();
+        double childPrice = childFlight.setPriceSingle();
+        double childTotalPrice = childFlight.setPriceReturn();
 
         // constructor
         flightForChild = new ChildFlight(
@@ -991,9 +967,8 @@ public class MainScene extends Application {
                 childTotalPrice,
                 selectedDeptTime,
                 selectedReturnTime);
-
-
     }
+
 
     private void setFlightPriceInfants() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
@@ -1001,12 +976,12 @@ public class MainScene extends Application {
 
         // InfantFlight object
         infantFlight = new InfantFlight();
-        double infantPrice = infantFlight.setInfantPrice();
-        double infantTotalPrice = infantFlight.setTotalInfantPrice();
+        double infantPrice = infantFlight.setPriceSingle();
+        double infantTotalPrice = infantFlight.setPriceReturn();
 
 
         // constructor
-        flightForBaby = new Flight(
+        flightForBaby = new InfantFlight(
                 dptFlight,
                 rtnFlight,
                 infantPrice,
@@ -1059,7 +1034,6 @@ public class MainScene extends Application {
             try {
                 if (passengerList != null) {
 
-
                     window.setScene(scene2);
 
                     if(radioButtonReturn.isSelected()) {
@@ -1098,7 +1072,7 @@ public class MainScene extends Application {
                                     "\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
                                             flightForBaby.toString(),
-                                             "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setTotalInfantPrice() +
+                                             "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn() +
                                                      " (Babies fly free, but do not get a seat nor a checked bag)");
                         }
                         else if(radioButtonOneWay.isSelected()) {
@@ -1106,7 +1080,7 @@ public class MainScene extends Application {
                             listView.getItems().addAll(
                                     "\nPassenger " + mCounter + passengerList.get(mCounter - 1).toStringSingleFlight(),
                                             flightForBaby.toStringSingleFlight(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setTotalInfantPrice() +
+                                            "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn() +
                                                    " (Babies fly free, but do not get a seat nor a checked bag)");
                         }
 
@@ -1128,7 +1102,6 @@ public class MainScene extends Application {
                                             "\tTotal: \t\t\t\t\t\t = €" + childPrice);
                         }
 
-
                     } else if (passengerList.get(i).isPassengerOver5()) {
 
                         setFlightPriceAdult();
@@ -1146,13 +1119,11 @@ public class MainScene extends Application {
                                             "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                         }
                     }
-
                 }
             } catch (Exception e) {
                 e.getMessage();
             }
         }
-
 
         try {
             Button buttonBack = new Button("Back");
@@ -1182,29 +1153,28 @@ public class MainScene extends Application {
                 try {
 
                     int i = 0;
+                    int countInfant = 0;
                     int countChildren = 0;
                     int countAdult = 0;
 
                     for (Passenger mPassenger : passengerList) {
                         i++;
 
+                        if(mPassenger.isPassengerInfant())
+                            countInfant++;
 
-                        if (passengerList.get(i - 1).isPassengerAChild()) {
+                        if (mPassenger.isPassengerAChild())
                             countChildren++;
-                        }
 
-                        if(passengerList.get(i -1).isPassengerOver18()) {
+                        if(mPassenger.isPassengerOver18())
                             countAdult++;
-                        }
-
 
                         if (spinnerPassengerNo.getValue() == i) {
 
 
-                            if(mPassenger.isSpanishSelected() == true && !mPassenger.validateDNINumber()){
+                            if(mPassenger.isSpanishSelected() && !mPassenger.validateDNINumber()){
                                 UtilityClass.errorMessageDNINumber();
                             }
-
 
                             else if(mPassenger.validateFirstName()) {
                                 UtilityClass.errorMessageFirstName();
@@ -1214,14 +1184,17 @@ public class MainScene extends Application {
                                 UtilityClass.errorMessageLastName();
                             }
 
-                            else if (countChildren >= 3) {
+                            else if (countChildren >= 3 || countInfant >= 3 ||
+                                     countChildren == 2 && countInfant > 0  ||
+                                     countInfant == 2 && countChildren > 0 )
+                            {
                                 UtilityClass.errorMessageMaxTwoChildren();
                             }
+
                             else if (countAdult == 0) {
                                 UtilityClass.errorMessageUnder18();
                             }
                             else {
-
                                 // go to next scene
                                 getDetails();
                             }
