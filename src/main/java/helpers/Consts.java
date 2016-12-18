@@ -13,6 +13,10 @@ public class Consts {
     public static final Double CHILD_PRICE = 60.0;
     public static final double SPANISH_REBATE = 5.0;
     public static final double NO_SPANISH_REBATE = 0.0;
+    public static final String CREDIT_VALID_VALID_NO = "4929766254319102";
+    public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
+    public static final String SPANISH_VALID_DNI = "00000010-X";
+    public static final String SPANISH_INVALID_DNI = "12345678-a";
 
 
     // constants - flight airports
@@ -26,6 +30,8 @@ public class Consts {
     public static final String FRI = "FRIDAY";
     public static final String SAT = "SATURDAY";
     public static final String SUN = "SUNDAY";
+    public static final String TUE = "TUESDAY";
+
 
     // constants - flight prices
     public static final int TWO_HND_EIGHTY = 280;
@@ -41,6 +47,8 @@ public class Consts {
     public static final int FORTY = 40;
     public static final int ZERO = 0;
     public static final double BAGGAGE_PRICE = 15.0;
+    public static final double BAGGAGE_PRICE_RETURN = 30.0;
+
 
     // constants  flight times
     public static String ORK_MAD_1 = "0920-1300";

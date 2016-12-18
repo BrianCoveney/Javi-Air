@@ -288,7 +288,6 @@ public class Passenger {
                 "\tLast name:\t\t " + this.lastName +
                 "\n" +
                 "\tDate of birth:\t\t " + formattedDob +
-
                 "\n\t" + "Baggage: \t\t €" + setBaggagePriceSingle();
     }
 

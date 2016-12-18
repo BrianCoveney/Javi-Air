@@ -14,11 +14,11 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class FlightTest {
 
+
     private Flight flight;
     private LocalDate now = LocalDate.now();
     private LocalDate afterNow = LocalDate.now().plusYears(1);
     private LocalDate beforeNow = LocalDate.now().minusYears(1);
-    private static final String TUE = "TUESDAY";
 
 
 
@@ -35,7 +35,6 @@ public class FlightTest {
 
     @Test
     public void checkInvalidDates() throws Exception {
-
         assertEquals(true, flight.isDateInvalid(now, afterNow));
 
         // cannot book return flight, before depart flight time
@@ -45,11 +44,8 @@ public class FlightTest {
 
     @Test
     public void isWeekend() throws Exception {
-
         assertEquals(true, flight.isWeekend(Consts.SAT));
-
-        assertEquals(false, flight.isWeekend(TUE));
-
+        assertEquals(false, flight.isWeekend(Consts.TUE));
     }
 
 }

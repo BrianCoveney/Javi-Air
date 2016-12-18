@@ -1,6 +1,8 @@
 package model;
 
 
+import helpers.Consts;
+
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
@@ -9,8 +11,8 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class CreditCardTest {
 
-    protected String testValidNumber = "4929766254319102";
-    protected String testInvalidNumber = "3556737586899855";
+    protected String testValidNumber = Consts.CREDIT_VALID_VALID_NO;
+    protected String testInvalidNumber = Consts.CREDIT_INVALID_VALID_NO;
     protected CreditCard creditCard;
 
     @org.junit.Before
@@ -21,14 +23,8 @@ public class CreditCardTest {
 
     @org.junit.Test
     public void validateCreditCardNumber() throws Exception {
-
-        boolean result1 = creditCard.validateCreditCardNumber(testValidNumber);
-        assertTrue(result1);
-
-
-        boolean result2 = creditCard.validateCreditCardNumber(testInvalidNumber);
-        assertFalse(result2);
-
+        assertTrue(creditCard.validateCreditCardNumber(testValidNumber));
+        assertFalse(creditCard.validateCreditCardNumber(testInvalidNumber));
     }
 
 }

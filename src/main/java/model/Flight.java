@@ -41,8 +41,6 @@ public abstract class Flight{
 
     public FlightTimes getFlightTimes(String dptFlight, String rtnFlight) {
 
-
-
         if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.MADRID)) {
             flightTime1 = Consts.ORK_MAD_1;
             flightTime2 = null;
