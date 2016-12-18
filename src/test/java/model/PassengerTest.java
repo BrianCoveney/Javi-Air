@@ -45,7 +45,7 @@ public class PassengerTest {
         passenger3.setFirstName(inValidFirstName2);
         passenger3.setDateOfBirth(over18);
 
-        passenger4 = new Passenger(validFirstName, validLastName,
+        passenger4 = new Passenger(inValidFirstName, validLastName,
                 validDNI, over5, true, true); // selected
 
         passenger5 = new Passenger(inValidFirstName, inValidLastName,
