@@ -71,19 +71,13 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    public static void errorMessageFirstName() {
+    public static void errorMessagePassengerName() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
-        alert.setContentText("Please check your first name entry");
+        alert.setContentText("Please check your name entry");
         alert.showAndWait();
     }
 
-    public static void errorMessageLastName() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Input Error");
-        alert.setContentText("Please check your last name entry");
-        alert.showAndWait();
-    }
 
     // user enters incorrect format
     public static void errorMessageAddCustomer() {

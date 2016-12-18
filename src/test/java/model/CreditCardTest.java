@@ -9,9 +9,9 @@ import static junit.framework.TestCase.assertTrue;
  */
 public class CreditCardTest {
 
-    private String testValidNumber = "4929766254319102";
-    private String testInvalidNumber = "3556737586899855";
-    private CreditCard creditCard;
+    protected String testValidNumber = "4929766254319102";
+    protected String testInvalidNumber = "3556737586899855";
+    protected CreditCard creditCard;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -24,6 +24,7 @@ public class CreditCardTest {
 
         boolean result1 = creditCard.validateCreditCardNumber(testValidNumber);
         assertTrue(result1);
+
 
         boolean result2 = creditCard.validateCreditCardNumber(testInvalidNumber);
         assertFalse(result2);

@@ -86,21 +86,29 @@ public class Passenger {
 
 
 
-    public boolean validateFirstName() {
-        String validText = "^[\\p{L} .'-]+$";
+    public boolean validateFirstName(String fName) {
+        String validText = "[A-Z][a-zA-Z]*";
+        boolean isValid;
+
         if (getFirstName().matches(validText)) {
-            return false;
+            isValid = true;
+        } else {
+            isValid = false;
         }
-        return true;
+        return isValid;
     }
 
 
-    public boolean validateLastName() {
-        String validText = "^[\\p{L} .'-]+$";
+    public boolean validateLastName(String lName) {
+        String validText = "[a-zA-z]+([ '-][a-zA-Z]+)*";
+        boolean isValid;
+
         if (getLastName().matches(validText)) {
-            return false;
+            isValid = true;
+        } else {
+            isValid = false;
         }
-        return true;
+        return isValid;
     }
 
 
@@ -115,19 +123,10 @@ public class Passenger {
 
 
 
-    public double setSpanishRebate() {
-        double spaPrice = 0.0;
-        if(isSpanishSelected()){
-            spaPrice = 5;
-        }
-        return spaPrice;
-    }
-
-
     public double setBaggagePriceSingle() {
         double bagPrice = 0.0;
-        if(isBaggageSelected() == true) {
-            bagPrice = 15;
+        if(isBaggageSelected()) {
+            bagPrice = Consts.BAGGAGE_PRICE;
         }
         return bagPrice;
     }
@@ -135,8 +134,8 @@ public class Passenger {
 
     public double setBaggagePriceReturn() {
         double bagPrice = 0.0;
-        if(isBaggageSelected() == true) {
-            bagPrice = 30;
+        if(isBaggageSelected()) {
+            bagPrice = Consts.BAGGAGE_PRICE * 2;
         }
         return bagPrice;
     }
@@ -233,10 +232,25 @@ public class Passenger {
 
 
     public double spanishRebateValue() {
-        double value;
+        double value = 0;
         if (isSpanishSelected()) {
             value = Consts.SPANISH_REBATE;
-        } else{
+        }
+        return value;
+    }
+
+
+    public double spanishRebateValueDoubled() {
+        double value = 0;
+        if (isSpanishSelected()) {
+            value = Consts.SPANISH_REBATE * 2;
+        }
+        return value;
+    }
+
+    public double spanishRebateValueNull() {
+        double value = 0;
+        if (isSpanishSelected()) {
             value = Consts.NO_SPANISH_REBATE;
         }
         return value;
@@ -257,7 +271,6 @@ public class Passenger {
                 "\tLast name:\t\t " + this.lastName +
                 "\n" +
                 "\tDate of birth:\t\t " + formattedDob +
-                "\n\t" + "Spanish Repate: \t €" + spanishRebateValue() * 2 +
                 "\n\t" + "Baggage: \t\t €" + setBaggagePriceReturn();
     }
 
@@ -275,7 +288,7 @@ public class Passenger {
                 "\tLast name:\t\t " + this.lastName +
                 "\n" +
                 "\tDate of birth:\t\t " + formattedDob +
-                "\n\t" + "Spanish Repate: \t €" + spanishRebateValue() +
+
                 "\n\t" + "Baggage: \t\t €" + setBaggagePriceSingle();
     }
 

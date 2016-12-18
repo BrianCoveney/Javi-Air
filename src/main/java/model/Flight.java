@@ -9,15 +9,15 @@ import java.time.LocalDate;
  */
 public abstract class Flight{
 
-    private String origin;
-    private String destination;
-    private Double deapartPrice;
-    private Double returnPrice;
-    private Double price;
-    private String departTime;
-    private String returnTime;
-    private double flightPrice;
-    private String flightTime1, flightTime2;
+    protected String origin;
+    protected String destination;
+    protected Double departPrice;
+    protected Double returnPrice;
+    protected Double price;
+    protected String departTime;
+    protected String returnTime;
+    protected double flightPrice;
+    protected String flightTime1, flightTime2;
 
 
     public Flight(){}
@@ -26,7 +26,7 @@ public abstract class Flight{
     public Flight (String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
         this.origin = origin;
         this.destination = destination;
-        this.deapartPrice = deapartPrice;
+        this.departPrice = deapartPrice;
         this.returnPrice = returnPrice;
         this.price = price;
         this.departTime = flightTime;
@@ -260,7 +260,7 @@ public abstract class Flight{
 
     public String displayTotalPrice() {return "\t\t = €"+this.price;}
 
-    public String displayDeptDetails()  { return this.origin +" > "+ this.destination +"\t = €"+ this.deapartPrice; }
+    public String displayDeptDetails()  { return this.origin +" > "+ this.destination +"\t = €"+ this.departPrice; }
 
     public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
 

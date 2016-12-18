@@ -26,4 +26,7 @@ public class ChildFlight extends Flight {
         return this.price = Consts.CHILD_PRICE * 2;
     }
 
+    public double getPrice() {
+        return price;
+    }
 }
