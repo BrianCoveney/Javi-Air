@@ -340,37 +340,32 @@ public class MainScene extends Application {
     private void disableFlights() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
 
-
-        try {
-            switch (dptFlight) {
-                case Consts.CORK:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
-                    break;
-                case Consts.MADRID:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.CORK, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
-                    break;
-                case Consts.PARIS:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.STANSTED, Consts.MALAGA);
-                    break;
-                case Consts.STANSTED:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.MALAGA);
-                    break;
-                case Consts.MALAGA:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED);
-                    break;
-                case Consts.ST_BRIEUC:
-                case Consts.JERSEY:
-                    comboDestination.getItems().clear();
-                    comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
-                    break;
-            }
-        } catch (Exception e) {
-            e.getMessage();
+        switch (dptFlight) {
+            case Consts.CORK:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                break;
+            case Consts.MADRID:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.CORK, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                break;
+            case Consts.PARIS:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.STANSTED, Consts.MALAGA);
+                break;
+            case Consts.STANSTED:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.MALAGA);
+                break;
+            case Consts.MALAGA:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED);
+                break;
+            case Consts.ST_BRIEUC:
+            case Consts.JERSEY:
+                comboDestination.getItems().clear();
+                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                break;
         }
 
     }
@@ -418,9 +413,8 @@ public class MainScene extends Application {
         return monthCellFactory;
     }
 
-    // take the returned 'flightPrice' from getSelectedFlight() and add 20% if day is Fri - Sun
+    // take the returned 'flightSelection' from getSelectedFlight() and add 20% if day is Fri - Sun
     private Double getSelectDate(ActionEvent event) {
-
         ldDepartDate = datePickerDeparture.getValue();
         ldReturnDate = datePickerReturn.getValue();
 
@@ -444,8 +438,8 @@ public class MainScene extends Application {
             }
             currentPrice = dateDepartPrice + dateReturnPrice;
 
-        } catch (NullPointerException e) {
-            e.getMessage();
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
         return currentPrice;
@@ -458,9 +452,11 @@ public class MainScene extends Application {
 
         flight = new AdultFlight();
 
-        if(!flight.isDateInvalid(departDate, returnDate)) {
-            datePickerReturn.getEditor().setText(null);
-            UtilityClass.errorMessageDatesNotPossible();
+        if(flight != null) {
+            if (!flight.isDateValid(departDate, returnDate)) {
+                datePickerReturn.getEditor().setText(null);
+                UtilityClass.errorMessageDatesNotPossible();
+            }
         }
 
     }
@@ -471,7 +467,7 @@ public class MainScene extends Application {
         rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
         Flight f = new AdultFlight();
-        flightPrice = f.getFlightPrice(dptFlight, rtnFlight);
+        flightPrice = f.flightSelection(dptFlight, rtnFlight);
 
         // Disable March and/or April in the DatePicker.
         // Also disable date before current time and after 6 months from now.
@@ -484,33 +480,25 @@ public class MainScene extends Application {
     }
 
 
-
     private FlightTimes displaySelectedFlights() {
-
         dateDept = datePickerDeparture.getValue();
         dateReturn = datePickerReturn.getValue();
-
         dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
-        try {
+        if (dptFlight == null) {
+            UtilityClass.errorMessageFlight();
 
-            if (dptFlight == null) {
-                UtilityClass.errorMessageFlight();
+        } else if (dateDept == null || dateReturn == null && radioButtonReturn.isSelected()) {
+            UtilityClass.errorMessageDate();
 
-            } else if (dateDept == null || dateReturn == null && radioButtonReturn.isSelected()) {
-                UtilityClass.errorMessageDate();
+        } else {
+            setFlightPriceAdult();
 
-            } else {
-                setFlightPriceAdult();
+            FlightTimes f = new FlightTimes();
+            flightTimes = f.getFlightTimes(dptFlight, rtnFlight);
 
-                Flight f = new AdultFlight();
-                flightTimes = f.getFlightTimes(dptFlight, rtnFlight);
-
-                displayFlightDetails();
-            }
-        } catch (Exception e) {
-            e.getMessage();
+            displayFlightDetails();
         }
 
         return new FlightTimes(flightTime1, flightTime2);
@@ -519,8 +507,8 @@ public class MainScene extends Application {
 
     private void displayFlightDetails() {
 
-        flightTime_1 = flightTimes.getFlightTime1();
-        flightTime_2 = flightTimes.getFlightTime2();
+        flightTime_1 = flightTimes.getFlightTimeDepart();
+        flightTime_2 = flightTimes.getFlightTimeReturn();
 
 
         // setting times for Departure radio buttons
@@ -729,23 +717,18 @@ public class MainScene extends Application {
         numberDNIList.addAll(custDNI1, custDNI2, custDNI3, custDNI4, custDNI5, custDNI6, custDNI7, custDNI8);
 
 
-        try {
-            for (int i = 0; i <= Consts.MAX_PASSENGER_NO; i++) {
-                tfFirstNamesList.get(i).setDisable(true);
-                tfFirstNamesList.get(i).getStyleClass().addAll("sm-label");
-                tfLastNamesList.get(i).setDisable(true);
-                tfLastNamesList.get(i).getStyleClass().addAll("sm-label");
-                numberDNIList.get(i).setDisable(true);
-                numberDNIList.get(i).getStyleClass().addAll("sm-label");
-                dpDateOfBirthList.get(i).setDisable(true);
-                dpDateOfBirthList.get(i).getStyleClass().add("myDatePicker");
-                radioBtnListBag.get(i).setDisable(true);
-                checkboxListSpanish.get(i).setDisable(true);
-            }
-        } catch (Exception ex) {
-            ex.getMessage();
+        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
+            tfFirstNamesList.get(i).setDisable(true);
+            tfFirstNamesList.get(i).getStyleClass().addAll("sm-label");
+            tfLastNamesList.get(i).setDisable(true);
+            tfLastNamesList.get(i).getStyleClass().addAll("sm-label");
+            numberDNIList.get(i).setDisable(true);
+            numberDNIList.get(i).getStyleClass().addAll("sm-label");
+            dpDateOfBirthList.get(i).setDisable(true);
+            dpDateOfBirthList.get(i).getStyleClass().add("myDatePicker");
+            radioBtnListBag.get(i).setDisable(true);
+            checkboxListSpanish.get(i).setDisable(true);
         }
-
 
         GridPane gridPaneRight = new GridPane();
         gridPaneRight.setAlignment(Pos.TOP_RIGHT);
@@ -823,23 +806,20 @@ public class MainScene extends Application {
 
 
     private void disableBaggageOptionForInfants() {
+
         for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
 
             dpDateOfBirthList.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
 
-                try {
-
-                    for (int j = 0; j < Consts.MAX_PASSENGER_NO; j++) {
-
-                        if (dpDateOfBirthList.get(j).getValue().isAfter(LocalDate.now().minusYears(1))) {
-                            radioBtnListBag.get(j).setDisable(true);
-                        } else {
-                            radioBtnListBag.get(j).setDisable(false);
-                        }
-
+                addPassengers();
+                int j = 0;
+                for (Passenger passenger : passengerList) {
+                    j++;
+                    if (passenger.isPassengerInfant()) {
+                        radioBtnListBag.get(j - 1).setDisable(true);
+                    } else {
+                        radioBtnListBag.get(j - 1).setDisable(false);
                     }
-                } catch (Exception ex) {
-                    ex.getMessage();
                 }
             });
         }
@@ -848,38 +828,25 @@ public class MainScene extends Application {
 
     private void checkboxSpanishControlsDNINumberField() {
 
-        try {
-            for (int i = 0; i <= Consts.MAX_PASSENGER_NO; i++) {
-                checkboxListSpanish.get(i).selectedProperty().addListener((observable, oldValue, newValue) -> {
-
-                    // checked
-                    if(newValue) {
-                        try {
-                            for (int j = 0; j <= Consts.MAX_PASSENGER_NO; j++) {
-                                if(checkboxListSpanish.get(j).isSelected()) {
-                                    numberDNIList.get(j).setDisable(false);
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.getMessage();
+        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
+            checkboxListSpanish.get(i).selectedProperty().addListener((observable, oldValue, newValue) -> {
+                // checked
+                if (newValue) {
+                    for (int j = 0; j < Consts.MAX_PASSENGER_NO; j++) {
+                        if (checkboxListSpanish.get(j).isSelected()) {
+                            numberDNIList.get(j).setDisable(false);
                         }
                     }
-                    // un-checked
-                    else {
-                        try {
-                            for (int k = 0; k <= Consts.MAX_PASSENGER_NO; k++) {
-                                if(!checkboxListSpanish.get(k).isSelected()) {
-                                    numberDNIList.get(k).setDisable(true);
-                                }
-                            }
-                        } catch (Exception e) {
-                            e.getMessage();
+                }
+                // un-checked
+                else {
+                    for (int k = 0; k < Consts.MAX_PASSENGER_NO; k++) {
+                        if (!checkboxListSpanish.get(k).isSelected()) {
+                            numberDNIList.get(k).setDisable(true);
                         }
                     }
-                });
-            }
-        } catch (Exception e) {
-            e.getMessage();
+                }
+            });
         }
     }
 
@@ -1082,15 +1049,15 @@ public class MainScene extends Application {
                             listView.getItems().addAll(
                                     "\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
-                                            flightForBaby.toString(),
-                                             "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
+                                    flightForBaby.toString(),
+                                    "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
                         }
                         else if(radioButtonOneWay.isSelected()) {
 
                             listView.getItems().addAll(
                                     "\nPassenger " + mCounter + passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                            flightForBaby.toStringSingleFlight(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
+                                    flightForBaby.toStringSingleFlight(),
+                                    "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
                         }
 
                     } else if (passengerList.get(i).isPassengerAChild()) {
@@ -1100,17 +1067,17 @@ public class MainScene extends Application {
                         if(radioButtonReturn.isSelected()) {
                             listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
-                                            "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
+                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
                                             flightForChild.toString(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + childPrice);
+                                    "\tTotal: \t\t\t\t\t\t = €" + childPrice);
                         }
                         else if(radioButtonOneWay.isSelected()) {
 
                             listView.getItems().addAll("\nPassenger " + mCounter +
                                             passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                            "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
+                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
                                             flightForChild.toStringSingleFlight(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + childPrice);
+                                    "\tTotal: \t\t\t\t\t\t = €" + childPrice);
                         }
 
                     } else if (passengerList.get(i).isPassengerOver5()) {
@@ -1120,16 +1087,16 @@ public class MainScene extends Application {
                         if(radioButtonReturn.isSelected()) {
                             listView.getItems().addAll("\nmodel.Passenger " + mCounter +
                                             passengerList.get(mCounter - 1).toString(),
-                                            "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
+                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
                                             flight.toString(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
+                                    "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                         }
                         else if(radioButtonOneWay.isSelected()) {
                             listView.getItems().addAll("\nmodel.Passenger " + mCounter
                                             + passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                            "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
+                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
                                             flight.toStringSingleFlight(),
-                                            "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
+                                    "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                         }
                     }
                 }
@@ -1196,8 +1163,8 @@ public class MainScene extends Application {
 
 
                             else if (countChildren >= 3 || countInfant >= 3 ||
-                                     countChildren == 2 && countInfant > 0  ||
-                                     countInfant == 2 && countChildren > 0 )
+                                    countChildren == 2 && countInfant > 0  ||
+                                    countInfant == 2 && countChildren > 0 )
                             {
                                 UtilityClass.errorMessageMaxTwoChildren();
                             }

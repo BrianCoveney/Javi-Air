@@ -56,7 +56,7 @@ public final class UtilityClass {
     }
 
 
-    // user enters incorrect format
+    
     public static void errorMessageInput() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -79,15 +79,15 @@ public final class UtilityClass {
     }
 
 
-    // user enters incorrect format
+    
     public static void errorMessageAddCustomer() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
-        alert.setContentText("model.Passenger details cannot be empty");
+        alert.setContentText("Passenger details cannot be empty");
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageDatesNotPossible() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -95,7 +95,7 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageNoBagsForBabies() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -103,7 +103,7 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageUnder18() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -112,7 +112,7 @@ public final class UtilityClass {
     }
 
 
-    // user enters incorrect format
+    
     public static void errorMessageMaxTwoChildren() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -120,7 +120,7 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageCreditCardNumber() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -129,7 +129,7 @@ public final class UtilityClass {
     }
 
 
-    // user enters incorrect format
+    
     public static void errorMessageCreditCardCCVNumber() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -137,7 +137,7 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageDNINumber() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -145,7 +145,7 @@ public final class UtilityClass {
         alert.showAndWait();
     }
 
-    // user enters incorrect format
+    
     public static void errorMessageDateOfBirth() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Input Error");
@@ -154,7 +154,14 @@ public final class UtilityClass {
     }
 
 
-    // user enters incorrect format
+    public static void errorMessageSpanishOnlyDNI() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Input Error");
+        alert.setContentText("Spanish rebate is only valid for flights to or from Malaga and Madrid");
+        alert.showAndWait();
+    }
+
+    
     public static void orderReceived() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Input Error");

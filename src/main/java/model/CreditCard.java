@@ -39,12 +39,10 @@ public class CreditCard {
     private String validateName(String input) {
         String validText = "^[\\p{L} .'-]+$";
 
-        try {
+        if(input != null) {
             if (!input.matches(validText)) {
                 UtilityClass.errorMessageName();
             }
-        }catch (Exception e) {
-            e.getMessage();
         }
         return input;
     }
@@ -53,49 +51,38 @@ public class CreditCard {
     // validation of Credit Card using the Luhn algorithm
     public boolean validateCreditCardNumber(String inputCCNum) {
         boolean isValid = false;
-        try {
-            int total = 0;
-            int ccNumber = 0;
+        int total = 0;
+        int ccNumber = 0;
 
-            for (int i = 0; i < inputCCNum.length(); i++) {
+        for (int i = 0; i < inputCCNum.length(); i++) {
 
-                ccNumber = Integer.parseInt(inputCCNum.substring(i, i + 1));
+            ccNumber = Integer.parseInt(inputCCNum.substring(i, i + 1));
 
-                if (i % 2 == 0) {
+            if (i % 2 == 0) {
 
-                    ccNumber = ccNumber * 2;
-
-                    if (ccNumber > 9) {
-                        ccNumber -= 9;
-                    }
+                ccNumber = ccNumber * 2;
+                if (ccNumber > 9) {
+                    ccNumber -= 9;
                 }
-
-                total += ccNumber;
             }
-            if (total % 10 == 0) {
-                isValid = true;
-            } else {
-                isValid = false;
-            }
-
-        } catch (Exception e) {
-            e.getMessage();
+            total += ccNumber;
         }
-
+        if (total % 10 == 0) {
+            isValid = true;
+        } else {
+            isValid = false;
+        }
         return isValid;
     }
 
 
     public String validateCCVNumber(String inputCCV) {
-
         // is numeric and 3 digits in length
         String validCCVInt = "[0-9]{3}";
-        try {
+        if(inputCCV != null) {
             if (!inputCCV.matches(validCCVInt)) {
                 UtilityClass.errorMessageCreditCardCCVNumber();
             }
-        }catch (Exception e) {
-            e.getMessage();
         }
         return inputCCV;
     }

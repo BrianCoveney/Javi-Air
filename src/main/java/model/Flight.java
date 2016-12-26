@@ -39,207 +39,65 @@ public abstract class Flight{
     public abstract double setPriceReturn();
 
 
-    public FlightTimes getFlightTimes(String dptFlight, String rtnFlight) {
-
-        if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.ORK_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-            flightTime1 = Consts.ORK_SBK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.ORK_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.ORK_CDG_1;
-            flightTime2 = Consts.ORK_CDG_2;
-        } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.ORK_STN_1;
-            flightTime2 = Consts.ORK_STN_2;
-        } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.ORK_AGP_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.MAD_ORK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-            flightTime1 = Consts.MAD_SBK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.MAD_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.MAD_CDG_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.MAD_STN_1;
-            flightTime2 = Consts.MAD_STN_2;
-        } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.MAD_AGP_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.SBK_ORK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.SBK_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.SBK_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.SBK_CDG_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.SBK_STN_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.SBK_AGP_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.JER_ORK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.JER_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.JER_CDG_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.JER_STN_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.JER_AGP_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.CDG_ORK_1;
-            flightTime2 = Consts.CDG_ORK_2;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.CDG_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-            flightTime1 = Consts.CDG_SBK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.CDG_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.CDG_STN_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.CDG_AGP_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.STN_ORK_1;
-            flightTime2 = Consts.STN_ORK_2;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.STN_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-            flightTime1 = Consts.STN_SBK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.STN_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.STN_CDG_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MALAGA)) {
-            flightTime1 = Consts.STN_AGP_1;
-            flightTime2 = Consts.STN_AGP_2;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.CORK)) {
-            flightTime1 = Consts.AGP_ORK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.MADRID)) {
-            flightTime1 = Consts.AGP_MAD_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-            flightTime1 = Consts.AGP_SBK_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.JERSEY)) {
-            flightTime1 = Consts.AGP_JER_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.PARIS)) {
-            flightTime1 = Consts.AGP_CDG_1;
-            flightTime2 = null;
-        } else if (dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.STANSTED)) {
-            flightTime1 = Consts.AGP_STN_1;
-            flightTime2 = Consts.AGP_STN_2;
-        }
-
-        return new FlightTimes(flightTime1, flightTime2);
-
-    }
-
-
-
-    public double getFlightPrice(String dptFlight, String rtnFlight) {
-
-        try {
-
-            if (dptFlight != null && rtnFlight != null) {
-                if (dptFlight.equals(Consts.CORK) && rtnFlight.equals((Consts.MADRID)) || dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.ONE_HND;
-                } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.ST_BRIEUC) || dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.ONE_HND;
-                } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.JERSEY) || dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.ONE_HND_TWENTY;
-                } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.EIGHTY;
-                } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.FORTY;
-                } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.CORK)) {
-                    flightPrice = Consts.TWO_HND_FORTY;
-                } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.ST_BRIEUC) || dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MADRID)) {
-                    flightPrice = Consts.TWO_HND;
-                } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.JERSEY) || dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MADRID)) {
-                    flightPrice = Consts.TWO_HND;
-                } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MADRID)) {
-                    flightPrice = Consts.SIXTY;
-                } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MADRID)) {
-                    flightPrice = Consts.SIXTY;
-                } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.MADRID)) {
-                    flightPrice = Consts.SIXTY;
-                } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.JERSEY)) {
-                    flightPrice = Consts.ZERO;
-                } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-                    flightPrice = Consts.ONE_HND_FIFTY;
-                } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-                    flightPrice = Consts.ONE_HND_FORTY;
-                } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.JERSEY)) {
-                    flightPrice = Consts.TWO_HND_FIFTY;
-                } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.JERSEY)) {
-                    flightPrice = Consts.TWO_HND_FIFTY;
-                } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.JERSEY)) {
-                    flightPrice = Consts.TWO_HND_EIGHTY;
-                } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.PARIS)) {
-                    flightPrice = Consts.ONE_HND;
-                } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.STANSTED)) {
-                    flightPrice = Consts.ONE_HND_TWENTY;
-                } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.PARIS)) {
-                    flightPrice = Consts.SIXTY;
-                } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-                    flightPrice = Consts.EIGHTY;
-                }
+    public double flightSelection(String dptFlight, String rtnFlight) {
+        if (dptFlight != null && rtnFlight != null) {
+            if (dptFlight.equals(Consts.CORK) && rtnFlight.equals((Consts.MADRID)) || dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.ONE_HND;
+            } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.ST_BRIEUC) || dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.ONE_HND;
+            } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.JERSEY) || dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.ONE_HND_TWENTY;
+            } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.EIGHTY;
+            } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.FORTY;
+            } else if (dptFlight.equals(Consts.CORK) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.CORK)) {
+                flightPrice = Consts.TWO_HND_FORTY;
+            } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.ST_BRIEUC) || dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MADRID)) {
+                flightPrice = Consts.TWO_HND;
+            } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.JERSEY) || dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MADRID)) {
+                flightPrice = Consts.TWO_HND;
+            } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MADRID)) {
+                flightPrice = Consts.SIXTY;
+            } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MADRID)) {
+                flightPrice = Consts.SIXTY;
+            } else if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.MADRID)) {
+                flightPrice = Consts.SIXTY;
+            } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.JERSEY)) {
+                flightPrice = Consts.ZERO;
+            } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.ST_BRIEUC)) {
+                flightPrice = Consts.ONE_HND_FIFTY;
+            } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.ST_BRIEUC)) {
+                flightPrice = Consts.ONE_HND_FORTY;
+            } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.PARIS) || dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.JERSEY)) {
+                flightPrice = Consts.TWO_HND_FIFTY;
+            } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.JERSEY)) {
+                flightPrice = Consts.TWO_HND_FIFTY;
+            } else if (dptFlight.equals(Consts.JERSEY) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.JERSEY)) {
+                flightPrice = Consts.TWO_HND_EIGHTY;
+            } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.PARIS)) {
+                flightPrice = Consts.ONE_HND;
+            } else if (dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.MALAGA) || dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.STANSTED)) {
+                flightPrice = Consts.ONE_HND_TWENTY;
+            } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.PARIS)) {
+                flightPrice = Consts.SIXTY;
+            } else if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.ST_BRIEUC)) {
+                flightPrice = Consts.EIGHTY;
             }
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
         }
-
-
         return flightPrice;
     }
 
 
-    public boolean isDateInvalid(LocalDate departDate, LocalDate returnDate) {
-        boolean isValid = true;
+    public boolean isDateValid(LocalDate departDate, LocalDate returnDate) {
         if (departDate != null && returnDate != null) {
             if (departDate.isAfter(returnDate)) {
-                isValid = false;
+                return false;
             } else {
-                isValid = true;
+                return true;
             }
         }
-        return isValid;
+        return true;
     }
 
 
@@ -263,6 +121,81 @@ public abstract class Flight{
     public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
 
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public Double getDepartPrice() {
+        return departPrice;
+    }
+
+    public void setDepartPrice(Double departPrice) {
+        this.departPrice = departPrice;
+    }
+
+    public Double getReturnPrice() {
+        return returnPrice;
+    }
+
+    public void setReturnPrice(Double returnPrice) {
+        this.returnPrice = returnPrice;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getDepartTime() {
+        return departTime;
+    }
+
+    public void setDepartTime(String departTime) {
+        this.departTime = departTime;
+    }
+
+    public String getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(String returnTime) {
+        this.returnTime = returnTime;
+    }
+
+    public double flightSelection() {
+        return flightPrice;
+    }
+
+    public void setFlightPrice(double flightPrice) {
+        this.flightPrice = flightPrice;
+    }
+
+    public String getFlightTime1() {
+        return flightTime1;
+    }
+
+    public void setFlightTime1(String flightTime1) {
+        this.flightTime1 = flightTime1;
+    }
+
+    public String getFlightTime2() {
+        return flightTime2;
+    }
+
+    public void setFlightTime2(String flightTime2) {
+        this.flightTime2 = flightTime2;
+    }
 
     @Override
     public String toString() {

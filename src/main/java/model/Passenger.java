@@ -44,7 +44,6 @@ public class Passenger {
     // referenced Colin Manning's code here:
     // http://mcom.cit.ie/staff/Computing/CManning/soft6008-2015/js09/js-09-dni.html
     public boolean validateDNINumber() {
-
         String dniCopy = this.numberDNI;
         String madString = "TRWAGMYFPDXBNJZSQVHLCKE";
         String dniLetter = "";
@@ -52,34 +51,30 @@ public class Passenger {
         int dniNum;
         int dniMod;
 
-        try {
-            if (dniCopy != null) {
+        if (dniCopy != null) {
 
-                if (!((dniCopy.length() == 9) || dniCopy.length() == 10)) {
-                    return false;
-                }
+            if (!((dniCopy.length() == 9) || dniCopy.length() == 10)) {
+                return false;
+            }
 
-                if (dniCopy.length() == 10) {
+            if (dniCopy.length() == 10) {
 
-                    if (this.numberDNI.charAt(8) == '-') {
-                        dniCopy = this.numberDNI.replace("-", "");
+                if (this.numberDNI.charAt(8) == '-') {
+                    dniCopy = this.numberDNI.replace("-", "");
 
-                    } else {
-                        return false;
-                    }
-                }
-
-                dniNum = parseInt(dniCopy.substring(0, 8), 10);
-                dniLetter = dniCopy.substring(8, 9).toUpperCase();
-                dniMod = dniNum % 23;
-                dniLetter2 = madString.charAt(dniMod);
-
-                if (!dniLetter.matches(String.valueOf(dniLetter2))) {
+                } else {
                     return false;
                 }
             }
-        } catch (Exception e) {
-            e.getMessage();
+
+            dniNum = parseInt(dniCopy.substring(0, 8), 10);
+            dniLetter = dniCopy.substring(8, 9).toUpperCase();
+            dniMod = dniNum % 23;
+            dniLetter2 = madString.charAt(dniMod);
+
+            if (!dniLetter.matches(String.valueOf(dniLetter2))) {
+                return false;
+            }
         }
         return true;
     }
@@ -142,59 +137,51 @@ public class Passenger {
 
 
     public boolean isPassengerInfant() {
-        isInfant = false;
-        if(this.getDateOfBirth().isAfter(LocalDate.now().minusYears(1))) {
-            isInfant = true;
+        if(this.getDateOfBirth() != null) {
+            if (this.dateOfBirth != null) {
+                if (this.getDateOfBirth().isAfter(LocalDate.now().minusYears(1))) {
+                    return true;
+                }
+            }
         }
-        return isInfant;
+        return false;
     }
 
     public boolean isPassengerAChild() {
-        isChild = false;
-        if(this.getDateOfBirth().isAfter(LocalDate.now().minusYears(5)) &&
-                this.getDateOfBirth().isBefore(LocalDate.now().minusYears(1))){
-            isChild = true;
+        if(this.getDateOfBirth() != null) {
+            if (this.getDateOfBirth().isAfter(LocalDate.now().minusYears(5)) &&
+                    this.getDateOfBirth().isBefore(LocalDate.now().minusYears(1))) {
+                return true;
+            }
         }
-        return isChild;
+        return false;
     }
 
 
     public boolean isPassengerOver18() {
-        isAdult = false;
-        if(this.getDateOfBirth().isBefore(LocalDate.now().minusYears(18))) {
-            isAdult = true;
+        if(this.getDateOfBirth() != null) {
+            if (this.getDateOfBirth().isBefore(LocalDate.now().minusYears(18))) {
+                return true;
+            }
         }
-        return isAdult;
+        return false;
     }
 
     public boolean isPassengerOver5() {
-        isOverFive = false;
-        if(this.getDateOfBirth().isBefore(LocalDate.now().minusYears(5))) {
-            isOverFive = true;
+        if(this.getDateOfBirth() != null) {
+            if (this.getDateOfBirth().isBefore(LocalDate.now().minusYears(5))) {
+                return true;
+            }
         }
-        return isOverFive;
+        return false;
     }
 
-
-
-    public String getNumberDNI() {return numberDNI;}
 
     public void setNumberDNI(String numberDNI) {
         validateDNINumber();
         this.numberDNI = numberDNI;
     }
 
-    public void setSpanishSelected(boolean spanishSelected) {
-        this.spanishSelected = spanishSelected;
-    }
-
-    public boolean getBaggageSelect() {
-        return baggageSelected;
-    }
-
-    public void setBaggageSelected(boolean baggageSelected) {
-        this.baggageSelected = baggageSelected;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -209,9 +196,6 @@ public class Passenger {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
@@ -221,15 +205,6 @@ public class Passenger {
         this.dateOfBirth = dateOfBirth;
 
     }
-
-    public double getBaggagePrice() {
-        return baggagePrice;
-    }
-
-    public void setBaggagePrice(double baggagePrice) {
-        this.baggagePrice = baggagePrice;
-    }
-
 
     public double spanishRebateValue() {
         double value = 0;

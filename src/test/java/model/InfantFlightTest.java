@@ -1,5 +1,6 @@
 package model;
 
+import helpers.Consts;
 import org.junit.Before;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
@@ -12,8 +13,8 @@ import static junit.framework.TestCase.assertNotSame;
 public class InfantFlightTest {
 
     protected InfantFlight infantFlight;
-    protected double validSingle = 0.0;
-    protected double inValidSingle = 5.0;
+    protected double validSingle = Consts.ZERO;
+    protected double inValidSingle = Consts.ONE_HND;
 
 
     @Before

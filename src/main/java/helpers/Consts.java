@@ -34,18 +34,18 @@ public class Consts {
 
 
     // constants - flight prices
-    public static final int TWO_HND_EIGHTY = 280;
-    public static final int TWO_HND_FIFTY = 250;
-    public static final int TWO_HND_FORTY = 240;
-    public static final int TWO_HND = 200;
-    public static final int ONE_HND_FIFTY = 150;
-    public static final int ONE_HND_FORTY = 140;
-    public static final int ONE_HND_TWENTY = 120;
-    public static final int ONE_HND = 100;
-    public static final int EIGHTY = 80;
-    public static final int SIXTY = 60;
-    public static final int FORTY = 40;
-    public static final int ZERO = 0;
+    public static final double TWO_HND_EIGHTY = 280.0;
+    public static final double TWO_HND_FIFTY = 250.0;
+    public static final double TWO_HND_FORTY = 240.0;
+    public static final double TWO_HND = 200.0;
+    public static final double ONE_HND_FIFTY = 150.0;
+    public static final double ONE_HND_FORTY = 140.0;
+    public static final double ONE_HND_TWENTY = 120.0;
+    public static final double ONE_HND = 100.0;
+    public static final double EIGHTY = 80.0;
+    public static final double SIXTY = 60.0;
+    public static final double FORTY = 40.0;
+    public static final double ZERO = 0.0;
     public static final double BAGGAGE_PRICE = 15.0;
     public static final double BAGGAGE_PRICE_RETURN = 30.0;
 

@@ -65,21 +65,28 @@ public class PassengerTest {
     @Test
     public void isPassengerAChild() throws Exception {
         assertEquals(true, passenger1.isPassengerAChild());
+        assertEquals(false, passenger3.isPassengerAChild());
     }
 
     @Test
     public void isPassengerInfant() throws Exception {
         assertEquals(true, passenger2.isPassengerInfant());
+        assertEquals(false, passenger3.isPassengerInfant());
+
     }
 
     @Test
     public void isPassengerOver18() throws Exception {
         assertEquals(true, passenger3.isPassengerOver18());
+        assertEquals(false, passenger1.isPassengerOver18());
+
     }
 
     @Test
     public void isPassengerOver5() throws Exception {
         assertEquals(true, passenger4.isPassengerOver5());
+        assertEquals(false, passenger2.isPassengerOver5());
+
     }
 
     @Test
