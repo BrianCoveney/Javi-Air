@@ -19,7 +19,6 @@ import static org.hamcrest.core.IsNot.not;
  */
 public class PassengerTest {
 
-
     protected Passenger passenger1, passenger2, passenger3, passenger4, passenger5;
     protected String validDNI = Consts.SPANISH_VALID_DNI;
     protected String inValidDNI = Consts.SPANISH_INVALID_DNI;
@@ -59,6 +58,14 @@ public class PassengerTest {
         passenger5 = new Passenger(inValidFirstName, inValidLastName,
                 inValidDNI, genericDate, false, false); // not selected
 
+    }
+
+
+    @Test
+    public void setSpanishRebate() throws Exception {
+        assertEquals(Consts.SPANISH_REBATE, passenger1.setSpanishRebate(Consts.MALAGA, Consts.MADRID));
+        assertEquals(Consts.SPANISH_REBATE_DOUBLED, passenger1.setSpanishRebate(Consts.MADRID, Consts.MALAGA));
+        assertEquals(Consts.ZERO, passenger1.setSpanishRebate(Consts.CORK, Consts.PARIS));
     }
 
 

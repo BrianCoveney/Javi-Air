@@ -12,6 +12,7 @@ public class Consts {
     public static final Double INFANT_PRICE = 0.0;
     public static final Double CHILD_PRICE = 60.0;
     public static final double SPANISH_REBATE = 5.0;
+    public static final double SPANISH_REBATE_DOUBLED = 10.0;
     public static final double NO_SPANISH_REBATE = 0.0;
     public static final String CREDIT_VALID_VALID_NO = "4929766254319102";
     public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
