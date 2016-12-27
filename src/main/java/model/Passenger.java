@@ -40,12 +40,31 @@ public class Passenger {
     }
 
 
+    // set spanish rebate value, based on the criteria of flights being to or from MAD / AGP
+    public double setSpanishRebate(String origin, String destination) {
+
+        double spaPrice = 0;
+        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
+            if (origin.equals(Consts.MADRID) && destination.equals(Consts.MALAGA)) {
+                spaPrice = Consts.SPANISH_REBATE * 2;
+                return spaPrice;
+            } else if (origin.equals(Consts.MALAGA) && destination.equals(Consts.MADRID)) {
+                spaPrice = Consts.SPANISH_REBATE;
+                return spaPrice;
+            } else {
+                spaPrice = Consts.ZERO;
+                return spaPrice;
+            }
+        }
+        return spaPrice;
+    }
+
 
     // referenced Colin Manning's code here:
     // http://mcom.cit.ie/staff/Computing/CManning/soft6008-2015/js09/js-09-dni.html
     public boolean validateDNINumber() {
         String dniCopy = this.numberDNI;
-        String madString = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String madString = Consts.DNI_LETTERS;
         String dniLetter = "";
         char dniLetter2;
         int dniNum;
@@ -80,35 +99,26 @@ public class Passenger {
     }
 
 
-
     public boolean validateFirstName(String fName) {
         String validText = "[A-Z][a-zA-Z]*";
-        boolean isValid;
-
         if (getFirstName().matches(validText)) {
-            isValid = true;
-        } else {
-            isValid = false;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
 
     public boolean validateLastName(String lName) {
         String validText = "[a-zA-z]+([ '-][a-zA-Z]+)*";
-        boolean isValid;
-
         if (getLastName().matches(validText)) {
-            isValid = true;
-        } else {
-            isValid = false;
+            return true;
         }
-        return isValid;
+        return false;
     }
 
 
 
-    public boolean isSpanishSelected() {
+    public boolean isSpanishCheckboxSelected() {
         return spanishSelected;
     }
 
@@ -137,11 +147,9 @@ public class Passenger {
 
 
     public boolean isPassengerInfant() {
-        if(this.getDateOfBirth() != null) {
-            if (this.dateOfBirth != null) {
-                if (this.getDateOfBirth().isAfter(LocalDate.now().minusYears(1))) {
-                    return true;
-                }
+        if (this.getDateOfBirth() != null) {
+            if (this.getDateOfBirth().isAfter(LocalDate.now().minusYears(1))) {
+                return true;
             }
         }
         return false;
@@ -208,7 +216,7 @@ public class Passenger {
 
     public double spanishRebateValue() {
         double value = 0;
-        if (isSpanishSelected()) {
+        if (isSpanishCheckboxSelected()) {
             value = Consts.SPANISH_REBATE;
         }
         return value;
@@ -217,7 +225,7 @@ public class Passenger {
 
     public double spanishRebateValueDoubled() {
         double value = 0;
-        if (isSpanishSelected()) {
+        if (isSpanishCheckboxSelected()) {
             value = Consts.SPANISH_REBATE * 2;
         }
         return value;
@@ -225,7 +233,7 @@ public class Passenger {
 
     public double spanishRebateValueNull() {
         double value = 0;
-        if (isSpanishSelected()) {
+        if (isSpanishCheckboxSelected()) {
             value = Consts.NO_SPANISH_REBATE;
         }
         return value;

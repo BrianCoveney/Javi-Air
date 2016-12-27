@@ -418,8 +418,9 @@ public class MainScene extends Application {
         ldDepartDate = datePickerDeparture.getValue();
         ldReturnDate = datePickerReturn.getValue();
 
-        try {
-            if (event.getSource().equals(datePickerDeparture)) {
+        if (event.getSource().equals(datePickerDeparture)) {
+
+            if (ldDepartDate != null) {
                 String dayOfWeekDpt = ldDepartDate.getDayOfWeek().name();
 
                 // flight refers to the Flight object
@@ -428,7 +429,10 @@ public class MainScene extends Application {
                 } else {
                     dateDepartPrice = flightPrice;
                 }
-            } else if (event.getSource().equals(datePickerReturn)) {
+            }
+        } else if (event.getSource().equals(datePickerReturn)) {
+
+            if (ldReturnDate != null) {
                 String dayOfWeekRtn = ldReturnDate.getDayOfWeek().name();
                 if (flight.isWeekend(dayOfWeekRtn)) {
                     dateReturnPrice = flightPrice + flightPrice * 0.2;
@@ -436,11 +440,9 @@ public class MainScene extends Application {
                     dateReturnPrice = flightPrice;
                 }
             }
-            currentPrice = dateDepartPrice + dateReturnPrice;
-
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
         }
+
+        currentPrice = dateDepartPrice + dateReturnPrice;
 
         return currentPrice;
     }
@@ -510,8 +512,6 @@ public class MainScene extends Application {
         flightTime_1 = flightTimes.getFlightTimeDepart();
         flightTime_2 = flightTimes.getFlightTimeReturn();
 
-
-        // setting times for Departure radio buttons
         radioButtonDeptTime1.setText(flight.displayDeptDetails() + "\n" + flightTime_1);
         radioButtonReturnTime1.setText(flight.displayReturnDetails() + "\n" + flightTime_1);
 
@@ -532,14 +532,9 @@ public class MainScene extends Application {
         // model.Flight has two time slots
         if (flightTime_2 != null) {
 
-            // setting times for Return radio buttons
             radioButtonDeptTime2.setText(flight.displayDeptDetails() + "\n" + flightTime_2);
-
-
             radioButtonReturnTime2.setText(flight.displayReturnDetails() + "\n" + flightTime_2);
-
             radioButtonDeptTime2.setVisible(true);
-
 
             if(radioButtonReturn.isSelected()) {
                 radioButtonReturnTime1.setVisible(true);
@@ -935,7 +930,6 @@ public class MainScene extends Application {
                 selectedReturnTime);
     }
 
-
     private void setFlightPriceInfants() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
@@ -980,6 +974,22 @@ public class MainScene extends Application {
     }
 
 
+    // get spanish rebate value from the Passenger object, based on the criteria of flights being to or from MAD / AGP
+    public double spanishRebateSelected() {
+        double spaPrice;
+
+        Passenger passenger = new Passenger();
+        spaPrice = passenger.setSpanishRebate(dptFlight, rtnFlight);
+
+        for(Passenger p : passengerList) {
+            if(p.isSpanishCheckboxSelected()) {
+                return spaPrice;
+            } else {
+                spaPrice = 0.0;
+            }
+        }
+        return spaPrice;
+    }
 
 
     protected void getDetails() {
@@ -991,123 +1001,92 @@ public class MainScene extends Application {
 
         int mCounter = 0;
         double bagPrice = 0;
-        double spaPrice = 0;
-        double flightPrice;
+        double spanishRebate = 0;
         double adultPrice;
         double childPrice;
 
-        String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
-        String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
-
-        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
+        for (Passenger passenger : passengerList) {
             mCounter++;
 
-            try {
-                if (passengerList != null) {
+            if (passenger != null) {
 
-                    window.setScene(scene2);
+                window.setScene(scene2);
 
-                    if(radioButtonReturn.isSelected()) {
-                        // setting variable equal to the current passenger, then getting returned value for the model.Flight object method
-                        bagPrice = passengerList.get(mCounter -1).setBaggagePriceReturn();
+                if (radioButtonReturn.isSelected()) {
+                    bagPrice = passenger.setBaggagePriceReturn();
+                } else if (radioButtonOneWay.isSelected()) {
+                    bagPrice = passenger.setBaggagePriceSingle();
+                }
+
+
+                spanishRebate = spanishRebateSelected();
+
+                adultPrice = currentPrice + bagPrice - spanishRebate;
+
+                childPrice = chFlight + bagPrice - spanishRebate;
+
+
+                // add Passenger and Flight objects to the ListView displayed in the next scene (after Continue button is clicked)
+                if (passenger.isPassengerInfant()) {
+
+                    setFlightPriceInfants();
+
+                    if (radioButtonReturn.isSelected()) {
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toString(),
+                                flightForBaby.toString(),
+                                "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
+                    } else if (radioButtonOneWay.isSelected()) {
+
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toStringSingleFlight(),
+                                flightForBaby.toStringSingleFlight(),
+                                "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
                     }
-                    else if(radioButtonOneWay.isSelected()) {
-                        bagPrice = passengerList.get(mCounter -1).setBaggagePriceSingle();
+
+                } else if (passenger.isPassengerAChild()) {
+
+                    setFlightPriceChild();
+
+                    if (radioButtonReturn.isSelected()) {
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toString(),
+                                "\t" + "Spanish Rebate: \t €" + spanishRebate + "\n" +
+                                        flightForChild.toString(),
+                                "\tTotal: \t\t\t\t\t\t = €" + childPrice);
+                    } else if (radioButtonOneWay.isSelected()) {
+
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toStringSingleFlight(),
+                                "\t" + "Spanish Rebate: \t €" + spanishRebate + "\n" +
+                                        flightForChild.toStringSingleFlight(),
+                                "\tTotal: \t\t\t\t\t\t = €" + childPrice);
                     }
 
+                } else if (passenger.isPassengerOver5()) {
 
-                    /*
-                    Spanish residents receive a €5 rebate [per Spanish passenger] of airport taxes on any flights to or
-                    from Spain (Madrid / Malaga). Valid DNI numbers must be entered as proof or residence.
-                    A freight from Madrid to Malaga will get the discount twice.
-                    */
-                    if (dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.MALAGA)) {
-                        spaPrice = passengerList.get(mCounter -1).spanishRebateValueDoubled();
-                    } else if(dptFlight.equals(Consts.MALAGA) && rtnFlight.equals(Consts.MADRID)) {
-                        spaPrice = passengerList.get(mCounter - 1).spanishRebateValue();
-                    } else {
-                        spaPrice = passengerList.get(mCounter - 1).spanishRebateValueNull();
-                    }
+                    setFlightPriceAdult();
 
-
-                    // setting variable equal to the returned value from getSelectedFlightPrice() in this class
-                    flightPrice = currentPrice;
-
-
-                    adultPrice = flightPrice + bagPrice - spaPrice;
-
-                    // setting variable equal to bagPrice plus the constant - child price total
-                    childPrice = chFlight + bagPrice - spaPrice;
-
-
-                    // add Passenger and Flight objects to the ListView displayed in the next scene (after Continue button is selected)
-                    if (passengerList.get(i).isPassengerInfant()) {
-
-                        setFlightPriceInfants();
-
-                        if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll(
-                                    "\nPassenger " + mCounter +
-                                            passengerList.get(mCounter - 1).toString(),
-                                    flightForBaby.toString(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
-                        }
-                        else if(radioButtonOneWay.isSelected()) {
-
-                            listView.getItems().addAll(
-                                    "\nPassenger " + mCounter + passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                    flightForBaby.toStringSingleFlight(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + infantFlight.setPriceReturn());
-                        }
-
-                    } else if (passengerList.get(i).isPassengerAChild()) {
-
-                        setFlightPriceChild();
-
-                        if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll("\nPassenger " + mCounter +
-                                            passengerList.get(mCounter - 1).toString(),
-                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
-                                            flightForChild.toString(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + childPrice);
-                        }
-                        else if(radioButtonOneWay.isSelected()) {
-
-                            listView.getItems().addAll("\nPassenger " + mCounter +
-                                            passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
-                                            flightForChild.toStringSingleFlight(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + childPrice);
-                        }
-
-                    } else if (passengerList.get(i).isPassengerOver5()) {
-
-                        setFlightPriceAdult();
-
-                        if(radioButtonReturn.isSelected()) {
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter +
-                                            passengerList.get(mCounter - 1).toString(),
-                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
-                                            flight.toString(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
-                        }
-                        else if(radioButtonOneWay.isSelected()) {
-                            listView.getItems().addAll("\nmodel.Passenger " + mCounter
-                                            + passengerList.get(mCounter - 1).toStringSingleFlight(),
-                                    "\t" + "Spanish Rebate: \t €" + spaPrice + "\n" +
-                                            flight.toStringSingleFlight(),
-                                    "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
-                        }
+                    if (radioButtonReturn.isSelected()) {
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toString(),
+                                "\t" + "Spanish Rebate: \t €" + spanishRebate + "\n" +
+                                        flight.toString(),
+                                "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
+                    } else if (radioButtonOneWay.isSelected()) {
+                        listView.getItems().addAll(
+                                "\nPassenger " + mCounter + passenger.toStringSingleFlight(),
+                                "\t" + "Spanish Rebate: \t €" + spanishRebate + "\n" +
+                                        flight.toStringSingleFlight(),
+                                "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                     }
                 }
-            } catch (Exception e) {
-                e.getMessage();
             }
         }
 
+        // add items to the next scene
         try {
             Button buttonBack = new Button("Back");
-            // add elements to the next scene
             nextSceneVBox.getChildren().addAll(listView, buttonBack, nextSceneCreditCardContainer());
             buttonBack.setOnAction(event -> {
                 listView.getItems().clear();
@@ -1115,7 +1094,7 @@ public class MainScene extends Application {
 
             });
         } catch (IllegalArgumentException iae) {
-            iae.getMessage();
+            System.out.println(iae.getMessage());
         }
     }
 
@@ -1127,8 +1106,6 @@ public class MainScene extends Application {
 
         if (comboOrigin.getValue() != null || comboDestination.getValue() != null) {
             if (datePickerDeparture.getValue() != null || datePickerReturn.getValue() != null) {
-
-                try {
 
                     int i = 0;
                     int countInfant = 0;
@@ -1149,11 +1126,6 @@ public class MainScene extends Application {
 
                         if (spinnerPassengerNo.getValue() == i) {
 
-
-                            if(mPassenger.isSpanishSelected() && !mPassenger.validateDNINumber()){
-                                UtilityClass.errorMessageDNINumber();
-                            }
-
                             String fName = mPassenger.getFirstName();
                             String lName = mPassenger.getLastName();
 
@@ -1161,6 +1133,9 @@ public class MainScene extends Application {
                                 UtilityClass.errorMessagePassengerName();
                             }
 
+                            else if(mPassenger.isSpanishCheckboxSelected() && !mPassenger.validateDNINumber()){
+                                UtilityClass.errorMessageDNINumber();
+                            }
 
                             else if (countChildren >= 3 || countInfant >= 3 ||
                                     countChildren == 2 && countInfant > 0  ||
@@ -1178,9 +1153,6 @@ public class MainScene extends Application {
                             }
                         }
                     }
-                } catch (Exception e) {
-                    e.getMessage();
-                }
 
             } else {
                 UtilityClass.errorMessageDate();
@@ -1189,8 +1161,6 @@ public class MainScene extends Application {
             UtilityClass.errorMessageFlight();
         }
     }
-
-
 
     private AnchorPane createAnchorPane() {
         AnchorPane anchorPane = new AnchorPane();
@@ -1213,5 +1183,4 @@ public class MainScene extends Application {
 
         return anchorPane;
     }
-
 }

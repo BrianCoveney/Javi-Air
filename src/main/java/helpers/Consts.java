@@ -17,6 +17,7 @@ public class Consts {
     public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
     public static final String SPANISH_VALID_DNI = "00000010-X";
     public static final String SPANISH_INVALID_DNI = "12345678-a";
+    public static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
 
 
     // constants - flight airports

@@ -10,3 +10,6 @@ buildNumber.properties
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
+
+.idea/workspace.xml
+.idea/tasks.xml
