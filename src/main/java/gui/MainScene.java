@@ -1,5 +1,6 @@
 package gui;
 
+import controller.JaviAirController;
 import helpers.Consts;
 import helpers.UtilityClass;
 import javafx.application.Application;
@@ -16,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.*;
+import persistors.DBPersistor;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -86,6 +88,10 @@ public class MainScene extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+        JaviAirController.getInstance().setPersistor(new DBPersistor());
+
 
         window = primaryStage;
 
