@@ -17,7 +17,6 @@ public abstract class Flight{
     protected String departTime;
     protected String returnTime;
     protected double flightPrice;
-    protected String flightTime1, flightTime2;
 
 
     public Flight(){}
@@ -33,11 +32,9 @@ public abstract class Flight{
         this.returnTime = returnTime;
     }
 
-
     public abstract double setPriceSingle();
 
     public abstract double setPriceReturn();
-
 
     public double flightSelection(String dptFlight, String rtnFlight) {
         if (dptFlight != null && rtnFlight != null) {
@@ -101,7 +98,6 @@ public abstract class Flight{
     }
 
 
-
     public boolean isWeekend(String dayOfWeek) {
         boolean isWeekend = false;
         if(dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
@@ -109,6 +105,7 @@ public abstract class Flight{
         }
         return isWeekend;
     }
+
 
     public void setPrice(Double price) {
         this.price = price;
@@ -119,7 +116,6 @@ public abstract class Flight{
     public String displayDeptDetails()  { return this.origin +" > "+ this.destination +"\t = €"+ this.departPrice; }
 
     public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
-
 
     public String getOrigin() {
         return origin;
@@ -181,21 +177,6 @@ public abstract class Flight{
         this.flightPrice = flightPrice;
     }
 
-    public String getFlightTime1() {
-        return flightTime1;
-    }
-
-    public void setFlightTime1(String flightTime1) {
-        this.flightTime1 = flightTime1;
-    }
-
-    public String getFlightTime2() {
-        return flightTime2;
-    }
-
-    public void setFlightTime2(String flightTime2) {
-        this.flightTime2 = flightTime2;
-    }
 
     @Override
     public String toString() {

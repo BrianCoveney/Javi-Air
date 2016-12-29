@@ -13,11 +13,10 @@ public class JaviAirController {
 
     private static JaviAirController instance;
     private IPersistor persistor;
-
     private ObservableList<Flight> flightList = FXCollections.observableArrayList();
     private ObservableList<Passenger> passengerList = FXCollections.observableArrayList();
 
-    // implementing singleton pattern
+
     public static JaviAirController getInstance(){
         if(instance == null){
             instance = new JaviAirController();
@@ -33,11 +32,9 @@ public class JaviAirController {
         this.passengerList.add(passenger);
     }
 
-
     public void setPersistor(IPersistor persistor) {
         this.persistor = persistor;
     }
-
 
     public ObservableList<Flight> getFlights(){
         return this.flightList;
@@ -46,5 +43,8 @@ public class JaviAirController {
     public ObservableList<Passenger> getPassengers(){
         return this.passengerList;
     }
+
+    // add Flight to database
+    public void save() { this.persistor.write(this.flightList); }
 
 }

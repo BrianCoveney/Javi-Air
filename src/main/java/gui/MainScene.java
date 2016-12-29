@@ -146,7 +146,11 @@ public class MainScene extends Application {
         tfCCVNumber.setPromptText("CCV Number");
 
         buttonPurchase = new Button("Purchase Now");
-        buttonPurchase.setOnAction(event -> createCreditCard());
+        buttonPurchase.setOnAction(event -> {
+            createCreditCard();
+            addDetailsToDatabase();
+
+        });
 
         gridPane.add(tfCCName, 0, 1);
         gridPane.add(tfCCAddress1, 0, 2);
@@ -165,8 +169,8 @@ public class MainScene extends Application {
         return gridPane;
     }
 
-    private void createCreditCard() {
 
+    private void createCreditCard() {
         String cardNum = tfCCNumber.getText();
 
         mCreditCard = new CreditCard(
@@ -184,7 +188,6 @@ public class MainScene extends Application {
         } else {
             UtilityClass.errorMessageCreditCardNumber();
         }
-
     }
 
     private GridPane createTopGridPane() {
@@ -904,7 +907,6 @@ public class MainScene extends Application {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
-
         // constructor
         flight = new AdultFlight(
                 dptFlight,       // setOrigin() from variable in this method
@@ -914,6 +916,7 @@ public class MainScene extends Application {
                 currentPrice,       // setPrice() from the return of getSelectedFlightPrice()
                 selectedDeptTime,   // returned from displayFlightDetails()
                 selectedReturnTime);// returned from displayFlightDetails()
+
     }
 
     private void setFlightPriceChild() {
@@ -934,6 +937,7 @@ public class MainScene extends Application {
                 childTotalPrice,
                 selectedDeptTime,
                 selectedReturnTime);
+
     }
 
     private void setFlightPriceInfants() {
@@ -955,6 +959,7 @@ public class MainScene extends Application {
                 infantTotalPrice,
                 selectedDeptTime,
                 selectedReturnTime);
+
     }
 
 
@@ -1167,6 +1172,21 @@ public class MainScene extends Application {
             UtilityClass.errorMessageFlight();
         }
     }
+
+
+    private void addDetailsToDatabase() {
+        if(flight != null) {
+            JaviAirController.getInstance().addFlight(flight);
+        }
+        if(flightForChild != null) {
+            JaviAirController.getInstance().addFlight(flightForChild);
+        }
+        if(flightForBaby != null){
+            JaviAirController.getInstance().addFlight(flightForBaby);
+        }
+        JaviAirController.getInstance().save();
+    }
+
 
     private AnchorPane createAnchorPane() {
         AnchorPane anchorPane = new AnchorPane();
