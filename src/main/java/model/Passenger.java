@@ -46,7 +46,7 @@ public class Passenger {
         double spaPrice = 0;
         for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
             if (origin.equals(Consts.MADRID) && destination.equals(Consts.MALAGA)) {
-                spaPrice = Consts.SPANISH_REBATE * 2;
+                spaPrice = Consts.SPANISH_REBATE_DOUBLED;
                 return spaPrice;
             } else if (origin.equals(Consts.MALAGA) && destination.equals(Consts.MADRID)) {
                 spaPrice = Consts.SPANISH_REBATE;
@@ -100,8 +100,7 @@ public class Passenger {
 
 
     public boolean validateFirstName(String fName) {
-        String validText = "[A-Z][a-zA-Z]*";
-        if (getFirstName().matches(validText)) {
+        if (getFirstName().matches(Consts.LAST_NAME_VALID)) {
             return true;
         }
         return false;
@@ -109,8 +108,7 @@ public class Passenger {
 
 
     public boolean validateLastName(String lName) {
-        String validText = "[a-zA-z]+([ '-][a-zA-Z]+)*";
-        if (getLastName().matches(validText)) {
+        if (getLastName().matches(Consts.FIRST_NAME_VALID)) {
             return true;
         }
         return false;

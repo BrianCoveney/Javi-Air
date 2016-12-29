@@ -61,7 +61,10 @@ public class DBPersistor implements IPersistor {
             for (Flight currentFlight : flights) {
 
                 PreparedStatement prepStatement =
-                        dbConnection.prepareStatement("INSERT into flights values (?, ?, ?, ?, ?, ?, ?)");
+                        dbConnection.prepareStatement(
+                                "INSERT INTO flights " +
+                                        "(Origin, Destination, DepartPrice, ReturnPrice, Price, DepartTime, ReturnTime) " +
+                                        "VALUES (?, ?, ?, ?, ?, ?, ?)");
 
                 prepStatement.setString(1, currentFlight.getOrigin());
                 prepStatement.setString(2, currentFlight.getDestination());

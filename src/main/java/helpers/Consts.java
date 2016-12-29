@@ -14,12 +14,17 @@ public class Consts {
     public static final double SPANISH_REBATE = 5.0;
     public static final double SPANISH_REBATE_DOUBLED = 10.0;
     public static final double NO_SPANISH_REBATE = 0.0;
+    public static final String FIRST_NAME_VALID = "[a-zA-z]+([ '-][a-zA-Z]+)*";
+    public static final String LAST_NAME_VALID = "[A-Z][a-zA-Z]*";
     public static final String CREDIT_VALID_VALID_NO = "4929766254319102";
     public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
     public static final String SPANISH_VALID_DNI = "00000010-X";
     public static final String SPANISH_INVALID_DNI = "12345678-a";
     public static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
-
+    public static final String FRI = "FRIDAY";
+    public static final String SAT = "SATURDAY";
+    public static final String SUN = "SUNDAY";
+    public static final String TUE = "TUESDAY";
 
     // constants - flight airports
     public static final String CORK = "ORK";
@@ -29,10 +34,6 @@ public class Consts {
     public static final String PARIS = "CDG";
     public static final String STANSTED = "STN";
     public static final String MALAGA = "AGP";
-    public static final String FRI = "FRIDAY";
-    public static final String SAT = "SATURDAY";
-    public static final String SUN = "SUNDAY";
-    public static final String TUE = "TUESDAY";
 
 
     // constants - flight prices

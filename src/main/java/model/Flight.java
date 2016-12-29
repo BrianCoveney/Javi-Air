@@ -99,11 +99,10 @@ public abstract class Flight{
 
 
     public boolean isWeekend(String dayOfWeek) {
-        boolean isWeekend = false;
         if(dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
-            isWeekend = true;
+            return true;
         }
-        return isWeekend;
+        return false;
     }
 
 
