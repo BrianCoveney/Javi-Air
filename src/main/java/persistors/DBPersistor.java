@@ -2,11 +2,9 @@ package persistors;
 
 import javafx.collections.ObservableList;
 import model.Flight;
+import model.Passenger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +19,7 @@ public class DBPersistor implements IPersistor {
 
     public DBPersistor(){
 
+        dbObjects = new ArrayList<AutoCloseable>();
         try {
 
             String db_Driver = "com.mysql.jdbc.Driver";
@@ -46,13 +45,11 @@ public class DBPersistor implements IPersistor {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
     @Override
-    public void write(ObservableList<Flight> flights) {
+    public void writeFlights(ObservableList<Flight> flights) {
 
         try {
 
@@ -85,4 +82,68 @@ public class DBPersistor implements IPersistor {
             System.out.println(sqlEx.getMessage());
         }
     }
+
+
+    @Override
+    public void writePassengers(ObservableList<Passenger> passengers) {
+
+        try {
+            for (Passenger currentPassenger : passengers) {
+
+                PreparedStatement prepStmt =
+                        dbConnection.prepareStatement(
+                          "INSERT INTO passenger " +
+                                  "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
+                                    "VALUES(?, ?, ?, ?, ?, ?)");
+
+                prepStmt.setString(1, currentPassenger.getFirstName());
+                prepStmt.setString(2, currentPassenger.getLastName());
+                prepStmt.setDate(3, Date.valueOf(currentPassenger.getDateOfBirth()));
+                prepStmt.setBoolean(4, currentPassenger.isBaggageSelected());
+                prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
+                prepStmt.setString(6, currentPassenger.getNumberDNI());
+
+                prepStmt.executeUpdate();
+                dbObjects.add(prepStmt);
+            }
+
+            close();
+
+        }catch (SQLException sql) {
+            System.out.println(sql.getMessage());
+        }
+
+    }
+
+
+    public void close() {
+        try{
+            for(AutoCloseable curr : dbObjects) {
+                curr.close();
+            }
+        }catch(Exception ex){
+            System.out.println("ERROR 3:"+ex.getMessage());
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

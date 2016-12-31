@@ -4,6 +4,7 @@ import helpers.Consts;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
@@ -20,6 +21,7 @@ public class Passenger {
     private double baggagePrice;
     private String numberDNI;
     private boolean isInfant, isChild, isAdult, isOverFive;
+    private ArrayList<Passenger> passengers;
 
 
     public Passenger(){}
@@ -114,6 +116,8 @@ public class Passenger {
         return false;
     }
 
+    public ArrayList<Passenger> getPassengers() { return this.passengers; }
+
 
 
     public boolean isSpanishCheckboxSelected() {
@@ -186,6 +190,10 @@ public class Passenger {
     public void setNumberDNI(String numberDNI) {
         validateDNINumber();
         this.numberDNI = numberDNI;
+    }
+
+    public String getNumberDNI() {
+        return numberDNI;
     }
 
 

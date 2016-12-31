@@ -1,6 +1,7 @@
 package gui;
 
-import controller.JaviAirController;
+import controller.FlightController;
+import controller.PassengerController;
 import helpers.Consts;
 import helpers.UtilityClass;
 import javafx.application.Application;
@@ -72,8 +73,10 @@ public class MainScene extends Application {
     private Spinner<Integer> spinnerPassengerNo;
     // reference to the model.Passenger and FLight objects
     private List<Passenger> passengerList = FXCollections.observableArrayList();
+    private List<Passenger> passengerListCopy = FXCollections.observableArrayList();
 
-    private Passenger passenger1, passenger2, passenger3, passenger4, passenger5, passenger6, passenger7, passenger8;
+    private Passenger passenger, passenger1, passenger2, passenger3, passenger4, passenger5, passenger6, passenger7, passenger8,
+            passenger11, passenger12, passenger13, passenger14, passenger15, passenger16, passenger17, passenger18;
     private Flight flight, flightForChild, flightForBaby;
     private CreditCard mCreditCard;
     private FlightTimes flightTimes;
@@ -90,7 +93,8 @@ public class MainScene extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-        JaviAirController.getInstance().setPersistor(new DBPersistor());
+        FlightController.getInstance().setPersistor(new DBPersistor());
+        PassengerController.getInstance().setPersistor(new DBPersistor());
 
 
         window = primaryStage;
@@ -148,7 +152,8 @@ public class MainScene extends Application {
         buttonPurchase = new Button("Purchase Now");
         buttonPurchase.setOnAction(event -> {
             createCreditCard();
-            addDetailsToDatabase();
+            addFlightDetailsToDatabase();
+            addPassengerDetailsToDatabase();
 
         });
 
@@ -307,6 +312,7 @@ public class MainScene extends Application {
                 UtilityClass.errorMessageFlight();
             }
             displaySelectedFlights();
+
 
         });
 
@@ -973,14 +979,31 @@ public class MainScene extends Application {
         passenger6 = new Passenger(fName6.getText(), lName6.getText(), custDNI6.getText(), dateOfBirth6.getValue(), radioBtn6.isSelected(), checkboxSpa6.isSelected());
         passenger7 = new Passenger(fName7.getText(), lName7.getText(), custDNI7.getText(), dateOfBirth7.getValue(), radioBtn7.isSelected(), checkboxSpa7.isSelected());
         passenger8 = new Passenger(fName8.getText(), lName8.getText(), custDNI8.getText(), dateOfBirth8.getValue(), radioBtn8.isSelected(), checkboxSpa8.isSelected());
-        passengerList.add(passenger1);
-        passengerList.add(passenger2);
-        passengerList.add(passenger3);
-        passengerList.add(passenger4);
-        passengerList.add(passenger5);
-        passengerList.add(passenger6);
-        passengerList.add(passenger7);
-        passengerList.add(passenger8);
+
+        if(passenger1 != null)
+            passengerList.add(passenger1);
+
+        if(passenger2 != null)
+            passengerList.add(passenger2);
+
+        if(passenger3 != null)
+            passengerList.add(passenger3);
+
+        if(passenger4 != null)
+            passengerList.add(passenger4);
+
+        if(passenger5 != null)
+            passengerList.add(passenger5);
+
+        if(passenger6 != null)
+            passengerList.add(passenger6);
+
+        if(passenger7 != null)
+            passengerList.add(passenger7);
+
+        if(passenger8 != null)
+            passengerList.add(passenger8);
+
 
     }
 
@@ -1102,7 +1125,6 @@ public class MainScene extends Application {
             buttonBack.setOnAction(event -> {
                 listView.getItems().clear();
                 window.setScene(scene1);
-
             });
         } catch (IllegalArgumentException iae) {
             System.out.println(iae.getMessage());
@@ -1135,7 +1157,11 @@ public class MainScene extends Application {
                         if(mPassenger.isPassengerOver18())
                             countAdult++;
 
+
+
                         if (spinnerPassengerNo.getValue() == i) {
+
+
 
                             String fName = mPassenger.getFirstName();
                             String lName = mPassenger.getLastName();
@@ -1161,6 +1187,7 @@ public class MainScene extends Application {
                             else {
                                 // go to next scene
                                 getDetails();
+
                             }
                         }
                     }
@@ -1174,17 +1201,55 @@ public class MainScene extends Application {
     }
 
 
-    private void addDetailsToDatabase() {
-        if(flight != null) {
-            JaviAirController.getInstance().addFlight(flight);
+    private void addFlightDetailsToDatabase() {
+        if (flight != null) {
+            FlightController.getInstance().addFlight(flight);
         }
-        if(flightForChild != null) {
-            JaviAirController.getInstance().addFlight(flightForChild);
+        if (flightForChild != null) {
+            FlightController.getInstance().addFlight(flightForChild);
         }
-        if(flightForBaby != null){
-            JaviAirController.getInstance().addFlight(flightForBaby);
+        if (flightForBaby != null) {
+            FlightController.getInstance().addFlight(flightForBaby);
         }
-        JaviAirController.getInstance().save();
+        FlightController.getInstance().saveFlight();
+
+    }
+
+
+    private void addPassengerDetailsToDatabase() {
+
+        try {
+            if (passenger1 != null) {
+                PassengerController.getInstance().addPassenger(passenger1);
+            }
+            if (passenger2 != null) {
+                PassengerController.getInstance().addPassenger(passenger2);
+            }
+            if (passenger3 != null) {
+                PassengerController.getInstance().addPassenger(passenger3);
+            }
+            if (passenger4 != null) {
+                PassengerController.getInstance().addPassenger(passenger4);
+            }
+            if (passenger5 != null) {
+                PassengerController.getInstance().addPassenger(passenger1);
+            }
+            if (passenger6 != null) {
+                PassengerController.getInstance().addPassenger(passenger2);
+            }
+            if (passenger7 != null) {
+                PassengerController.getInstance().addPassenger(passenger3);
+            }
+            if (passenger8 != null) {
+                PassengerController.getInstance().addPassenger(passenger4);
+            }
+
+            PassengerController.getInstance().savePassenger();
+
+        }catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 

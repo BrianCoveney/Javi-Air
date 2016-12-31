@@ -9,17 +9,19 @@ import persistors.IPersistor;
 /**
  * Created by brian on 26/10/16.
  */
-public class JaviAirController {
+public class FlightController {
 
-    private static JaviAirController instance;
+    private static FlightController instance;
     private IPersistor persistor;
     private ObservableList<Flight> flightList = FXCollections.observableArrayList();
     private ObservableList<Passenger> passengerList = FXCollections.observableArrayList();
 
 
-    public static JaviAirController getInstance(){
+    private FlightController(){}
+
+    public static FlightController getInstance(){
         if(instance == null){
-            instance = new JaviAirController();
+            instance = new FlightController();
         }
      return instance;
     }
@@ -28,23 +30,18 @@ public class JaviAirController {
         this.flightList.add(flight);
     }
 
-    public void addPassenger(Passenger passenger) {
-        this.passengerList.add(passenger);
-    }
-
-    public void setPersistor(IPersistor persistor) {
-        this.persistor = persistor;
-    }
 
     public ObservableList<Flight> getFlights(){
         return this.flightList;
     }
 
-    public ObservableList<Passenger> getPassengers(){
-        return this.passengerList;
+    // add Flight to database
+    public void saveFlight() { this.persistor.writeFlights(this.flightList); }
+
+
+    public void setPersistor(IPersistor persistor) {
+        this.persistor = persistor;
     }
 
-    // add Flight to database
-    public void save() { this.persistor.write(this.flightList); }
 
 }
