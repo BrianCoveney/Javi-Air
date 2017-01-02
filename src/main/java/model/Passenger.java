@@ -31,7 +31,8 @@ public class Passenger {
     }
 
 
-    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth, boolean baggageSelect, boolean spanishSelected) {
+    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth,
+                     boolean baggageSelect, boolean spanishSelected) {
         this.firstName = firstName;
         this.lastName = lastName;
         setNumberDNI(numberDNI);

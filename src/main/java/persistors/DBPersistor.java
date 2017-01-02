@@ -1,6 +1,7 @@
 package persistors;
 
 import javafx.collections.ObservableList;
+import model.CreditCard;
 import model.Flight;
 import model.Passenger;
 
@@ -85,6 +86,43 @@ public class DBPersistor implements IPersistor {
 
 
     @Override
+    public void writeCreditCard(ObservableList<CreditCard> creditCards) {
+
+        try{
+
+            dbConnection.setAutoCommit(false);
+
+            for (CreditCard currCard : creditCards) {
+
+                PreparedStatement prepStmt =
+                        dbConnection.prepareStatement(
+                                "INSERT INTO creditcard " +
+                                        "(OwnersName, Address1, Address2, Address3, CardType, CardNumber, ExpiryDate, CCVNumber)" +
+                                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+
+                prepStmt.setString(1, currCard.getName());
+                prepStmt.setString(2, currCard.getAddress1());
+                prepStmt.setString(3, currCard.getAddress2());
+                prepStmt.setString(4, currCard.getAddress3());
+                prepStmt.setString(5, currCard.getCardType());
+                prepStmt.setString(6, currCard.getCardNumber());
+                prepStmt.setString(7, String.valueOf(currCard.getExpiryDate()));
+                prepStmt.setString(8, currCard.getCcvNumber());
+
+                prepStmt.executeUpdate();
+                prepStmt.close();
+
+            }
+            dbConnection.commit();
+            dbConnection.setAutoCommit(true);
+
+        }catch (SQLException sql) {
+            System.out.println(sql.getMessage());
+        }
+    }
+
+
+    @Override
     public void writePassengers(ObservableList<Passenger> passengers) {
 
         try {
@@ -92,9 +130,9 @@ public class DBPersistor implements IPersistor {
 
                 PreparedStatement prepStmt =
                         dbConnection.prepareStatement(
-                          "INSERT INTO passenger " +
-                                  "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
-                                    "VALUES(?, ?, ?, ?, ?, ?)");
+                                "INSERT INTO passenger " +
+                                        "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
+                                        "VALUES(?, ?, ?, ?, ?, ?)");
 
                 prepStmt.setString(1, currentPassenger.getFirstName());
                 prepStmt.setString(2, currentPassenger.getLastName());
@@ -106,7 +144,6 @@ public class DBPersistor implements IPersistor {
                 prepStmt.executeUpdate();
                 dbObjects.add(prepStmt);
             }
-
             close();
 
         }catch (SQLException sql) {
@@ -114,6 +151,7 @@ public class DBPersistor implements IPersistor {
         }
 
     }
+
 
 
     public void close() {

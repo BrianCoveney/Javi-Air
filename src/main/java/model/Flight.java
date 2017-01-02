@@ -17,6 +17,8 @@ public abstract class Flight{
     protected String departTime;
     protected String returnTime;
     protected double flightPrice;
+    protected double weekendPrice;
+    protected double deptPlusRtnPrice;
 
 
     public Flight(){}
@@ -96,6 +98,17 @@ public abstract class Flight{
         }
         return true;
     }
+
+
+    public double calculateWeekendFlightPrice(double x, double y) {
+        return weekendPrice = x + y * 0.2;
+    }
+
+    public double calculateDepartPlusReturnPrice(double x, double y) {
+        return deptPlusRtnPrice = x + y;
+    }
+
+
 
 
     public boolean isWeekend(String dayOfWeek) {

@@ -19,7 +19,6 @@ public class CreditCard {
     private String ccvNumber;
 
 
-
     public CreditCard(){}
 
 
@@ -122,6 +121,43 @@ public class CreditCard {
         validateCCVNumber(ccvNumber);
         this.ccvNumber = ccvNumber;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress1() {
+        return address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public String getAddress3() {
+        return address3;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public String getCcvNumber() {
+        return ccvNumber;
+    }
+
+    public void setCcvNumber(String ccvNumber) {
+        this.ccvNumber = ccvNumber;
+    }
+    
 
     @Override
     public String toString() {

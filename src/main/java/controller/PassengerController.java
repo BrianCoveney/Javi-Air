@@ -15,6 +15,7 @@ public class PassengerController {
     private ObservableList<Passenger> passengerList = FXCollections.observableArrayList();
 
 
+
     private PassengerController() {
     }
 
@@ -24,9 +25,6 @@ public class PassengerController {
         }
         return instance;
     }
-
-
-
 
 
     public void addPassenger(Passenger passenger) {
@@ -41,9 +39,7 @@ public class PassengerController {
         return this.passengerList;
     }
 
-    public void savePassenger() {
-        this.persistor.writePassengers(this.passengerList);
-    }
+    public void savePassenger() { this.persistor.writePassengers(this.passengerList); }
 
 
 }

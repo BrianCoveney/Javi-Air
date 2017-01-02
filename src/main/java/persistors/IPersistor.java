@@ -1,6 +1,7 @@
 package persistors;
 
 import javafx.collections.ObservableList;
+import model.CreditCard;
 import model.Flight;
 import model.Passenger;
 
@@ -12,5 +13,7 @@ public interface IPersistor {
     void writeFlights(ObservableList<Flight> flight);
 
     void writePassengers(ObservableList<Passenger> passengers);
+
+    void writeCreditCard(ObservableList<CreditCard> creditCards);
 
 }

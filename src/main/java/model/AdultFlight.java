@@ -12,7 +12,8 @@ public class AdultFlight extends Flight {
 
     public AdultFlight() {}
 
-    public AdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
+    public AdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
+                       String flightTime, String returnTime) {
         super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
         setPrice(price);
     }
