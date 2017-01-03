@@ -1,8 +1,6 @@
 package gui;
 
-import controller.CreditCardController;
-import controller.FlightController;
-import controller.PassengerController;
+import controller.JaviairController;
 import helpers.Consts;
 import helpers.UtilityClass;
 import javafx.application.Application;
@@ -13,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -92,11 +91,7 @@ public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
-        FlightController.getInstance().setPersistor(new DBPersistor());
-        PassengerController.getInstance().setPersistor(new DBPersistor());
-        CreditCardController.getInstance().setPersistor(new DBPersistor());
-
+        JaviairController.getInstance().setPersistor(new DBPersistor());
 
         window = primaryStage;
 
@@ -156,7 +151,8 @@ public class MainScene extends Application {
             addFlightDetailsToDatabase();
             addPassengerDetailsToDatabase();
             addCreditCardDetailsToDatabase();
-
+            getTableViewFlight();
+            getTableViewPassenger();
         });
 
         gridPane.add(tfCCName, 0, 1);
@@ -1138,7 +1134,9 @@ public class MainScene extends Application {
         // add items to the next scene
         try {
             Button buttonBack = new Button("Back");
-            nextSceneVBox.getChildren().addAll(listView, buttonBack, nextSceneCreditCardContainer());
+            nextSceneVBox.getChildren().addAll(
+                    listView, buttonBack, nextSceneCreditCardContainer(), getTableViewPassenger(), getTableViewFlight());
+
             buttonBack.setOnAction(event -> {
                 listView.getItems().clear();
                 window.setScene(scene1);
@@ -1217,15 +1215,15 @@ public class MainScene extends Application {
 
     private void addFlightDetailsToDatabase() {
         if (flight != null) {
-            FlightController.getInstance().addFlight(flight);
+            JaviairController.getInstance().addFlight(flight);
         }
         if (flightForChild != null) {
-            FlightController.getInstance().addFlight(flightForChild);
+            JaviairController.getInstance().addFlight(flightForChild);
         }
         if (flightForBaby != null) {
-            FlightController.getInstance().addFlight(flightForBaby);
+            JaviairController.getInstance().addFlight(flightForBaby);
         }
-        FlightController.getInstance().saveFlight();
+        JaviairController.getInstance().saveFlight();
     }
 
 
@@ -1233,23 +1231,95 @@ public class MainScene extends Application {
         try {
             if(passengerList != null) {
                 for(Passenger passenger : passengerList) {
-                    PassengerController.getInstance().addPassenger(passenger);
+                    JaviairController.getInstance().addPassenger(passenger);
                 }
-                PassengerController.getInstance().savePassenger();
+                JaviairController.getInstance().savePassenger();
             }
         }catch (NullPointerException e) {
+//            e.printStackTrace(); // at java.sql.Date.valueOf - in DBPersistor prepStmt Date
             e.getMessage();
-            //e.printStackTrace(); at java.sql.Date.valueOf - in DBPersistor prepStmt Date
         }
     }
 
 
     private void addCreditCardDetailsToDatabase() {
         if (creditCard != null) {
-            CreditCardController.getInstance().addCreditCard(creditCard);
+            JaviairController.getInstance().addCreditCard(creditCard);
         }
-        CreditCardController.getInstance().saveCreditCard();
+        JaviairController.getInstance().saveCreditCard();
     }
+
+
+
+    private TableView getTableViewFlight() {
+
+        TableView<Flight> table = new TableView<>();
+
+        TableColumn<Flight, String> originCol = new TableColumn<>("Origin");
+        TableColumn<Flight, String> destinationCol = new TableColumn<>("Destination");
+        TableColumn<Flight, Double> departPriceCol = new TableColumn<>("Depart Price");
+        TableColumn<Flight, Double> returnPriceCol = new TableColumn<>("Return Price");
+        TableColumn<Flight, Double> priceCol = new TableColumn<>("Total Price");
+        TableColumn<Flight, String> departTimeCol = new TableColumn<>("Dept Time");
+        TableColumn<Flight, String> returnTimeCol = new TableColumn<>("Return Time");
+
+        originCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("origin"));
+        destinationCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("destination"));
+        departPriceCol.setCellValueFactory(new PropertyValueFactory<Flight, Double>("departPrice"));
+        returnPriceCol.setCellValueFactory(new PropertyValueFactory<Flight, Double>("returnPrice"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<Flight, Double>("price"));
+        departTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("departTime"));
+        returnTimeCol.setCellValueFactory(new PropertyValueFactory<Flight, String>("returnTime"));
+
+        ObservableList<Flight> flightList = getFlightList();
+        table.setItems(flightList);
+
+
+        table.getColumns().addAll(originCol, destinationCol, departPriceCol, returnPriceCol, priceCol,
+                departTimeCol, returnTimeCol);
+
+        return table;
+    }
+
+
+    private TableView getTableViewPassenger() {
+
+        TableView<Passenger> table = new TableView<>();
+
+        TableColumn<Passenger, String> firstNameCol = new TableColumn<>("First Name");
+        TableColumn<Passenger, String> lastNameCol = new TableColumn<>("Last Name");
+        TableColumn<Passenger, LocalDate> dateOfBirthCol = new TableColumn<>("Date of Birth");
+
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("firstName"));
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("lastName"));
+        dateOfBirthCol.setCellValueFactory(new PropertyValueFactory<Passenger, LocalDate>("dateOfBirth"));
+
+        ObservableList<Passenger> passengerList = getPassengerList();
+        table.setItems(passengerList);
+
+        table.getColumns().addAll(firstNameCol, lastNameCol, dateOfBirthCol);
+
+        return table;
+    }
+
+
+    private ObservableList<Passenger> getPassengerList() {
+        ObservableList<Passenger> pList = FXCollections.observableArrayList();
+
+        for(Passenger passenger : passengerList) {
+            pList.add(passenger);
+        }
+
+        return pList;
+    }
+
+
+    private ObservableList<Flight> getFlightList() {
+        ObservableList<Flight> fList = FXCollections.observableArrayList(flight);
+
+        return fList;
+    }
+
 
 
     private AnchorPane createAnchorPane() {

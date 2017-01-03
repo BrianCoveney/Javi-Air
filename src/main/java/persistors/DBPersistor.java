@@ -128,21 +128,27 @@ public class DBPersistor implements IPersistor {
         try {
             for (Passenger currentPassenger : passengers) {
 
-                PreparedStatement prepStmt =
-                        dbConnection.prepareStatement(
-                                "INSERT INTO passenger " +
-                                        "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
-                                        "VALUES(?, ?, ?, ?, ?, ?)");
+                if(currentPassenger != null) {
 
-                prepStmt.setString(1, currentPassenger.getFirstName());
-                prepStmt.setString(2, currentPassenger.getLastName());
-                prepStmt.setDate(3, Date.valueOf(currentPassenger.getDateOfBirth()));
-                prepStmt.setBoolean(4, currentPassenger.isBaggageSelected());
-                prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
-                prepStmt.setString(6, currentPassenger.getNumberDNI());
+                    Date dateOfBirth = Date.valueOf(currentPassenger.getDateOfBirth());
 
-                prepStmt.executeUpdate();
-                dbObjects.add(prepStmt);
+
+                    PreparedStatement prepStmt =
+                            dbConnection.prepareStatement(
+                                    "INSERT INTO passenger " +
+                                            "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
+                                            "VALUES(?, ?, ?, ?, ?, ?)");
+
+                    prepStmt.setString(1, currentPassenger.getFirstName());
+                    prepStmt.setString(2, currentPassenger.getLastName());
+                    prepStmt.setDate(3,  dateOfBirth);
+                    prepStmt.setBoolean(4, currentPassenger.isBaggageSelected());
+                    prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
+                    prepStmt.setString(6, currentPassenger.getNumberDNI());
+
+                    prepStmt.executeUpdate();
+                    dbObjects.add(prepStmt);
+                }
             }
             close();
 

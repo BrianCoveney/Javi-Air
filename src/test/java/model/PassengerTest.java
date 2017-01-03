@@ -35,7 +35,7 @@ public class PassengerTest {
     @Before
     public void setUp() throws Exception {
 
-        over18 = Year.now().minusYears(18).atMonth(Month.SEPTEMBER).atDay(12);
+        over18 = LocalDate.now().minusYears(20);
         over5 = LocalDate.now().minusYears(6);
         infant = LocalDate.now().minusMonths(9);
         child = LocalDate.now().minusYears(4);

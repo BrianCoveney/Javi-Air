@@ -26,8 +26,23 @@ public class Passenger {
 
     public Passenger(){}
 
+    public Passenger(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public Passenger(String numberDNI){
         this.numberDNI = numberDNI;
+    }
+
+
+    public Passenger(String firstName, String lastName, LocalDate dateOfBirth,
+                     boolean baggageSelect) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        setDateOfBirth(dateOfBirth);
+        this.baggageSelected = baggageSelect;
+
     }
 
 
