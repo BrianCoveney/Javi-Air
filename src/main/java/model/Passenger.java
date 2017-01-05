@@ -26,23 +26,23 @@ public class Passenger {
 
     public Passenger(){}
 
-    public Passenger(String firstName, String lastName) {
+    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth,
+                     boolean baggageSelect, boolean spanishSelected, double baggagePrice) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public Passenger(String numberDNI){
-        this.numberDNI = numberDNI;
-    }
-
-
-    public Passenger(String firstName, String lastName, LocalDate dateOfBirth,
-                     boolean baggageSelect) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        setNumberDNI(numberDNI);
         setDateOfBirth(dateOfBirth);
         this.baggageSelected = baggageSelect;
+        this.spanishSelected = spanishSelected;
+        this.baggagePrice = baggagePrice;
+    }
 
+//    public Passenger(String numberDNI){
+//        this.numberDNI = numberDNI;
+//    }
+
+    public Passenger(String firstName){
+        this.firstName = firstName;
     }
 
 
@@ -55,6 +55,15 @@ public class Passenger {
         this.baggageSelected = baggageSelect;
         this.spanishSelected = spanishSelected;
 
+    }
+
+
+    public double getBaggagePrice() {
+        return baggagePrice;
+    }
+
+    public void setBaggagePrice(double baggagePrice) {
+        this.baggagePrice = baggagePrice;
     }
 
 

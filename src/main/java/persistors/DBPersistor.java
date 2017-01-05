@@ -24,7 +24,7 @@ public class DBPersistor implements IPersistor {
         try {
 
             String db_Driver = "com.mysql.jdbc.Driver";
-            String db_URL = "jdbc:mysql://localhost:3306/";
+            String db_URL = "jdbc:mysql://localhost:3308/";
             String db_Name = "javiairdb?";
             String db_User = "root";
             String db_Pass = "bossdog12";
