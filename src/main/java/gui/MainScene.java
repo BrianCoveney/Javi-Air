@@ -31,10 +31,10 @@ public class MainScene extends Application {
     private ArrayList<TextField> firstNameArrayList;
     private TextField[] firstNameArray = new TextField[Consts.MAX_PASSENGER_NO];
     private TextField[] lastNameArray = new TextField[Consts.MAX_PASSENGER_NO];
-    private TextField[] custDNIArray = new TextField[Consts.MAX_PASSENGER_NO];
+    private TextField[] numberDNIArray = new TextField[Consts.MAX_PASSENGER_NO];
     private DatePicker[] dateOfBirthArray = new DatePicker[Consts.MAX_PASSENGER_NO];
     private RadioButton[] radioBtnArray = new RadioButton[Consts.MAX_PASSENGER_NO];
-    private CheckBox[] checkboxSpaArray = new CheckBox[Consts.MAX_PASSENGER_NO];
+    private CheckBox[] checkboxArraySpanish = new CheckBox[Consts.MAX_PASSENGER_NO];
 
 
 
@@ -75,7 +75,7 @@ public class MainScene extends Application {
     private ObservableList<TextField> tfLastNamesList = FXCollections.observableArrayList();
     private ObservableList<TextField> numberDNIList = FXCollections.observableArrayList();
     private ObservableList<DatePicker> dpDateOfBirthList = FXCollections.observableArrayList();
-    private ObservableList<RadioButton> radioBtnListBag = FXCollections.observableArrayList();
+    private ObservableList<RadioButton> radioBtnBagList = FXCollections.observableArrayList();
     private ObservableList<CheckBox> checkboxListSpanish = FXCollections.observableArrayList();
     public TextField fName, fName2, fName3, fName4, fName5, fName6, fName7, fName8,
             lName, lName2, lName3, lName4, lName5, lName6, lName7, lName8,
@@ -677,19 +677,19 @@ public class MainScene extends Application {
         for (int i = 0; i < firstNameArray.length; i++) {
             firstNameArray[i] = new TextField();
             lastNameArray[i] = new TextField();
-            custDNIArray[i] = new TextField();
+            numberDNIArray[i] = new TextField();
             dateOfBirthArray[i] = new DatePicker();
             radioBtnArray[i] = new RadioButton();
-            checkboxSpaArray[i] = new CheckBox();
+            checkboxArraySpanish[i] = new CheckBox();
         }
 
         // ObservableLists of above controls
         tfFirstNamesList.addAll(firstNameArray);
         tfLastNamesList.addAll(lastNameArray);
         dpDateOfBirthList.addAll(dateOfBirthArray);
-        radioBtnListBag.addAll(radioBtnArray);
-        checkboxListSpanish.addAll(checkboxSpaArray);
-        numberDNIList.addAll(custDNIArray);
+        radioBtnBagList.addAll(radioBtnArray);
+        checkboxListSpanish.addAll(checkboxArraySpanish);
+        numberDNIList.addAll(numberDNIArray);
 
 
         for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
@@ -701,7 +701,7 @@ public class MainScene extends Application {
             numberDNIList.get(i).getStyleClass().addAll("sm-label");
             dpDateOfBirthList.get(i).setDisable(true);
             dpDateOfBirthList.get(i).getStyleClass().add("myDatePicker");
-            radioBtnListBag.get(i).setDisable(true);
+            radioBtnBagList.get(i).setDisable(true);
             checkboxListSpanish.get(i).setDisable(true);
         }
 
@@ -713,57 +713,57 @@ public class MainScene extends Application {
 
         gridPaneRight.add(firstNameArray[0], 1, 0);
         gridPaneRight.add(lastNameArray[0], 2, 0);
-        gridPaneRight.add(custDNIArray[0], 3, 0);
-        gridPaneRight.add(checkboxSpaArray[0], 4, 0);
+        gridPaneRight.add(numberDNIArray[0], 3, 0);
+        gridPaneRight.add(checkboxArraySpanish[0], 4, 0);
         gridPaneRight.add(dateOfBirthArray[0], 5, 0);
         gridPaneRight.add(radioBtnArray[0], 6, 0);
 
         gridPaneRight.add(firstNameArray[1], 1, 1);
         gridPaneRight.add(lastNameArray[1], 2, 1);
-        gridPaneRight.add(custDNIArray[1], 3, 1);
-        gridPaneRight.add(checkboxSpaArray[1], 4, 1);
+        gridPaneRight.add(numberDNIArray[1], 3, 1);
+        gridPaneRight.add(checkboxArraySpanish[1], 4, 1);
         gridPaneRight.add(dateOfBirthArray[1], 5, 1);
         gridPaneRight.add(radioBtnArray[1], 6, 1);
 
         gridPaneRight.add(firstNameArray[2], 1, 2);
         gridPaneRight.add(lastNameArray[2], 2, 2);
-        gridPaneRight.add(custDNIArray[2], 3, 2);
-        gridPaneRight.add(checkboxSpaArray[2], 4, 2);
+        gridPaneRight.add(numberDNIArray[2], 3, 2);
+        gridPaneRight.add(checkboxArraySpanish[2], 4, 2);
         gridPaneRight.add(dateOfBirthArray[2], 5, 2);
         gridPaneRight.add(radioBtnArray[2], 6, 2);
 
         gridPaneRight.add(firstNameArray[3], 1, 3);
         gridPaneRight.add(lastNameArray[3], 2, 3);
-        gridPaneRight.add(custDNIArray[3], 3, 3);
-        gridPaneRight.add(checkboxSpaArray[3], 4, 3);
+        gridPaneRight.add(numberDNIArray[3], 3, 3);
+        gridPaneRight.add(checkboxArraySpanish[3], 4, 3);
         gridPaneRight.add(dateOfBirthArray[3], 5, 3);
         gridPaneRight.add(radioBtnArray[3], 6, 3);
 
         gridPaneRight.add(firstNameArray[4], 1, 4);
         gridPaneRight.add(lastNameArray[4], 2, 4);
-        gridPaneRight.add(custDNIArray[4], 3, 4);
-        gridPaneRight.add(checkboxSpaArray[4], 4, 4);
+        gridPaneRight.add(numberDNIArray[4], 3, 4);
+        gridPaneRight.add(checkboxArraySpanish[4], 4, 4);
         gridPaneRight.add(dateOfBirthArray[4], 5, 4);
         gridPaneRight.add(radioBtnArray[4], 6, 4);
 
         gridPaneRight.add(firstNameArray[5], 1, 5);
         gridPaneRight.add(lastNameArray[5], 2, 5);
-        gridPaneRight.add(custDNIArray[5], 3, 5);
-        gridPaneRight.add(checkboxSpaArray[5], 4, 5);
+        gridPaneRight.add(numberDNIArray[5], 3, 5);
+        gridPaneRight.add(checkboxArraySpanish[5], 4, 5);
         gridPaneRight.add(dateOfBirthArray[5], 5, 5);
         gridPaneRight.add(radioBtnArray[5], 6, 5);
 
         gridPaneRight.add(firstNameArray[6], 1, 6);
         gridPaneRight.add(lastNameArray[6], 2, 6);
-        gridPaneRight.add(custDNIArray[6], 3, 6);
-        gridPaneRight.add(checkboxSpaArray[6], 4, 6);
+        gridPaneRight.add(numberDNIArray[6], 3, 6);
+        gridPaneRight.add(checkboxArraySpanish[6], 4, 6);
         gridPaneRight.add(dateOfBirthArray[6], 5, 6);
         gridPaneRight.add(radioBtnArray[6], 6, 6);
 
         gridPaneRight.add(firstNameArray[7], 1, 7);
         gridPaneRight.add(lastNameArray[7], 2, 7);
-        gridPaneRight.add(custDNIArray[7], 3, 7);
-        gridPaneRight.add(checkboxSpaArray[7], 4, 7);
+        gridPaneRight.add(numberDNIArray[7], 3, 7);
+        gridPaneRight.add(checkboxArraySpanish[7], 4, 7);
         gridPaneRight.add(dateOfBirthArray[7], 5, 7);
         gridPaneRight.add(radioBtnArray[7], 6, 7);
 
@@ -789,27 +789,21 @@ public class MainScene extends Application {
 
     private void disableBaggageOptionForInfants() {
 
-
         for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
 
             dpDateOfBirthList.get(i).valueProperty().addListener((observable, oldValue, newValue) -> {
 
-                try {
-                    addPassengers();
-                    int j = 0;
-                    for (Passenger passenger : passengerList) {
-                        j++;
-                        if (passenger.isPassengerInfant()) {
-                            radioBtnListBag.get(j - 1).setDisable(true);
-                        } else {
-                            radioBtnListBag.get(j - 1).setDisable(false);
-                        }
+                addPassengers();
+                int j = 0;
+                for (Passenger passenger : passengerList) {
+                    j++;
+                    if (passenger.isPassengerInfant()) {
+                        radioBtnBagList.get(j - 1).setDisable(true);
+                    } else {
+                        radioBtnBagList.get(j - 1).setDisable(false);
                     }
-                }catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
             });
-
         }
     }
 
@@ -841,52 +835,32 @@ public class MainScene extends Application {
 
     private void spinnerPassengerNumberListener() {
 
-        if (spinnerPassengerNo.getValue() == 0) {
-            tfFirstNamesList.get(0).setDisable(true);
-            fName.setDisable(true);
-            lName.setDisable(true);
-            dateOfBirth1.setDisable(true);
-            custDNI1.setDisable(true);
-            checkboxSpa1.setDisable(true);
-            radioBtn1.setDisable(true);
-            fName.clear();
-            lName.clear();
-            custDNI1.clear();
-            dateOfBirth1.getEditor().clear();
-        }
+        if (tfFirstNamesList != null) {
+            for (int i = 1; i < tfFirstNamesList.size() + 1; i++) {
 
-        try {
-
-            if(tfFirstNamesList != null) {
-                for (int i = 0; i <= tfFirstNamesList.size(); i++) {
-
-                    if (spinnerPassengerNo.getValue() == i) {
-                        tfFirstNamesList.get(i - 1).setDisable(false);
-                        tfLastNamesList.get(i - 1).setDisable(false);
-                        dpDateOfBirthList.get(i - 1).setDisable(false);
-                        radioBtnListBag.get(i - 1).setDisable(false);
-                        checkboxListSpanish.get(i - 1).setDisable(false);
-                    }
-                }
-
-                for (int i = 0; i < tfFirstNamesList.size(); i++) {
-
-                    if (spinnerPassengerNo.getValue() == i) {
-                        tfFirstNamesList.get(i).setDisable(true);
-                        tfLastNamesList.get(i).setDisable(true);
-                        numberDNIList.get(i).setDisable(true);
-                        dpDateOfBirthList.get(i).setDisable(true);
-                        radioBtnListBag.get(i).setDisable(true);
-                        checkboxListSpanish.get(i).setDisable(true);
-                        radioBtnListBag.get(i).setSelected(false);
-                        checkboxListSpanish.get(i).setSelected(false);
-                    }
+                if (spinnerPassengerNo.getValue() == i) {
+                    tfFirstNamesList.get(i - 1).setDisable(false);
+                    tfLastNamesList.get(i - 1).setDisable(false);
+                    dpDateOfBirthList.get(i - 1).setDisable(false);
+                    radioBtnBagList.get(i - 1).setDisable(false);
+                    checkboxListSpanish.get(i - 1).setDisable(false);
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException  e) {
-            System.out.println(e.getMessage());
-        }
 
+            for (int i = 0; i < tfFirstNamesList.size(); i++) {
+
+                if (spinnerPassengerNo.getValue() == i) {
+                    tfFirstNamesList.get(i).setDisable(true);
+                    tfLastNamesList.get(i).setDisable(true);
+                    numberDNIList.get(i).setDisable(true);
+                    dpDateOfBirthList.get(i).setDisable(true);
+                    radioBtnBagList.get(i).setDisable(true);
+                    checkboxListSpanish.get(i).setDisable(true);
+                    radioBtnBagList.get(i).setSelected(false);
+                    checkboxListSpanish.get(i).setSelected(false);
+                }
+            }
+        }
     }
 
 
@@ -960,7 +934,7 @@ public class MainScene extends Application {
                     tfLastNamesList.get(i).getText(),
                     numberDNIList.get(i).getText(),
                     dpDateOfBirthList.get(i).getValue(),
-                    radioBtnListBag.get(i).isSelected(),
+                    radioBtnBagList.get(i).isSelected(),
                     checkboxListSpanish.get(i).isSelected());
 
             passengerList.add(passengerOne);

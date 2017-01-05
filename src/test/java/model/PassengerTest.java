@@ -22,7 +22,6 @@ public class PassengerTest {
     protected Passenger passenger1, passenger2, passenger3, passenger4, passenger5;
     protected String validDNI = Consts.SPANISH_VALID_DNI;
     protected String inValidDNI = Consts.SPANISH_INVALID_DNI;
-    protected LocalDate validDate = LocalDate.now();
     protected String validFirstName = "Brian";
     protected String inValidFirstName = "111";
     protected String inValidFirstName2 = "brian"; // first letter must be a capital letter
@@ -47,6 +46,7 @@ public class PassengerTest {
 
         passenger2 = new Passenger(inValidDNI);
         passenger2.setDateOfBirth(infant);
+        passenger2.setNumberDNI(Consts.SPANISH_INVALID_DNI);
 
         passenger3 = new Passenger();
         passenger3.setFirstName(inValidFirstName2);
@@ -98,8 +98,12 @@ public class PassengerTest {
 
     @Test
     public void validateDNINumber() throws Exception {
-        assertThat(passenger1.validateDNINumber(), is(true));
-        assertThat(passenger2.validateDNINumber(), is(not(equalTo(true))));
+//        assertThat(passenger1.validateDNINumber(), is(true));
+//        assertThat(passenger2.validateDNINumber(), is(not(equalTo(true))));
+
+        assertEquals(true,passenger1.validateDNINumber());
+        assertEquals(false, passenger2.validateDNINumber());
+
     }
 
     @Test
