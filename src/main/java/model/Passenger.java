@@ -4,7 +4,6 @@ import helpers.Consts;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
@@ -18,31 +17,25 @@ public class Passenger {
     private LocalDate dateOfBirth;
     private boolean baggageSelected;
     private boolean spanishSelected;
-    private double baggagePrice;
+    private double bagPrice;
     private String numberDNI;
-    private boolean isInfant, isChild, isAdult, isOverFive;
-    private ArrayList<Passenger> passengers;
 
 
     public Passenger(){}
 
-    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth,
-                     boolean baggageSelect, boolean spanishSelected, double baggagePrice) {
+    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth, boolean baggageSelect,
+                     boolean spanishSelected, double bagPrice) {
         this.firstName = firstName;
         this.lastName = lastName;
         setNumberDNI(numberDNI);
         setDateOfBirth(dateOfBirth);
         this.baggageSelected = baggageSelect;
         this.spanishSelected = spanishSelected;
-        this.baggagePrice = baggagePrice;
+        this.bagPrice = bagPrice;
     }
 
-//    public Passenger(String numberDNI){
-//        this.numberDNI = numberDNI;
-//    }
-
-    public Passenger(String firstName){
-        this.firstName = firstName;
+    public Passenger(String numberDNI){
+        this.numberDNI = numberDNI;
     }
 
 
@@ -59,11 +52,7 @@ public class Passenger {
 
 
     public double getBaggagePrice() {
-        return baggagePrice;
-    }
-
-    public void setBaggagePrice(double baggagePrice) {
-        this.baggagePrice = baggagePrice;
+        return bagPrice;
     }
 
 
@@ -141,35 +130,26 @@ public class Passenger {
         return false;
     }
 
-    public ArrayList<Passenger> getPassengers() { return this.passengers; }
-
-
 
     public boolean isSpanishCheckboxSelected() {
         return spanishSelected;
     }
+
 
     public boolean isBaggageSelected() {
         return baggageSelected;
     }
 
 
-
     public double setBaggagePriceSingle() {
-        double bagPrice = 0.0;
-        if(isBaggageSelected()) {
-            bagPrice = Consts.BAGGAGE_PRICE;
-        }
-        return bagPrice;
+        double bagPrice;
+        return bagPrice = Consts.BAGGAGE_PRICE;
     }
 
 
     public double setBaggagePriceReturn() {
-        double bagPrice = 0.0;
-        if(isBaggageSelected()) {
-            bagPrice = Consts.BAGGAGE_PRICE * 2;
-        }
-        return bagPrice;
+        double bagPrice;
+        return bagPrice = Consts.BAGGAGE_PRICE * 2;
     }
 
 

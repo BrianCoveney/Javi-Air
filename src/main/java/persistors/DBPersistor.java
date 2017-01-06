@@ -23,8 +23,8 @@ public class DBPersistor implements IPersistor {
         dbObjects = new ArrayList<AutoCloseable>();
         try {
 
-            String db_Driver = "com.mysql.jdbc.Driver";
-            String db_URL = "jdbc:mysql://localhost:3308/";
+            String db_Driver = "com.mysql.cj.jdbc.Driver";
+            String db_URL = "jdbc:mysql://localhost:3306/";
             String db_Name = "javiairdb?";
             String db_User = "root";
             String db_Pass = "bossdog12";
@@ -136,8 +136,9 @@ public class DBPersistor implements IPersistor {
                     PreparedStatement prepStmt =
                             dbConnection.prepareStatement(
                                     "INSERT INTO passenger " +
-                                            "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, Dni) " +
-                                            "VALUES(?, ?, ?, ?, ?, ?)");
+                                            "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, " +
+                                            "Dni, BagPrice) " +
+                                            "VALUES(?, ?, ?, ?, ?, ?, ?)");
 
                     prepStmt.setString(1, currentPassenger.getFirstName());
                     prepStmt.setString(2, currentPassenger.getLastName());
@@ -145,6 +146,7 @@ public class DBPersistor implements IPersistor {
                     prepStmt.setBoolean(4, currentPassenger.isBaggageSelected());
                     prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
                     prepStmt.setString(6, currentPassenger.getNumberDNI());
+                    prepStmt.setDouble(7, currentPassenger.getBaggagePrice());
 
                     prepStmt.executeUpdate();
                     dbObjects.add(prepStmt);

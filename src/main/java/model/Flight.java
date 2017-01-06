@@ -38,6 +38,7 @@ public abstract class Flight{
 
     public abstract double setPriceReturn();
 
+
     public double flightSelection(String dptFlight, String rtnFlight) {
         if (dptFlight != null && rtnFlight != null) {
             if (dptFlight.equals(Consts.CORK) && rtnFlight.equals((Consts.MADRID)) || dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.CORK)) {
@@ -107,8 +108,6 @@ public abstract class Flight{
     public double calculateDepartPlusReturnPrice(double x, double y) {
         return deptPlusRtnPrice = x + y;
     }
-
-
 
 
     public boolean isWeekend(String dayOfWeek) {

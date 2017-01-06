@@ -18,10 +18,7 @@ public class AdultFlight extends Flight {
         setPrice(price);
     }
 
-    public AdultFlight(String origin, String destination) {
 
-
-    }
 
 
     public static AdultFlight createFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime)  {

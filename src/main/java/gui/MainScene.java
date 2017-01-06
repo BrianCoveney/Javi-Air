@@ -84,7 +84,7 @@ public class MainScene extends Application {
     private DatePicker dateOfBirth1, dateOfBirth2, dateOfBirth3, dateOfBirth4, dateOfBirth5, dateOfBirth6, dateOfBirth7, dateOfBirth8, dpCCExpiryDate;
     private Spinner<Integer> spinnerPassengerNo;
     private List<Passenger> passengerList = FXCollections.observableArrayList();
-    private Passenger passengerOne, passenger1, passenger2, passenger3, passenger4, passenger5, passenger6, passenger7, passenger8;
+    private Passenger passengerOne, passenger, passenger1;
     private Flight flight, flightForChild, flightForBaby;
     private CreditCard creditCard;
     private FlightTimes flightTimes;
@@ -924,30 +924,14 @@ public class MainScene extends Application {
     }
 
 
-    private void addPassengers() {
-        passengerList = new ArrayList<>();
 
-        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
-
-            passengerOne = new Passenger(
-                    tfFirstNamesList.get(i).getText(),
-                    tfLastNamesList.get(i).getText(),
-                    numberDNIList.get(i).getText(),
-                    dpDateOfBirthList.get(i).getValue(),
-                    radioBtnBagList.get(i).isSelected(),
-                    checkboxListSpanish.get(i).isSelected());
-
-            passengerList.add(passengerOne);
-        }
-
-    }
 
 
     // get spanish rebate value from the Passenger object, based on the criteria of flights being to or from MAD / AGP
     public double spanishRebateSelected() {
         double spaPrice;
 
-        Passenger passenger = new Passenger();
+        passenger = new Passenger();
         spaPrice = passenger.setSpanishRebate(dptFlight, rtnFlight);
 
         for(Passenger p : passengerList) {
@@ -962,17 +946,19 @@ public class MainScene extends Application {
 
 
     private double calculateBagPrice() {
+
+        passenger1 = new Passenger();
+
         double bagPrice = 0;
-        for(Passenger passenger : passengerList) {
-            if (passenger != null) {
+
+            if (passenger1 != null) {
                 if (radioButtonReturn.isSelected()) {
-                    bagPrice = passenger.setBaggagePriceReturn();
+                    bagPrice = passenger1.setBaggagePriceReturn();
                     return bagPrice;
                 } else if (radioButtonOneWay.isSelected()) {
-                    bagPrice = passenger.setBaggagePriceSingle();
+                    bagPrice = passenger1.setBaggagePriceSingle();
                     return bagPrice;
                 }
-            }
         }
         return bagPrice;
     }
@@ -994,6 +980,32 @@ public class MainScene extends Application {
         }
         return price;
     }
+
+
+
+    private void addPassengers() {
+        passengerList = new ArrayList<>();
+
+        double bagPrice = calculateBagPrice();
+
+        for (int i = 0; i < spinnerPassengerNo.getValue(); i++) {
+
+            passengerOne = new Passenger(
+                    tfFirstNamesList.get(i).getText(),
+                    tfLastNamesList.get(i).getText(),
+                    numberDNIList.get(i).getText(),
+                    dpDateOfBirthList.get(i).getValue(),
+                    radioBtnBagList.get(i).isSelected(),
+                    checkboxListSpanish.get(i).isSelected(),
+                    bagPrice
+
+            );
+
+            passengerList.add(passengerOne);
+        }
+
+    }
+
 
 
     private void writeDetails() {
@@ -1175,7 +1187,7 @@ public class MainScene extends Application {
             }
         }catch (NullPointerException e) {
 //            e.printStackTrace(); // at java.sql.Date.valueOf - in DBPersistor prepStmt Date
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -1227,15 +1239,21 @@ public class MainScene extends Application {
         TableColumn<Passenger, String> firstNameCol = new TableColumn<>("First Name");
         TableColumn<Passenger, String> lastNameCol = new TableColumn<>("Last Name");
         TableColumn<Passenger, LocalDate> dateOfBirthCol = new TableColumn<>("Date of Birth");
+        TableColumn<Passenger, Double> bagPriceCol = new TableColumn<>("Bag Price");
+        TableColumn<Passenger, Boolean> bagSelectedCol = new TableColumn<>("Bag Selected");
+
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("lastName"));
         dateOfBirthCol.setCellValueFactory(new PropertyValueFactory<Passenger, LocalDate>("dateOfBirth"));
+        bagPriceCol.setCellValueFactory(new PropertyValueFactory<Passenger, Double>("baggagePrice"));
+        bagSelectedCol.setCellValueFactory(new PropertyValueFactory<Passenger, Boolean>("baggageSelected"));
+
 
         ObservableList<Passenger> passengerList = getPassengerList();
         table.setItems(passengerList);
 
-        table.getColumns().addAll(firstNameCol, lastNameCol, dateOfBirthCol);
+        table.getColumns().addAll(firstNameCol, lastNameCol, dateOfBirthCol, bagPriceCol, bagSelectedCol);
 
         return table;
     }
