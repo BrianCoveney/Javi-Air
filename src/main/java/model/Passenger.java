@@ -17,7 +17,7 @@ public class Passenger {
     private LocalDate dateOfBirth;
     private boolean baggageSelected;
     private boolean spanishSelected;
-    private double bagPrice;
+    private double baggagePrice;
     private String numberDNI;
 
 
@@ -31,7 +31,7 @@ public class Passenger {
         setDateOfBirth(dateOfBirth);
         this.baggageSelected = baggageSelect;
         this.spanishSelected = spanishSelected;
-        this.bagPrice = bagPrice;
+        this.baggagePrice = bagPrice;
     }
 
     public Passenger(String numberDNI){
@@ -52,7 +52,7 @@ public class Passenger {
 
 
     public double getBaggagePrice() {
-        return bagPrice;
+        return baggagePrice;
     }
 
 
@@ -142,15 +142,20 @@ public class Passenger {
 
 
     public double setBaggagePriceSingle() {
-        double bagPrice;
-        return bagPrice = Consts.BAGGAGE_PRICE;
+        if(isBaggageSelected()) {
+            baggagePrice = Consts.BAGGAGE_PRICE;
+        }
+        return baggagePrice;
     }
 
 
     public double setBaggagePriceReturn() {
-        double bagPrice;
-        return bagPrice = Consts.BAGGAGE_PRICE * 2;
+        if(isBaggageSelected()) {
+            baggagePrice = Consts.BAGGAGE_PRICE * 2;
+        }
+        return baggagePrice;
     }
+
 
 
     public boolean isPassengerInfant() {

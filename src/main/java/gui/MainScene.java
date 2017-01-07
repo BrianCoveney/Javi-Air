@@ -948,17 +948,21 @@ public class MainScene extends Application {
     private double calculateBagPrice() {
 
         passenger1 = new Passenger();
+        double bagPrice = 0.0;
 
-        double bagPrice = 0;
+        if (passenger1 != null) {
 
-            if (passenger1 != null) {
+            for (Passenger p : passengerList) {
                 if (radioButtonReturn.isSelected()) {
-                    bagPrice = passenger1.setBaggagePriceReturn();
-                    return bagPrice;
+                    if (p.isBaggageSelected()) {
+                        bagPrice = passenger1.setBaggagePriceReturn();
+                    }
                 } else if (radioButtonOneWay.isSelected()) {
-                    bagPrice = passenger1.setBaggagePriceSingle();
-                    return bagPrice;
+                    if (p.isBaggageSelected()) {
+                        bagPrice = passenger1.setBaggagePriceSingle();
+                    }
                 }
+            }
         }
         return bagPrice;
     }
@@ -986,8 +990,6 @@ public class MainScene extends Application {
     private void addPassengers() {
         passengerList = new ArrayList<>();
 
-        double bagPrice = calculateBagPrice();
-
         for (int i = 0; i < spinnerPassengerNo.getValue(); i++) {
 
             passengerOne = new Passenger(
@@ -996,9 +998,7 @@ public class MainScene extends Application {
                     numberDNIList.get(i).getText(),
                     dpDateOfBirthList.get(i).getValue(),
                     radioBtnBagList.get(i).isSelected(),
-                    checkboxListSpanish.get(i).isSelected(),
-                    bagPrice
-
+                    checkboxListSpanish.get(i).isSelected()
             );
 
             passengerList.add(passengerOne);
@@ -1186,8 +1186,8 @@ public class MainScene extends Application {
                 JaviairController.getInstance().savePassenger();
             }
         }catch (NullPointerException e) {
-//            e.printStackTrace(); // at java.sql.Date.valueOf - in DBPersistor prepStmt Date
-            System.out.println(e.getMessage());
+            e.printStackTrace(); // at java.sql.Date.valueOf - in DBPersistor prepStmt Date
+//            System.out.println(e.getMessage());
         }
     }
 
