@@ -124,9 +124,9 @@ public abstract class Flight{
 
     public String displayTotalPrice() {return "\t\t = €"+this.price;}
 
-    public String displayDeptDetails()  { return this.origin +" > "+ this.destination +"\t = €"+ this.departPrice; }
+    public String displayDeptDetails()  { return this.origin +" > "+ this.destination +" = €"+ this.departPrice; }
 
-    public String displayReturnDetails()  { return this.destination +" > "+ this.origin +"\t = €"+ this.returnPrice; }
+    public String displayReturnDetails()  { return this.destination +" > "+ this.origin +" = €"+ this.returnPrice; }
 
     public String getOrigin() {
         return origin;

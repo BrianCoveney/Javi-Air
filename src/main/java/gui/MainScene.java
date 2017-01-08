@@ -49,12 +49,9 @@ public class MainScene extends Application {
     private Button buttonCancel, buttonContinue, buttonPurchase;
     private ComboBox<String> comboOrigin;
     private ComboBox<String> comboDestination;
-    private RadioButton radioBtn1, radioBtn2, radioBtn3, radioBtn4, radioBtn5, radioBtn6, radioBtn7, radioBtn8;
-    private CheckBox checkboxSpa1, checkboxSpa2, checkboxSpa3, checkboxSpa4, checkboxSpa5, checkboxSpa6, checkboxSpa7, checkboxSpa8;
     private DatePicker datePickerDeparture;
     private DatePicker datePickerReturn;
     private GridPane gridPaneMiddle;
-    private TextArea textAreaDepart, textAreaReturn;
     private Label labelOrigin, labelDestination, labelDateDeparture, labelDateReturn;
     private ListView listView;
     private RadioButton radioButtonReturn, radioButtonOneWay, radioButtonDeptTime1, radioButtonDeptTime2, radioButtonReturnTime1, radioButtonReturnTime2;
@@ -77,14 +74,11 @@ public class MainScene extends Application {
     private ObservableList<DatePicker> dpDateOfBirthList = FXCollections.observableArrayList();
     private ObservableList<RadioButton> radioBtnBagList = FXCollections.observableArrayList();
     private ObservableList<CheckBox> checkboxListSpanish = FXCollections.observableArrayList();
-    public TextField fName, fName2, fName3, fName4, fName5, fName6, fName7, fName8,
-            lName, lName2, lName3, lName4, lName5, lName6, lName7, lName8,
-            custDNI1,custDNI2, custDNI3, custDNI4, custDNI5, custDNI6, custDNI7, custDNI8;
     protected TextField tfCCName,tfCCAddress1, tfCCAddress2, tfCCAddress3, tfCCType, tfCCNumber, tfCCVNumber;
-    private DatePicker dateOfBirth1, dateOfBirth2, dateOfBirth3, dateOfBirth4, dateOfBirth5, dateOfBirth6, dateOfBirth7, dateOfBirth8, dpCCExpiryDate;
+    private DatePicker dpCCExpiryDate;
     private Spinner<Integer> spinnerPassengerNo;
     private List<Passenger> passengerList = FXCollections.observableArrayList();
-    private Passenger passengerOne, passenger, passenger1;
+    private Passenger passenger;
     private Flight flight, flightForChild, flightForBaby;
     private CreditCard creditCard;
     private FlightTimes flightTimes;
@@ -110,7 +104,7 @@ public class MainScene extends Application {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(
                 createTopGridPane(), createMiddleGridPane(), createBottomPane(), createAnchorPane());
-        scene1 = new Scene(vBox, 800, 800);
+        scene1 = new Scene(vBox, 800, 825);
 
         listView = new ListView();
 
@@ -239,13 +233,16 @@ public class MainScene extends Application {
         radioButtonReturnTime1 = new RadioButton();
         radioButtonReturnTime2 = new RadioButton();
 
-        vBoxRadioBtns1 = new VBox(10);
+        vBoxRadioBtns1 = new VBox(20);
         vBoxRadioBtns1.getChildren().addAll(radioButtonDeptTime1, radioButtonDeptTime2);
         vBoxRadioBtns1.setMinWidth(200);
+        vBoxRadioBtns1.setMinHeight(75);
+        vBoxRadioBtns1.setMinHeight(75);
 
-        vBoxRadioBtns2 = new VBox(10);
+        vBoxRadioBtns2 = new VBox(20);
         vBoxRadioBtns2.getChildren().addAll(radioButtonReturnTime1, radioButtonReturnTime2);
         vBoxRadioBtns2.setMinWidth(200);
+        vBoxRadioBtns2.setMinHeight(75);
 
         labelOrigin = new Label("From: ");
         comboOrigin = new ComboBox<>();
@@ -585,6 +582,7 @@ public class MainScene extends Application {
     }
 
 
+
     private GridPane createMiddleGridPane() {
         gridPaneMiddle = new GridPane();
         gridPaneMiddle.setAlignment(Pos.CENTER);
@@ -711,61 +709,21 @@ public class MainScene extends Application {
         gridPaneRight.setVgap(10);
         gridPaneRight.setPadding(new Insets(20, 0, 0, 0));
 
-        gridPaneRight.add(firstNameArray[0], 1, 0);
-        gridPaneRight.add(lastNameArray[0], 2, 0);
-        gridPaneRight.add(numberDNIArray[0], 3, 0);
-        gridPaneRight.add(checkboxArraySpanish[0], 4, 0);
-        gridPaneRight.add(dateOfBirthArray[0], 5, 0);
-        gridPaneRight.add(radioBtnArray[0], 6, 0);
 
-        gridPaneRight.add(firstNameArray[1], 1, 1);
-        gridPaneRight.add(lastNameArray[1], 2, 1);
-        gridPaneRight.add(numberDNIArray[1], 3, 1);
-        gridPaneRight.add(checkboxArraySpanish[1], 4, 1);
-        gridPaneRight.add(dateOfBirthArray[1], 5, 1);
-        gridPaneRight.add(radioBtnArray[1], 6, 1);
 
-        gridPaneRight.add(firstNameArray[2], 1, 2);
-        gridPaneRight.add(lastNameArray[2], 2, 2);
-        gridPaneRight.add(numberDNIArray[2], 3, 2);
-        gridPaneRight.add(checkboxArraySpanish[2], 4, 2);
-        gridPaneRight.add(dateOfBirthArray[2], 5, 2);
-        gridPaneRight.add(radioBtnArray[2], 6, 2);
+        for(int i = 0; i < Consts.NO_OF_COL; i++) {
 
-        gridPaneRight.add(firstNameArray[3], 1, 3);
-        gridPaneRight.add(lastNameArray[3], 2, 3);
-        gridPaneRight.add(numberDNIArray[3], 3, 3);
-        gridPaneRight.add(checkboxArraySpanish[3], 4, 3);
-        gridPaneRight.add(dateOfBirthArray[3], 5, 3);
-        gridPaneRight.add(radioBtnArray[3], 6, 3);
+            for (int j = 0; j < Consts.NO_OF_ROWS; j++) {
 
-        gridPaneRight.add(firstNameArray[4], 1, 4);
-        gridPaneRight.add(lastNameArray[4], 2, 4);
-        gridPaneRight.add(numberDNIArray[4], 3, 4);
-        gridPaneRight.add(checkboxArraySpanish[4], 4, 4);
-        gridPaneRight.add(dateOfBirthArray[4], 5, 4);
-        gridPaneRight.add(radioBtnArray[4], 6, 4);
+                gridPaneRight.add(firstNameArray[j], i, j);
+                gridPaneRight.add(lastNameArray[j], i+1, j);
+                gridPaneRight.add(numberDNIArray[j], i+2 , j);
+                gridPaneRight.add(checkboxArraySpanish[j], i+3 , j);
+                gridPaneRight.add(dateOfBirthArray[j], i+4 , j);
+                gridPaneRight.add(radioBtnArray[j], i+5 , j);
 
-        gridPaneRight.add(firstNameArray[5], 1, 5);
-        gridPaneRight.add(lastNameArray[5], 2, 5);
-        gridPaneRight.add(numberDNIArray[5], 3, 5);
-        gridPaneRight.add(checkboxArraySpanish[5], 4, 5);
-        gridPaneRight.add(dateOfBirthArray[5], 5, 5);
-        gridPaneRight.add(radioBtnArray[5], 6, 5);
-
-        gridPaneRight.add(firstNameArray[6], 1, 6);
-        gridPaneRight.add(lastNameArray[6], 2, 6);
-        gridPaneRight.add(numberDNIArray[6], 3, 6);
-        gridPaneRight.add(checkboxArraySpanish[6], 4, 6);
-        gridPaneRight.add(dateOfBirthArray[6], 5, 6);
-        gridPaneRight.add(radioBtnArray[6], 6, 6);
-
-        gridPaneRight.add(firstNameArray[7], 1, 7);
-        gridPaneRight.add(lastNameArray[7], 2, 7);
-        gridPaneRight.add(numberDNIArray[7], 3, 7);
-        gridPaneRight.add(checkboxArraySpanish[7], 4, 7);
-        gridPaneRight.add(dateOfBirthArray[7], 5, 7);
-        gridPaneRight.add(radioBtnArray[7], 6, 7);
+            }
+        }
 
 
         disableBaggageOptionForInfants();
@@ -910,7 +868,6 @@ public class MainScene extends Application {
         double infantPrice = infantFlight.setPriceSingle();
         double infantTotalPrice = infantFlight.setPriceReturn();
 
-
         // constructor
         flightForBaby = new InfantFlight(
                 dptFlight,
@@ -922,9 +879,6 @@ public class MainScene extends Application {
                 selectedReturnTime);
 
     }
-
-
-
 
 
     // get spanish rebate value from the Passenger object, based on the criteria of flights being to or from MAD / AGP
@@ -946,22 +900,13 @@ public class MainScene extends Application {
 
 
     private double calculateBagPrice() {
-
-        passenger1 = new Passenger();
         double bagPrice = 0.0;
 
-        if (passenger1 != null) {
-
-            for (Passenger p : passengerList) {
-                if (radioButtonReturn.isSelected()) {
-                    if (p.isBaggageSelected()) {
-                        bagPrice = passenger1.setBaggagePriceReturn();
-                    }
-                } else if (radioButtonOneWay.isSelected()) {
-                    if (p.isBaggageSelected()) {
-                        bagPrice = passenger1.setBaggagePriceSingle();
-                    }
-                }
+        if (passenger != null) {
+            if (radioButtonReturn.isSelected()) {
+                bagPrice = passenger.setBaggagePriceReturn();
+            } else if (radioButtonOneWay.isSelected()) {
+                bagPrice = passenger.setBaggagePriceSingle();
             }
         }
         return bagPrice;
@@ -992,7 +937,7 @@ public class MainScene extends Application {
 
         for (int i = 0; i < spinnerPassengerNo.getValue(); i++) {
 
-            passengerOne = new Passenger(
+            passenger = new Passenger(
                     tfFirstNamesList.get(i).getText(),
                     tfLastNamesList.get(i).getText(),
                     numberDNIList.get(i).getText(),
@@ -1001,7 +946,7 @@ public class MainScene extends Application {
                     checkboxListSpanish.get(i).isSelected()
             );
 
-            passengerList.add(passengerOne);
+            passengerList.add(passenger);
         }
 
     }
@@ -1177,18 +1122,13 @@ public class MainScene extends Application {
 
 
     private void addPassengerDetailsToDatabase() {
-
-        try {
-            if(passengerList != null) {
-                for(Passenger passenger : passengerList) {
-                    JaviairController.getInstance().addPassenger(passenger);
-                }
-                JaviairController.getInstance().savePassenger();
+        if (passengerList != null) {
+            for (Passenger passenger : passengerList) {
+                JaviairController.getInstance().addPassenger(passenger);
             }
-        }catch (NullPointerException e) {
-            e.printStackTrace(); // at java.sql.Date.valueOf - in DBPersistor prepStmt Date
-//            System.out.println(e.getMessage());
+            JaviairController.getInstance().savePassenger();
         }
+
     }
 
 

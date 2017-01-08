@@ -141,6 +141,8 @@ public class Passenger {
     }
 
 
+
+
     public double setBaggagePriceSingle() {
         if(isBaggageSelected()) {
             baggagePrice = Consts.BAGGAGE_PRICE;

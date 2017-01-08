@@ -25,6 +25,8 @@ public class Consts {
     public static final String SAT = "SATURDAY";
     public static final String SUN = "SUNDAY";
     public static final String TUE = "TUESDAY";
+    public static final int NO_OF_COL = 1;
+    public static final int NO_OF_ROWS = 8;
 
     // constants - flight airports
     public static final String CORK = "ORK";
