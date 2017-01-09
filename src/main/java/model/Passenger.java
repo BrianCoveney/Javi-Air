@@ -19,25 +19,14 @@ public class Passenger {
     private boolean spanishSelected;
     private double baggagePrice;
     private String numberDNI;
+    private double spaRebate;
 
 
     public Passenger(){}
 
-    public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth, boolean baggageSelect,
-                     boolean spanishSelected, double bagPrice) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        setNumberDNI(numberDNI);
-        setDateOfBirth(dateOfBirth);
-        this.baggageSelected = baggageSelect;
-        this.spanishSelected = spanishSelected;
-        this.baggagePrice = bagPrice;
-    }
-
     public Passenger(String numberDNI){
         this.numberDNI = numberDNI;
     }
-
 
     public Passenger(String firstName, String lastName, String numberDNI, LocalDate dateOfBirth,
                      boolean baggageSelect, boolean spanishSelected) {
@@ -50,29 +39,27 @@ public class Passenger {
 
     }
 
-
     public double getBaggagePrice() {
         return baggagePrice;
     }
 
 
-    // set spanish rebate value, based on the criteria of flights being to or from MAD / AGP
-    public double setSpanishRebate(String origin, String destination) {
+    public double getSpaRebate() { return spaRebate; }
 
-        double spaPrice = 0;
-        for (int i = 0; i < Consts.MAX_PASSENGER_NO; i++) {
+    public double setSpaRebate(String origin, String destination) {
+
+        // set spanish rebate value, based on the criteria of flights being to or from MAD / AGP
+
+        if (isSpanishCheckboxSelected()) {
             if (origin.equals(Consts.MADRID) && destination.equals(Consts.MALAGA)) {
-                spaPrice = Consts.SPANISH_REBATE_DOUBLED;
-                return spaPrice;
+                spaRebate = Consts.SPANISH_REBATE_DOUBLED;
             } else if (origin.equals(Consts.MALAGA) && destination.equals(Consts.MADRID)) {
-                spaPrice = Consts.SPANISH_REBATE;
-                return spaPrice;
+                spaRebate = Consts.SPANISH_REBATE;
             } else {
-                spaPrice = Consts.ZERO;
-                return spaPrice;
+                spaRebate = Consts.ZERO;
             }
         }
-        return spaPrice;
+        return spaRebate;
     }
 
 

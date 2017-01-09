@@ -137,8 +137,8 @@ public class DBPersistor implements IPersistor {
                             dbConnection.prepareStatement(
                                     "INSERT INTO passenger " +
                                             "(FirstName, LastName, DateOfBirth, BaggageSelected, SpanishSelected, " +
-                                            "Dni, BagPrice) " +
-                                            "VALUES(?, ?, ?, ?, ?, ?, ?)");
+                                            "Dni, BagPrice, SpanishRebate) " +
+                                            "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 
                     prepStmt.setString(1, currentPassenger.getFirstName());
                     prepStmt.setString(2, currentPassenger.getLastName());
@@ -147,6 +147,7 @@ public class DBPersistor implements IPersistor {
                     prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
                     prepStmt.setString(6, currentPassenger.getNumberDNI());
                     prepStmt.setDouble(7, currentPassenger.getBaggagePrice());
+                    prepStmt.setDouble(8, currentPassenger.getSpaRebate());
 
                     prepStmt.executeUpdate();
                     dbObjects.add(prepStmt);

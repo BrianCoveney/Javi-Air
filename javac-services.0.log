@@ -1,0 +1,28 @@
+INFO	?	main	2017-01-09T13:19:21.736Z	org.javacs.Main#connectToNode	Connected to parent using socket on port 55282
+INFO	?	main	2017-01-09T13:19:21.887Z	org.javacs.JavaLanguageServer#doLint	Lint [/home/brian/workspace/javiair/src/main/java/gui/MainScene.java]
+INFO	?	main	2017-01-09T13:19:21.908Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to /tmp/classpath5569625159832269368.txt
+INFO	?	main	2017-01-09T13:19:27.172Z	org.javacs.JavaLanguageServer#sourceDirectories	Use default source directory src/main/java
+INFO	?	main	2017-01-09T13:19:27.173Z	org.javacs.JavaLanguageServer#sourceDirectories	Use default test directory src/test/java
+INFO	?	InitialIndex	2017-01-09T13:19:27.411Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/persistors/IPersistor.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.421Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/persistors/DBPersistor.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.428Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/controller/JaviairController.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.438Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/gui/MainScene.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.474Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/Passenger.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.480Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/AdultFlight.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.482Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/InfantFlight.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.484Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/Flight.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.491Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/CreditCard.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.499Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/ChildFlight.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.517Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/model/FlightTimes.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.521Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/helpers/UtilityClass.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.527Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/main/java/helpers/Consts.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.531Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/InfantFlightTest.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.533Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/FlightTest.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.535Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/CreditCardTest.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.537Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/FlightTimesTest.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.541Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/PassengerTest.java
+INFO	?	InitialIndex	2017-01-09T13:19:27.544Z	org.javacs.SymbolIndex$1#parseAll	Index /home/brian/workspace/javiair/src/test/java/model/ChildFlightTest.java
+INFO	?	main	2017-01-09T13:19:47.484Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to /tmp/classpath8960936613595713961.txt
+INFO	?	main	2017-01-09T13:19:50.240Z	org.javacs.JavaLanguageServer#sourceDirectories	Use default source directory src/main/java
+INFO	?	main	2017-01-09T13:19:50.242Z	org.javacs.JavaLanguageServer#sourceDirectories	Use default test directory src/test/java
+INFO	?	main	2017-01-09T13:26:27.556Z	org.javacs.Main#run	Connection closed

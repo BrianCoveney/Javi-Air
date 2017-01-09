@@ -94,6 +94,9 @@ public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+
+
+
         JaviairController.getInstance().setPersistor(new DBPersistor());
 
         window = primaryStage;
@@ -883,19 +886,13 @@ public class MainScene extends Application {
 
     // get spanish rebate value from the Passenger object, based on the criteria of flights being to or from MAD / AGP
     public double spanishRebateSelected() {
-        double spaPrice;
-
-        passenger = new Passenger();
-        spaPrice = passenger.setSpanishRebate(dptFlight, rtnFlight);
+        double spaRebate = 0.0;
 
         for(Passenger p : passengerList) {
-            if(p.isSpanishCheckboxSelected()) {
-                return spaPrice;
-            } else {
-                spaPrice = 0.0;
-            }
+            spaRebate = p.setSpaRebate(dptFlight, rtnFlight);
         }
-        return spaPrice;
+
+        return spaRebate;
     }
 
 
@@ -1093,7 +1090,6 @@ public class MainScene extends Application {
                             else {
                                 // go to next scene
                                 writeDetails();
-
                             }
                         }
                     }
@@ -1181,19 +1177,20 @@ public class MainScene extends Application {
         TableColumn<Passenger, LocalDate> dateOfBirthCol = new TableColumn<>("Date of Birth");
         TableColumn<Passenger, Double> bagPriceCol = new TableColumn<>("Bag Price");
         TableColumn<Passenger, Boolean> bagSelectedCol = new TableColumn<>("Bag Selected");
-
+        TableColumn<Passenger, Double> spanishRebateCol = new TableColumn<>("Spanish Rebate");
 
         firstNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("firstName"));
         lastNameCol.setCellValueFactory(new PropertyValueFactory<Passenger, String>("lastName"));
         dateOfBirthCol.setCellValueFactory(new PropertyValueFactory<Passenger, LocalDate>("dateOfBirth"));
         bagPriceCol.setCellValueFactory(new PropertyValueFactory<Passenger, Double>("baggagePrice"));
         bagSelectedCol.setCellValueFactory(new PropertyValueFactory<Passenger, Boolean>("baggageSelected"));
+        spanishRebateCol.setCellValueFactory(new PropertyValueFactory<Passenger, Double>("spaRebate"));
 
 
         ObservableList<Passenger> passengerList = getPassengerList();
         table.setItems(passengerList);
 
-        table.getColumns().addAll(firstNameCol, lastNameCol, dateOfBirthCol, bagPriceCol, bagSelectedCol);
+        table.getColumns().addAll(firstNameCol, lastNameCol, dateOfBirthCol, bagPriceCol, bagSelectedCol, spanishRebateCol);
 
         return table;
     }
