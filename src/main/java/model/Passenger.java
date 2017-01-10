@@ -16,6 +16,9 @@ public class Passenger {
     private String lastName;
     private LocalDate dateOfBirth;
     private boolean baggageSelected;
+
+
+
     private boolean spanishSelected;
     private double baggagePrice;
     private String numberDNI;
@@ -43,14 +46,13 @@ public class Passenger {
         return baggagePrice;
     }
 
-
     public double getSpaRebate() { return spaRebate; }
 
     public double setSpaRebate(String origin, String destination) {
 
         // set spanish rebate value, based on the criteria of flights being to or from MAD / AGP
 
-        if (isSpanishCheckboxSelected()) {
+        if (isSpanishSelected()) {
             if (origin.equals(Consts.MADRID) && destination.equals(Consts.MALAGA)) {
                 spaRebate = Consts.SPANISH_REBATE_DOUBLED;
             } else if (origin.equals(Consts.MALAGA) && destination.equals(Consts.MADRID)) {
@@ -118,8 +120,13 @@ public class Passenger {
     }
 
 
-    public boolean isSpanishCheckboxSelected() {
+    public boolean isSpanishSelected() {
         return spanishSelected;
+    }
+
+
+    public void setSpanishSelected(boolean spanishSelected) {
+        this.spanishSelected = spanishSelected;
     }
 
 
@@ -221,7 +228,7 @@ public class Passenger {
 
     public double spanishRebateValue() {
         double value = 0;
-        if (isSpanishCheckboxSelected()) {
+        if (isSpanishSelected()) {
             value = Consts.SPANISH_REBATE;
         }
         return value;
@@ -230,7 +237,7 @@ public class Passenger {
 
     public double spanishRebateValueDoubled() {
         double value = 0;
-        if (isSpanishCheckboxSelected()) {
+        if (isSpanishSelected()) {
             value = Consts.SPANISH_REBATE * 2;
         }
         return value;
@@ -238,7 +245,7 @@ public class Passenger {
 
     public double spanishRebateValueNull() {
         double value = 0;
-        if (isSpanishCheckboxSelected()) {
+        if (isSpanishSelected()) {
             value = Consts.NO_SPANISH_REBATE;
         }
         return value;

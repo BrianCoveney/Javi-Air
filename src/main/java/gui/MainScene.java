@@ -1038,8 +1038,36 @@ public class MainScene extends Application {
     }
 
 
+    public boolean checkForMaxTwoChildern() {
+        int i = 0;
+        int countInfant = 0;
+        int countChildren = 0;
 
-    public void validateForEmptyFields() {
+        for (Passenger mPassenger : passengerList)
+        {
+            i++;
+
+            if (mPassenger.isPassengerInfant())
+                countInfant++;
+
+            if (mPassenger.isPassengerAChild())
+                countChildren++;
+
+            if (spinnerPassengerNo.getValue() == i)
+            {
+
+                if (countChildren >= 3 || countInfant >= 3 || countChildren == 2 && countInfant > 0  || countInfant == 2 && countChildren > 0 )
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
+    public void validate() {
 
         addPassengers();
 
@@ -1047,47 +1075,38 @@ public class MainScene extends Application {
             if (datePickerDeparture.getValue() != null || datePickerReturn.getValue() != null) {
 
                     int i = 0;
-                    int countInfant = 0;
-                    int countChildren = 0;
                     int countAdult = 0;
 
                     for (Passenger mPassenger : passengerList) {
                         i++;
 
-                        if(mPassenger.isPassengerInfant())
-                            countInfant++;
-
-                        if (mPassenger.isPassengerAChild())
-                            countChildren++;
-
-                        if(mPassenger.isPassengerOver18())
+                        if (mPassenger.isPassengerOver18())
                             countAdult++;
 
 
                         if (spinnerPassengerNo.getValue() == i) {
 
-                            String fName = mPassenger.getFirstName();
-                            String lName = mPassenger.getLastName();
-
-                            if(!mPassenger.validateFirstName(fName) || !mPassenger.validateLastName(lName)) {
+                            if(!mPassenger.validateFirstName(mPassenger.getFirstName()) || !mPassenger.validateLastName(mPassenger.getLastName()))
+                            {
                                 UtilityClass.errorMessagePassengerName();
                             }
 
-                            else if(mPassenger.isSpanishCheckboxSelected() && !mPassenger.validateDNINumber()){
+                            else if(mPassenger.isSpanishSelected() && !mPassenger.validateDNINumber())
+                            {
                                 UtilityClass.errorMessageDNINumber();
                             }
 
-                            else if (countChildren >= 3 || countInfant >= 3 ||
-                                    countChildren == 2 && countInfant > 0  ||
-                                    countInfant == 2 && countChildren > 0 )
+                            else if (checkForMaxTwoChildern())
                             {
                                 UtilityClass.errorMessageMaxTwoChildren();
                             }
 
-                            else if (countAdult == 0) {
+                            else if (countAdult == 0)
+                            {
                                 UtilityClass.errorMessageUnder18();
                             }
-                            else {
+                            else
+                            {
                                 // go to next scene
                                 writeDetails();
                             }
@@ -1221,7 +1240,7 @@ public class MainScene extends Application {
         buttonCancel.setOnAction(event -> UtilityClass.confirmBoxCloseApp());
 
         buttonContinue = new Button("Continue");
-        buttonContinue.setOnAction(event -> validateForEmptyFields());
+        buttonContinue.setOnAction(event -> validate());
 
         HBox hBox = new HBox();
         hBox.setSpacing(20);

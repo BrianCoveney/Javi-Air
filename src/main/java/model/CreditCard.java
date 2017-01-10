@@ -47,7 +47,7 @@ public class CreditCard {
     }
 
 
-    // validation of Credit Card using the Luhn algorithm
+    // validate of Credit Card using the Luhn algorithm
     public boolean validateCreditCardNumber(String inputCCNum) {
         boolean isValid = false;
         int total = 0;

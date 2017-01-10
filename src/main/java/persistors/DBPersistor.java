@@ -144,7 +144,7 @@ public class DBPersistor implements IPersistor {
                     prepStmt.setString(2, currentPassenger.getLastName());
                     prepStmt.setDate(3,  dateOfBirth);
                     prepStmt.setBoolean(4, currentPassenger.isBaggageSelected());
-                    prepStmt.setBoolean(5, currentPassenger.isSpanishCheckboxSelected());
+                    prepStmt.setBoolean(5, currentPassenger.isSpanishSelected());
                     prepStmt.setString(6, currentPassenger.getNumberDNI());
                     prepStmt.setDouble(7, currentPassenger.getBaggagePrice());
                     prepStmt.setDouble(8, currentPassenger.getSpaRebate());

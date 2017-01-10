@@ -12,6 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotSame;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
@@ -19,7 +20,9 @@ import static org.hamcrest.core.IsEqual.equalTo;
  */
 public class PassengerTest {
 
-    protected Passenger passenger1, passenger2, passenger3, passenger4, passenger5;
+
+
+    protected Passenger passenger, passenger2, passenger3, passenger4, passenger5, passenger6;
     protected String validDNI = Consts.SPANISH_VALID_DNI;
     protected String inValidDNI = Consts.SPANISH_INVALID_DNI;
     protected String validFirstName = "Brian";
@@ -29,6 +32,9 @@ public class PassengerTest {
     protected String inValidLastName = "11Coveney";
     protected String dob;
     protected LocalDate over18, infant, child, over5, genericDate;
+    protected double spanishRebate;
+    double x;
+
 
 
     @Before
@@ -40,10 +46,10 @@ public class PassengerTest {
         child = LocalDate.now().minusYears(4);
         genericDate = Year.now().minusYears(18).atMonth(Month.SEPTEMBER).atDay(12);
 
-
-        passenger1 = new Passenger();
-        passenger1.setNumberDNI(validDNI);
-        passenger1.setDateOfBirth(child);
+        passenger = new Passenger();
+        passenger.setNumberDNI(validDNI);
+        passenger.setDateOfBirth(child);
+        passenger.setSpanishSelected(true);
 
         passenger2 = new Passenger();
         passenger2.setNumberDNI(inValidDNI);
@@ -60,20 +66,22 @@ public class PassengerTest {
         passenger5 = new Passenger(inValidFirstName, inValidLastName,
                 inValidDNI, genericDate, false, false); // not selected
 
+
     }
 
 
-//    @Test
-//    public void setSpanishRebate() throws Exception {
-//        assertEquals(Consts.SPANISH_REBATE, passenger1.setSpaRebate(Consts.MALAGA, Consts.MADRID));
-//        assertEquals(Consts.SPANISH_REBATE_DOUBLED, passenger1.setSpaRebate(Consts.MADRID, Consts.MALAGA));
-//        assertEquals(Consts.ZERO, passenger1.setSpaRebate(Consts.CORK, Consts.PARIS));
-//    }
+    @Test
+    public void setSpaRebate() throws Exception {
+        assertThat(Consts.SPANISH_REBATE_DOUBLED, is(passenger.setSpaRebate(Consts.MADRID, Consts.MALAGA)));
+        assertThat(Consts.SPANISH_REBATE, not(passenger.setSpaRebate(Consts.MADRID, Consts.MALAGA)));
+        assertThat(Consts.SPANISH_REBATE, is(passenger.setSpaRebate(Consts.MALAGA, Consts.MADRID)));
+        assertThat(Consts.ZERO, is(passenger.setSpaRebate(Consts.CORK, Consts.PARIS)));
+    }
 
 
     @Test
     public void isPassengerAChild() throws Exception {
-        assertEquals(true, passenger1.isPassengerAChild());
+        assertEquals(true, passenger.isPassengerAChild());
         assertEquals(false, passenger3.isPassengerAChild());
     }
 
@@ -87,7 +95,7 @@ public class PassengerTest {
     @Test
     public void isPassengerOver18() throws Exception {
         assertEquals(true, passenger3.isPassengerOver18());
-        assertEquals(false, passenger1.isPassengerOver18());
+        assertEquals(false, passenger.isPassengerOver18());
 
     }
 
@@ -100,11 +108,8 @@ public class PassengerTest {
 
     @Test
     public void validateDNINumber() throws Exception {
-//        assertThat(passenger1.validateDNINumber(), is(true));
-//        assertThat(passenger2.validateDNINumber(), is(not(equalTo(true))));
-
-        assertEquals(true,passenger1.validateDNINumber());
-        assertEquals(false, passenger2.validateDNINumber());
+        assertThat(passenger.validateDNINumber(), is(true));
+        assertThat(passenger2.validateDNINumber(), is(not(equalTo(true))));
 
     }
 
