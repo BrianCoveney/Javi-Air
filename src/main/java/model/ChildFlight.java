@@ -14,6 +14,7 @@ public class ChildFlight extends Flight {
     public ChildFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
         super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
         setPrice(price);
+
     }
 
     @Override

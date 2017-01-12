@@ -9,16 +9,18 @@ import java.time.LocalDate;
  */
 public abstract class Flight{
 
-    protected String origin;
-    protected String destination;
-    protected Double departPrice;
-    protected Double returnPrice;
-    protected Double price;
-    protected String departTime;
-    protected String returnTime;
-    protected double flightPrice;
-    protected double weekendPrice;
-    protected double deptPlusRtnPrice;
+    private String origin;
+    private String destination;
+    private Double departPrice;
+    private Double returnPrice;
+    private Double price;
+    private String departTime;
+    private String returnTime;
+    private double flightPrice;
+    private double weekendPrice;
+    private double deptPlusRtnPrice;
+    private double bagPrice;
+
 
 
     public Flight(){}
@@ -39,7 +41,7 @@ public abstract class Flight{
     public abstract double setPriceReturn();
 
 
-    public double flightSelection(String dptFlight, String rtnFlight) {
+    public final double flightSelection(String dptFlight, String rtnFlight) {
         if (dptFlight != null && rtnFlight != null) {
             if (dptFlight.equals(Consts.CORK) && rtnFlight.equals((Consts.MADRID)) || dptFlight.equals(Consts.MADRID) && rtnFlight.equals(Consts.CORK)) {
                 flightPrice = Consts.ONE_HND;
@@ -89,20 +91,18 @@ public abstract class Flight{
     }
 
 
-    public boolean isDateValid(LocalDate departDate, LocalDate returnDate) {
+    public final boolean dateIsInvalid(LocalDate departDate, LocalDate returnDate) {
         if (departDate != null && returnDate != null) {
             if (departDate.isAfter(returnDate)) {
-                return false;
-            } else {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
 
     public double calculateWeekendFlightPrice(double x, double y) {
-        return weekendPrice = x + y * 0.2;
+        return weekendPrice = x + y * Consts.WEEKEND_RATE;
     }
 
     public double calculateDepartPlusReturnPrice(double x, double y) {
@@ -116,6 +116,14 @@ public abstract class Flight{
         }
         return false;
     }
+
+
+    public double getBaggagePrice(Passenger passenger) {
+        bagPrice = passenger.getBaggagePrice();
+        return this.bagPrice;
+    }
+
+    public double getBagPrice() { return bagPrice; }
 
 
     public void setPrice(Double price) {

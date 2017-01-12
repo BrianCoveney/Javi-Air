@@ -51,3 +51,7 @@
     -fx-text-fill: #848484;
     -fx-font-size: 10px;
 }
+
+.text-area *.text {
+    -fx-text-alignment: center;
+}

@@ -10,7 +10,7 @@ import persistors.IPersistor;
 /**
  * Created by brian on 26/10/16.
  */
-public class JaviairController {
+public final class JaviairController {
 
     private static JaviairController instance;
     private IPersistor persistor;

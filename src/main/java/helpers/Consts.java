@@ -13,7 +13,6 @@ public class Consts {
     public static final Double CHILD_PRICE = 60.0;
     public static final double SPANISH_REBATE = 5.0;
     public static final double SPANISH_REBATE_DOUBLED = 10.0;
-    public static final double NO_SPANISH_REBATE = 0.0;
     public static final String FIRST_NAME_VALID = "[a-zA-z]+([ '-][a-zA-Z]+)*";
     public static final String LAST_NAME_VALID = "[A-Z][a-zA-Z]*";
     public static final String CREDIT_VALID_VALID_NO = "4929766254319102";
@@ -27,6 +26,7 @@ public class Consts {
     public static final String TUE = "TUESDAY";
     public static final int NO_OF_COL = 1;
     public static final int NO_OF_ROWS = 8;
+    public static double WEEKEND_RATE = 0.2;
 
     // constants - flight airports
     public static final String CORK = "ORK";

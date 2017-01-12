@@ -16,13 +16,13 @@ public class Passenger {
     private String lastName;
     private LocalDate dateOfBirth;
     private boolean baggageSelected;
-
-
-
     private boolean spanishSelected;
     private double baggagePrice;
     private String numberDNI;
     private double spaRebate;
+    private double dptPrice;
+    private double rtnPrice;
+    private double flightPrice;
 
 
     public Passenger(){}
@@ -183,6 +183,8 @@ public class Passenger {
         return false;
     }
 
+
+
     public boolean isPassengerOver5() {
         if(this.getDateOfBirth() != null) {
             if (this.getDateOfBirth().isBefore(LocalDate.now().minusYears(5))) {
@@ -235,20 +237,13 @@ public class Passenger {
     }
 
 
-    public double spanishRebateValueDoubled() {
-        double value = 0;
-        if (isSpanishSelected()) {
-            value = Consts.SPANISH_REBATE * 2;
-        }
-        return value;
-    }
 
-    public double spanishRebateValueNull() {
-        double value = 0;
-        if (isSpanishSelected()) {
-            value = Consts.NO_SPANISH_REBATE;
-        }
-        return value;
+    public double getFlightPrice(Flight flight) {
+        dptPrice = flight.getDepartPrice();
+        rtnPrice = flight.getReturnPrice();
+        flightPrice = dptPrice + rtnPrice;
+
+        return flightPrice;
     }
 
 

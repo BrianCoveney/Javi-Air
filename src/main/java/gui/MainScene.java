@@ -28,7 +28,6 @@ import java.util.List;
 
 public class MainScene extends Application {
 
-    private ArrayList<TextField> firstNameArrayList;
     private TextField[] firstNameArray = new TextField[Consts.MAX_PASSENGER_NO];
     private TextField[] lastNameArray = new TextField[Consts.MAX_PASSENGER_NO];
     private TextField[] numberDNIArray = new TextField[Consts.MAX_PASSENGER_NO];
@@ -36,11 +35,10 @@ public class MainScene extends Application {
     private RadioButton[] radioBtnArray = new RadioButton[Consts.MAX_PASSENGER_NO];
     private CheckBox[] checkboxArraySpanish = new CheckBox[Consts.MAX_PASSENGER_NO];
 
-
-
+    private BorderPane borderPaneScene3;
     private static final ObservableList airportList = FXCollections.observableArrayList();
     private VBox vBoxRadioBtns1, vBoxRadioBtns2;
-    private String mFlightTimes, flightTime1, flightTime2, selectedDeptTime, selectedReturnTime;
+    private String flightTime1, flightTime2, selectedDeptTime, selectedReturnTime;
     private final ToggleGroup toggleGroupFlights = new ToggleGroup();
     private final ToggleGroup toggleGroupFlightTimes_1 = new ToggleGroup();
     private final ToggleGroup toggleGroupFlightTimes_2 = new ToggleGroup();
@@ -49,8 +47,7 @@ public class MainScene extends Application {
     private Button buttonCancel, buttonContinue, buttonPurchase;
     private ComboBox<String> comboOrigin;
     private ComboBox<String> comboDestination;
-    private DatePicker datePickerDeparture;
-    private DatePicker datePickerReturn;
+    private DatePicker datePickerDeparture, datePickerReturn;
     private GridPane gridPaneMiddle;
     private Label labelOrigin, labelDestination, labelDateDeparture, labelDateReturn;
     private ListView listView;
@@ -66,15 +63,16 @@ public class MainScene extends Application {
     private LocalDate ldDepartDate, ldReturnDate, dateDept, dateReturn;
     private GridPane gridPaneLeft;
     private Stage window;
-    private Scene scene1, scene2;
-    private VBox nextSceneVBox;
+    private Scene scene1, scene2, scene3;
+    private VBox nextSceneVBox_1, nextSceneVBox_2;
     private ObservableList<TextField> tfFirstNamesList = FXCollections.observableArrayList();
     private ObservableList<TextField> tfLastNamesList = FXCollections.observableArrayList();
     private ObservableList<TextField> numberDNIList = FXCollections.observableArrayList();
     private ObservableList<DatePicker> dpDateOfBirthList = FXCollections.observableArrayList();
     private ObservableList<RadioButton> radioBtnBagList = FXCollections.observableArrayList();
     private ObservableList<CheckBox> checkboxListSpanish = FXCollections.observableArrayList();
-    protected TextField tfCCName,tfCCAddress1, tfCCAddress2, tfCCAddress3, tfCCType, tfCCNumber, tfCCVNumber;
+    private TextField tfCCName,tfCCAddress1, tfCCAddress2, tfCCAddress3, tfCCType, tfCCNumber, tfCCVNumber;
+    private TextArea textAreaScene3;
     private DatePicker dpCCExpiryDate;
     private Spinner<Integer> spinnerPassengerNo;
     private List<Passenger> passengerList = FXCollections.observableArrayList();
@@ -95,8 +93,6 @@ public class MainScene extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 
-
-
         JaviairController.getInstance().setPersistor(new DBPersistor());
 
         window = primaryStage;
@@ -109,10 +105,14 @@ public class MainScene extends Application {
                 createTopGridPane(), createMiddleGridPane(), createBottomPane(), createAnchorPane());
         scene1 = new Scene(vBox, 800, 825);
 
-        listView = new ListView();
+        nextSceneVBox_1 = new VBox();
+        scene2 = new Scene(this.nextSceneVBox_1, 700, 700);
 
-        this.nextSceneVBox = new VBox();
-        scene2 = new Scene(this.nextSceneVBox, 700, 700);
+        listView = new ListView();
+        textAreaScene3 = new TextArea();
+
+        borderPaneScene3 = new BorderPane();
+        scene3 = new Scene(borderPaneScene3, 700, 700);
 
         scene1.getStylesheets().add("/stylesheet.css");
         primaryStage.setScene(scene1);
@@ -159,6 +159,13 @@ public class MainScene extends Application {
             addCreditCardDetailsToDatabase();
             getTableViewFlight();
             getTableViewPassenger();
+
+            displayPurchase();
+
+            borderPaneScene3.setCenter(listView);
+            borderPaneScene3.setBottom(textAreaScene3);
+            window.setScene(scene3);
+
         });
 
         gridPane.add(tfCCName, 0, 1);
@@ -177,6 +184,43 @@ public class MainScene extends Application {
 
         return gridPane;
     }
+
+
+
+    private TextArea displayPurchase() {
+        double bPrice;
+        double sPrice;
+        double runningTotalFlightPrice = 0;
+        double runningTotalBagPrice = 0;
+        double runningTotalSpanishPrice = 0;
+        double finalPrice;
+
+        double fPrice = flight.getPrice();
+        for(int i = 0; i < spinnerPassengerNo.getValue(); i++) {
+            runningTotalFlightPrice += fPrice;
+        }
+
+        for (Passenger passenger : passengerList) {
+            bPrice = passenger.getBaggagePrice();
+            sPrice = passenger.getSpaRebate();
+            runningTotalBagPrice += bPrice;
+            runningTotalSpanishPrice += sPrice;
+        }
+
+        finalPrice = runningTotalBagPrice + runningTotalSpanishPrice + runningTotalFlightPrice;
+
+
+        textAreaScene3.setText( "\n\nReceipt \n\n" +
+                                "Total Spanish Rebate \t" + String.valueOf(runningTotalBagPrice) + "\n" +
+                                "Total Baggage Price \t" + String.valueOf(runningTotalSpanishPrice) + "\n" +
+                                "Total Flight Price \t\t" + String.valueOf(runningTotalFlightPrice) + "\n\n" +
+                                "Total \t\t\t\t" + finalPrice
+        );
+
+        return textAreaScene3;
+    }
+
+
 
 
     private void createCreditCard() {
@@ -478,7 +522,7 @@ public class MainScene extends Application {
         flight = new AdultFlight();
 
         if(flight != null) {
-            if (!flight.isDateValid(departDate, returnDate)) {
+            if (flight.dateIsInvalid(departDate, returnDate)) {
                 datePickerReturn.getEditor().setText(null);
                 UtilityClass.errorMessageDatesNotPossible();
             }
@@ -829,8 +873,9 @@ public class MainScene extends Application {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
+
         // constructor
-        flight = new AdultFlight(
+        flight = AdultFlight.createAdultFlight(
                 dptFlight,       // setOrigin() from variable in this method
                 rtnFlight,       // setDestination() from variable in this method
                 dateDepartPrice,    // setDepartPrice() from the return of getSelectDate()
@@ -839,11 +884,16 @@ public class MainScene extends Application {
                 selectedDeptTime,   // returned from displayFlightDetails()
                 selectedReturnTime);// returned from displayFlightDetails()
 
+        if(flight != null  && passenger != null) {
+            flight.getBaggagePrice(passenger);
+        }
+
     }
 
     private void setFlightPriceChild() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+
 
         // ChildFlight object
         childFlight = new ChildFlight();
@@ -860,6 +910,9 @@ public class MainScene extends Application {
                 selectedDeptTime,
                 selectedReturnTime);
 
+        if(childFlight != null  && passenger != null) {
+            childFlight.getBaggagePrice(passenger);
+        }
     }
 
     private void setFlightPriceInfants() {
@@ -881,6 +934,9 @@ public class MainScene extends Application {
                 selectedDeptTime,
                 selectedReturnTime);
 
+        if(infantFlight != null && passenger != null) {
+            infantFlight.getBaggagePrice(passenger);
+        }
     }
 
 
@@ -1025,8 +1081,8 @@ public class MainScene extends Application {
         // add items to the next scene
         try {
             Button buttonBack = new Button("Back");
-            nextSceneVBox.getChildren().addAll(
-                    listView, buttonBack, nextSceneCreditCardContainer(), getTableViewPassenger(), getTableViewFlight());
+            nextSceneVBox_1.getChildren().addAll( getTableViewPassenger(), getTableViewFlight(),
+                    buttonBack, nextSceneCreditCardContainer());
 
             buttonBack.setOnAction(event -> {
                 listView.getItems().clear();
@@ -1038,7 +1094,7 @@ public class MainScene extends Application {
     }
 
 
-    public boolean checkForMaxTwoChildern() {
+    public boolean checkForMaxTwoChildren() {
         int i = 0;
         int countInfant = 0;
         int countChildren = 0;
@@ -1056,7 +1112,8 @@ public class MainScene extends Application {
             if (spinnerPassengerNo.getValue() == i)
             {
 
-                if (countChildren >= 3 || countInfant >= 3 || countChildren == 2 && countInfant > 0  || countInfant == 2 && countChildren > 0 )
+                if (countChildren >= 3 || countInfant >= 3 || countChildren == 2 && countInfant > 0
+                        || countInfant == 2 && countChildren > 0 )
                 {
                     return true;
                 }
@@ -1096,7 +1153,7 @@ public class MainScene extends Application {
                                 UtilityClass.errorMessageDNINumber();
                             }
 
-                            else if (checkForMaxTwoChildern())
+                            else if (checkForMaxTwoChildren())
                             {
                                 UtilityClass.errorMessageMaxTwoChildren();
                             }
@@ -1161,10 +1218,10 @@ public class MainScene extends Application {
         TableView<Flight> table = new TableView<>();
 
         TableColumn<Flight, String> originCol = new TableColumn<>("Origin");
-        TableColumn<Flight, String> destinationCol = new TableColumn<>("Destination");
-        TableColumn<Flight, Double> departPriceCol = new TableColumn<>("Depart Price");
-        TableColumn<Flight, Double> returnPriceCol = new TableColumn<>("Return Price");
-        TableColumn<Flight, Double> priceCol = new TableColumn<>("Total Price");
+        TableColumn<Flight, String> destinationCol = new TableColumn<>("Destn");
+        TableColumn<Flight, Double> departPriceCol = new TableColumn<>("Depart €");
+        TableColumn<Flight, Double> returnPriceCol = new TableColumn<>("Return €");
+        TableColumn<Flight, Double> priceCol = new TableColumn<>("Total €");
         TableColumn<Flight, String> departTimeCol = new TableColumn<>("Dept Time");
         TableColumn<Flight, String> returnTimeCol = new TableColumn<>("Return Time");
 
