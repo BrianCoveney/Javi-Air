@@ -2,12 +2,15 @@ package model;
 
 import helpers.Consts;
 
+import java.time.LocalDate;
+
 /**
  * Created by brian on 16/12/16.
  */
-public class InfantFlight extends Flight {
+public class InfantFlight extends Flight  {
 
     private double price;
+    private LocalDate dateOfBirth;
 
     public InfantFlight() {}
 
@@ -27,5 +30,16 @@ public class InfantFlight extends Flight {
     }
 
 
+    @Override
+    public String speak() {
+        return "Infant Flight";
+    }
+
+
+    @Override
+    public LocalDate getDateOfBirth(Passenger passenger) {
+        dateOfBirth = passenger.getDateOfBirth();
+        return dateOfBirth;
+    }
 
 }

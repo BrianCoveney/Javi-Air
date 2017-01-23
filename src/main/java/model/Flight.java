@@ -7,7 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by brian on 22/10/16.
  */
-public abstract class Flight{
+public abstract class Flight implements IFlight{
 
     private String origin;
     private String destination;
@@ -101,9 +101,6 @@ public abstract class Flight{
     }
 
 
-    public double calculateWeekendFlightPrice(double x, double y) {
-        return weekendPrice = x + y * Consts.WEEKEND_RATE;
-    }
 
     public double calculateDepartPlusReturnPrice(double x, double y) {
         return deptPlusRtnPrice = x + y;
@@ -111,19 +108,56 @@ public abstract class Flight{
 
 
     public boolean isWeekend(String dayOfWeek) {
-        if(dayOfWeek.equals(Consts.FRI) || dayOfWeek.equals(Consts.SAT) || dayOfWeek.equals(Consts.SUN)) {
+        if(dayOfWeek == String.valueOf(Day.FRIDAY) || dayOfWeek == String.valueOf(Day.SATURDAY) || dayOfWeek == String.valueOf(Day.SUNDAY)) {
             return true;
         }
         return false;
     }
 
 
-    public double getBaggagePrice(Passenger passenger) {
+    public double calculateWeekendFlightPrice(double x, double y) {
+        return weekendPrice = x + y * Consts.WEEKEND_RATE;
+    }
+
+
+
+
+
+    public double weekendPrice(double price) {
+
+        Day day = null;
+
+        switch (day) {
+            case FRIDAY:
+            case SATURDAY:
+            case SUNDAY:
+                return price = price + price * 0.2;
+            case MONDAY:
+            case TUESDAY:
+            case WEDNESDAY:
+            case THURSDAY:
+                return price;
+            default:
+                throw new AssertionError("Unknow opp" + this);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // unsure if this code is bad practice
+    public double setBagPrice(Passenger passenger) {
         bagPrice = passenger.getBaggagePrice();
         return this.bagPrice;
     }
-
-    public double getBagPrice() { return bagPrice; }
 
 
     public void setPrice(Double price) {
@@ -168,7 +202,7 @@ public abstract class Flight{
         this.returnPrice = returnPrice;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -210,5 +244,6 @@ public abstract class Flight{
                 "\n\tDepart Time: \t\t"+ this.departTime +
                 "\n\tFlight Price: \t\t\t"+ displayTotalPrice() + "\n";
     }
+
 
 }

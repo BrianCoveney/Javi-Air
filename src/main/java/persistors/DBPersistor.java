@@ -68,7 +68,7 @@ public class DBPersistor implements IPersistor {
                 prepStatement.setString(2, currentFlight.getDestination());
                 prepStatement.setString(3, currentFlight.getDepartPrice().toString());
                 prepStatement.setString(4, currentFlight.getReturnPrice().toString());
-                prepStatement.setString(5, currentFlight.getPrice().toString());
+                prepStatement.setString(5, String.valueOf(currentFlight.getPrice()));
                 prepStatement.setString(6, currentFlight.getDepartTime());
                 prepStatement.setString(7, currentFlight.getReturnTime());
 

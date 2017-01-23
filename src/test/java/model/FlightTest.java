@@ -15,11 +15,14 @@ import static junit.framework.TestCase.assertNotSame;
 public class FlightTest {
 
 
+
     private Flight flight, flight2;
     private Passenger passenger;
     private LocalDate now = LocalDate.now();
     private LocalDate afterNow = LocalDate.now().plusYears(1);
     private LocalDate beforeNow = LocalDate.now().minusYears(1);
+    private String saturday = String.valueOf(Day.SATURDAY);
+    private String tuesday = String.valueOf(Day.TUESDAY);
 
 
     @Before
@@ -31,7 +34,6 @@ public class FlightTest {
         passenger.setBaggagePriceSingle();
 
     }
-
 
 
     @Test
@@ -46,11 +48,11 @@ public class FlightTest {
     }
 
 
-
     @Test
     public void isWeekend() throws Exception {
-        assertEquals(true, flight.isWeekend(Consts.SAT));
-        assertEquals(false, flight.isWeekend(Consts.TUE));
+        assertEquals(true, flight.isWeekend(saturday));
+        assertEquals(false, flight.isWeekend(tuesday));
     }
+
 
 }

@@ -2,12 +2,16 @@ package model;
 
 import helpers.Consts;
 
+import java.time.LocalDate;
+
 /**
  * Created by brian on 12/12/16.
  */
-public class ChildFlight extends Flight {
+public class ChildFlight extends Flight implements IFlight {
 
     private double price;
+    private LocalDate dateOfBirth;
+
 
     public ChildFlight() {}
 
@@ -22,10 +26,29 @@ public class ChildFlight extends Flight {
         return this.price = Consts.CHILD_PRICE;
     }
 
+
     @Override
     public double setPriceReturn() {
         return this.price = Consts.CHILD_PRICE * 2;
     }
 
+
+    @Override
+    public String speak() {
+        return "Child Flight";
+    }
+
+
+    @Override
+    public void setPrice(Double price) {
+        this.price = Consts.CHILD_PRICE * 2;
+    }
+
+
+    @Override
+    public LocalDate getDateOfBirth(Passenger passenger) {
+        dateOfBirth = passenger.getDateOfBirth();
+        return dateOfBirth;
+    }
 
 }

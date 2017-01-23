@@ -19,11 +19,7 @@ public class Consts {
     public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
     public static final String SPANISH_VALID_DNI = "00000010-X";
     public static final String SPANISH_INVALID_DNI = "12345678-a";
-    public static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
-    public static final String FRI = "FRIDAY";
-    public static final String SAT = "SATURDAY";
-    public static final String SUN = "SUNDAY";
-    public static final String TUE = "TUESDAY";
+    public static final String DNI_LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";;
     public static final int NO_OF_COL = 1;
     public static final int NO_OF_ROWS = 8;
     public static double WEEKEND_RATE = 0.2;
