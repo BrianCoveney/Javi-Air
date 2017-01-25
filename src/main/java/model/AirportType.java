@@ -35,7 +35,6 @@ public enum AirportType implements IAirportType {
     OPERATING_ON_ALL_DATES {
 
         // interface methods not called
-
         @Override
         public boolean selectedFlightsParisOrStansted(String origin, String destination) {
             return false;
