@@ -524,10 +524,6 @@ public class MainScene extends Application {
     }
 
 
-
-
-
-
     // take the returned 'flightSelection' from getSelectedFlight() and add 20% if day is Fri - Sun
     private Double getSelectDate(ActionEvent event) {
         ldDepartDate = datePickerDeparture.getValue();
