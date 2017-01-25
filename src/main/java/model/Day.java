@@ -19,8 +19,5 @@ public enum Day{
         this.dayType = dayType;
     }
 
-
-
-
 }
 
