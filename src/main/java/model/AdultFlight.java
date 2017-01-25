@@ -15,8 +15,8 @@ public class AdultFlight extends Flight{
     public AdultFlight() {}
 
     public AdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
-                       String flightTime, String returnTime) {
-        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
+                       String flightTime, String returnTime, String departDate, String returnDate) {
+        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime, departDate, returnDate);
         setPrice(price);
     }
 
@@ -30,8 +30,10 @@ public class AdultFlight extends Flight{
         return this.price = price;
     }
 
-    public static AdultFlight createAdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime)  {
-        return new AdultFlight(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
+    public static AdultFlight createAdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice,
+                                                Double price, String flightTime, String returnTime, String departDate, String returnDate)  {
+
+        return new AdultFlight(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime, departDate, returnDate);
     }
 
 

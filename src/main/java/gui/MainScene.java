@@ -26,6 +26,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.valueOf;
+
 
 public class MainScene extends Application {
 
@@ -249,9 +251,9 @@ public class MainScene extends Application {
 
 
         textAreaScene3.setText( "\n\nReceipt \n\n" +
-                "Total Spanish Rebate \t" + String.valueOf(runningTotalSpanishPrice) + "\n" +
-                "Total Baggage Price \t" + String.valueOf(runningTotalBagPrice) + "\n" +
-                "Total Flight Price \t\t" + String.valueOf(runningTotalFlightPrice) + "\n\n" +
+                "Total Spanish Rebate \t" + valueOf(runningTotalSpanishPrice) + "\n" +
+                "Total Baggage Price \t" + valueOf(runningTotalBagPrice) + "\n" +
+                "Total Flight Price \t\t" + valueOf(runningTotalFlightPrice) + "\n\n" +
                 "Total \t\t\t\t" + finalPrice
         );
 
@@ -447,28 +449,28 @@ public class MainScene extends Application {
         switch (dptFlight) {
             case Consts.CORK:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                comboDestination.getItems().addAll(valueOf(Airport.MAD), valueOf(Airport.SBK), valueOf(Airport.JER), valueOf(Airport.CDG), valueOf(Airport.STN), valueOf(Airport.AGP));
                 break;
             case Consts.MADRID:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                comboDestination.getItems().addAll(valueOf(Airport.ORK), valueOf(Airport.SBK), valueOf(Airport.JER), valueOf(Airport.CDG), valueOf(Airport.STN), valueOf(Airport.AGP));
                 break;
             case Consts.PARIS:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.STANSTED, Consts.MALAGA);
+                comboDestination.getItems().addAll(valueOf(Airport.ORK), valueOf(Airport.MAD), valueOf(Airport.SBK), valueOf(Airport.JER), valueOf(Airport.STN), valueOf(Airport.AGP));
                 break;
             case Consts.STANSTED:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.MALAGA);
+                comboDestination.getItems().addAll(valueOf(Airport.ORK), valueOf(Airport.MAD), valueOf(Airport.SBK), valueOf(Airport.JER), valueOf(Airport.CDG), valueOf(Airport.AGP));
                 break;
             case Consts.MALAGA:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.ST_BRIEUC, Consts.JERSEY, Consts.PARIS, Consts.STANSTED);
+                comboDestination.getItems().addAll(valueOf(Airport.ORK), valueOf(Airport.MAD), valueOf(Airport.SBK), valueOf(Airport.JER), valueOf(Airport.CDG), valueOf(Airport.STN));
                 break;
             case Consts.ST_BRIEUC:
             case Consts.JERSEY:
                 comboDestination.getItems().clear();
-                comboDestination.getItems().addAll(Consts.CORK, Consts.MADRID, Consts.PARIS, Consts.STANSTED, Consts.MALAGA);
+                comboDestination.getItems().addAll(valueOf(Airport.ORK), valueOf(Airport.MAD), valueOf(Airport.CDG), valueOf(Airport.STN), valueOf(Airport.AGP));
                 break;
         }
 
@@ -497,14 +499,18 @@ public class MainScene extends Application {
                             setStyle("-fx-background-color: #ffc0cb;");
                         }
 
-                        if (dptFlight.equals(Consts.ST_BRIEUC) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.ST_BRIEUC)) {
-                            // Disable March and April
+
+                        Flight f = new AdultFlight();
+
+                        if (f.isFlightStanstedOrStBrieuc(dptFlight, rtnFlight)) {
+
                             if (item.getMonth().equals(Month.APRIL) || item.getMonth().equals(Month.MARCH)) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
                             }
-                        } else if (dptFlight.equals(Consts.PARIS) && rtnFlight.equals(Consts.STANSTED) || dptFlight.equals(Consts.STANSTED) && rtnFlight.equals(Consts.PARIS)) {
-                            // Disable April
+                        }
+                        else if(f.isFlightParisOrStansted(dptFlight, rtnFlight)){
+
                             if (item.getMonth().equals(Month.APRIL)) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
@@ -517,57 +523,27 @@ public class MainScene extends Application {
         return monthCellFactory;
     }
 
+
+
+
+
+
     // take the returned 'flightSelection' from getSelectedFlight() and add 20% if day is Fri - Sun
     private Double getSelectDate(ActionEvent event) {
         ldDepartDate = datePickerDeparture.getValue();
         ldReturnDate = datePickerReturn.getValue();
 
-
         if (event.getSource().equals(datePickerDeparture)) {
-
             if (ldDepartDate != null) {
-                String dayOfWeekDpt = ldDepartDate.getDayOfWeek().name();
-
-                // flightAdult refers to the Flight object
-                if (flightAdult.isWeekend(dayOfWeekDpt)) {
-                    dateDepartPrice = flightAdult.calculateWeekendFlightPrice(flightPrice, flightPrice);
-                } else {
-                    dateDepartPrice = flightPrice;
-                }
-
+                dateDepartPrice = flightAdult.calculateExtraForWeekend(ldDepartDate.getDayOfWeek().name(), flightPrice);
             }
         } else if (event.getSource().equals(datePickerReturn)) {
-
             if (ldReturnDate != null) {
-                String dayOfWeekRtn = ldReturnDate.getDayOfWeek().name();
-
-
-                if(dayOfWeekRtn == String.valueOf(Day.FRIDAY) || dayOfWeekRtn == String.valueOf(Day.SATURDAY) ||
-                        dayOfWeekRtn == String.valueOf(Day.SUNDAY)) {
-
-
-                    double twentyPercentExtra = DayType.WEEKEND.calculateExtraPrice(flightPrice);
-
-//                    double twentyPercentExtra = Day.FRIDAY.weekendPrice(flightPrice);
-
-                    dateReturnPrice = twentyPercentExtra;
-                }
-                 else {
-                    dateReturnPrice = flightPrice;
-                }
-
-
+                dateReturnPrice = flightAdult.calculateExtraForWeekend(ldReturnDate.getDayOfWeek().name(), flightPrice);
             }
         }
-
-
-        currentPrice = flightAdult.calculateDepartPlusReturnPrice(dateDepartPrice, dateReturnPrice);
-
-        return currentPrice;
+        return currentPrice = dateReturnPrice + dateReturnPrice;
     }
-
-
-
 
 
 
@@ -652,7 +628,7 @@ public class MainScene extends Application {
 
         });
 
-        // model.Flight has two time slots
+        // Flight has two time slots
         if (flightTime_2 != null) {
 
             radioButtonDeptTime2.setText(flightAdult.displayDeptDetails() + "\n" + flightTime_2);
@@ -930,24 +906,25 @@ public class MainScene extends Application {
     private void setFlightPriceAdult() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+        String departDate = valueOf(ldDepartDate);
+        String returnDate = valueOf(ldReturnDate);
 
         // constructor
         flightAdult = AdultFlight.createAdultFlight(
-                dptFlight,          // setOrigin() from variable in this method
-                rtnFlight,          // setDestination() from variable in this method
-                dateDepartPrice,    // setDepartPrice() from the return of getSelectDate()
-                dateReturnPrice,    // setReturnPrice() from the return of getSelectDate()
-                currentPrice,       // setPrice() from the return of getSelectedFlightPrice()
-                selectedDeptTime,   // returned from displayFlightDetails()
-                selectedReturnTime);// returned from displayFlightDetails()
+                dptFlight,
+                rtnFlight,
+                dateDepartPrice,
+                dateReturnPrice,
+                currentPrice,
+                selectedDeptTime,
+                selectedReturnTime,
+                departDate,
+                returnDate);
 
 
         if(flightAdult != null  && passenger != null) {
             flightAdult.setBagPrice(passenger);
         }
-
-
-
 
     }
 
@@ -982,6 +959,8 @@ public class MainScene extends Application {
     private void setFlightPriceChild() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+        String departDate = valueOf(ldDepartDate);
+        String returnDate = valueOf(ldReturnDate);
 
 
         // ChildFlight object
@@ -999,7 +978,9 @@ public class MainScene extends Application {
                 childPrice,
                 childTotalPrice,
                 selectedDeptTime,
-                selectedReturnTime);
+                selectedReturnTime,
+                departDate,
+                returnDate);
 
         if(childFlight != null  && passenger != null) {
             childFlight.setBagPrice(passenger);
@@ -1010,6 +991,8 @@ public class MainScene extends Application {
     private void setFlightPriceInfants() {
         String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
         String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+        String departDate = valueOf(ldDepartDate);
+        String returnDate = valueOf(ldReturnDate);
 
         // InfantFlight object
         infantFlight = new InfantFlight();
@@ -1024,7 +1007,9 @@ public class MainScene extends Application {
                 infantPrice,
                 infantTotalPrice,
                 selectedDeptTime,
-                selectedReturnTime);
+                selectedReturnTime,
+                departDate,
+                returnDate);
 
         if(infantFlight != null && passenger != null) {
             infantFlight.setBagPrice(passenger);
@@ -1283,7 +1268,7 @@ public class MainScene extends Application {
 
     private void addFlightDetailsToDatabase() {
         if (flightAdult != null) {
-            JaviairController.getInstance().addFlight((Flight) flightAdult);
+            JaviairController.getInstance().addFlight(flightAdult);
         }
         if (flightChild != null) {
             JaviairController.getInstance().addFlight(flightChild);

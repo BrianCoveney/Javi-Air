@@ -15,8 +15,9 @@ public class ChildFlight extends Flight implements IFlight {
 
     public ChildFlight() {}
 
-    public ChildFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
-        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
+    public ChildFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
+                       String flightTime, String returnTime, String departDate, String returnDate) {
+        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime, departDate, returnDate);
         setPrice(price);
 
     }

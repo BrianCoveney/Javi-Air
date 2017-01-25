@@ -3,12 +3,12 @@ package model;
 /**
  * Created by brian on 23/01/17.
  */
-public enum DayType {
+public enum DayType implements IDayType {
 
     WEEKEND {
         @Override
         public double calculateExtraPrice(double price) {
-            return price = price + price * 0.2;
+            return price + price * 0.2;
         }
     },
 
@@ -17,8 +17,6 @@ public enum DayType {
         public double calculateExtraPrice(double price) {
             return price;
         }
-    };
-
-    public abstract double calculateExtraPrice(double price);
+    }
 
 }

@@ -4,6 +4,8 @@ import helpers.Consts;
 
 import java.time.LocalDate;
 
+import static java.lang.String.*;
+
 /**
  * Created by brian on 22/10/16.
  */
@@ -16,17 +18,21 @@ public abstract class Flight implements IFlight{
     private Double price;
     private String departTime;
     private String returnTime;
+    private String departDate;
+    private String returnDate;
     private double flightPrice;
     private double weekendPrice;
     private double deptPlusRtnPrice;
     private double bagPrice;
+    private AirportType airportType;
 
 
 
     public Flight(){}
 
 
-    public Flight (String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
+    public Flight (String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
+                   String flightTime, String returnTime, String departDate, String returnDate) {
         this.origin = origin;
         this.destination = destination;
         this.departPrice = deapartPrice;
@@ -34,6 +40,8 @@ public abstract class Flight implements IFlight{
         this.price = price;
         this.departTime = flightTime;
         this.returnTime = returnTime;
+        this.departDate = departDate;
+        this.returnDate = returnDate;
     }
 
     public abstract double setPriceSingle();
@@ -101,59 +109,32 @@ public abstract class Flight implements IFlight{
     }
 
 
-
-    public double calculateDepartPlusReturnPrice(double x, double y) {
-        return deptPlusRtnPrice = x + y;
-    }
-
-
-    public boolean isWeekend(String dayOfWeek) {
-        if(dayOfWeek == String.valueOf(Day.FRIDAY) || dayOfWeek == String.valueOf(Day.SATURDAY) || dayOfWeek == String.valueOf(Day.SUNDAY)) {
+    public boolean isFlightParisOrStansted(String org, String dest){
+        if(AirportType.NOT_OPERATING_ON_DATES.selectedFlightsParisOrStansted(org, dest)) {
             return true;
         }
         return false;
     }
 
 
-    public double calculateWeekendFlightPrice(double x, double y) {
-        return weekendPrice = x + y * Consts.WEEKEND_RATE;
-    }
 
-
-
-
-
-    public double weekendPrice(double price) {
-
-        Day day = null;
-
-        switch (day) {
-            case FRIDAY:
-            case SATURDAY:
-            case SUNDAY:
-                return price = price + price * 0.2;
-            case MONDAY:
-            case TUESDAY:
-            case WEDNESDAY:
-            case THURSDAY:
-                return price;
-            default:
-                throw new AssertionError("Unknow opp" + this);
-
+    public boolean isFlightStanstedOrStBrieuc(String org, String dest) {
+        if(AirportType.NOT_OPERATING_ON_DATES.selectedFlightsStBrieucOrStansted(org, dest)){
+            return true;
         }
+        return false;
     }
 
 
 
+    public double calculateExtraForWeekend(String day, double price) {
+        if(day == valueOf(Day.FRIDAY) || day == valueOf(Day.SATURDAY) || day == valueOf(Day.SUNDAY)) {
+            price = DayType.WEEKEND.calculateExtraPrice(price);
+        }
+        return price;
+    }
 
 
-
-
-
-
-
-
-    // unsure if this code is bad practice
     public double setBagPrice(Passenger passenger) {
         bagPrice = passenger.getBaggagePrice();
         return this.bagPrice;
@@ -230,6 +211,21 @@ public abstract class Flight implements IFlight{
         this.flightPrice = flightPrice;
     }
 
+    public String getDepartDate() {
+        return departDate;
+    }
+
+    public void setDepartDate(String departDate) {
+        this.departDate = departDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
 
     @Override
     public String toString() {

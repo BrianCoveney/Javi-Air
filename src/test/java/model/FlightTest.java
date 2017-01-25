@@ -14,32 +14,25 @@ import static junit.framework.TestCase.assertNotSame;
  */
 public class FlightTest {
 
-
-
-    private Flight flight, flight2;
-    private Passenger passenger;
+    private Flight flight;
     private LocalDate now = LocalDate.now();
     private LocalDate afterNow = LocalDate.now().plusYears(1);
-    private LocalDate beforeNow = LocalDate.now().minusYears(1);
     private String saturday = String.valueOf(Day.SATURDAY);
     private String tuesday = String.valueOf(Day.TUESDAY);
+    private final double FLIGHT_PRICE = 60.0;
+    private final double FLIGHT_PRICE_PLUS_TWENTY_PERCENT = 72.0;
 
 
     @Before
     public void setUp() throws Exception {
         flight = new AdultFlight();
-        flight2 = new AdultFlight();
-
-        passenger = new Passenger();
-        passenger.setBaggagePriceSingle();
-
     }
 
 
     @Test
     public void flightSelection() throws Exception {
         assertEquals(Consts.ONE_HND, flight.flightSelection(Consts.CORK, Consts.MADRID));
-        assertNotSame(Consts.ONE_HND, flight2.flightSelection(Consts.CORK, Consts.MADRID)); // should be 120.0
+        assertNotSame(Consts.ONE_HND, flight.flightSelection(Consts.CORK, Consts.MADRID)); // should be 120.0
     }
 
     @Test
@@ -49,9 +42,9 @@ public class FlightTest {
 
 
     @Test
-    public void isWeekend() throws Exception {
-        assertEquals(true, flight.isWeekend(saturday));
-        assertEquals(false, flight.isWeekend(tuesday));
+    public void calculateExtraIfWeekend() throws Exception {
+        assertEquals(FLIGHT_PRICE_PLUS_TWENTY_PERCENT, flight.calculateExtraForWeekend(saturday, FLIGHT_PRICE));
+        assertEquals(FLIGHT_PRICE, flight.calculateExtraForWeekend(tuesday, FLIGHT_PRICE));
     }
 
 

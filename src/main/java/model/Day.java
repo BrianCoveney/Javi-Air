@@ -3,7 +3,7 @@ package model;
 /**
  * Created by brian on 18/01/17.
  */
-public enum Day implements IDay {
+public enum Day{
 
 
     MONDAY(DayType.WEEKDAY), TUESDAY(DayType.WEEKDAY),
@@ -14,22 +14,10 @@ public enum Day implements IDay {
 
 
     private final DayType dayType;
+
     Day(DayType dayType) {
         this.dayType = dayType;
     }
-
-
-//    public double weekendPrice(double price) {
-//        switch (this) {
-//            case FRIDAY:
-//            case SATURDAY:
-//            case SUNDAY:
-//                price = price + price * 0.2;
-//                break;
-//        }
-//
-//        return price;
-//    }
 
 
 

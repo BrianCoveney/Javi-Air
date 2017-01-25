@@ -14,8 +14,10 @@ public class InfantFlight extends Flight  {
 
     public InfantFlight() {}
 
-    public InfantFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price, String flightTime, String returnTime) {
-        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime);
+    public InfantFlight(String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
+                        String flightTime, String returnTime, String departDate, String returnDate) {
+
+        super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime, departDate, returnDate);
         setPrice(price);
     }
 
