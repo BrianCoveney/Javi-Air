@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1205b3d-b07b-47a7-bace-768eff6014ff" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/AirportType.java" afterPath="$PROJECT_DIR$/src/main/java/model/AirportType.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -966,7 +965,7 @@
       <workItem from="1485201664870" duration="3681000" />
       <workItem from="1485332090164" duration="20222000" />
       <workItem from="1485374054097" duration="3475000" />
-      <workItem from="1485421571110" duration="9663000" />
+      <workItem from="1485421571110" duration="9847000" />
     </task>
     <servers />
   </component>
@@ -1003,7 +1002,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="168302000" />
+    <option name="totallyTimeSpent" value="168486000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
