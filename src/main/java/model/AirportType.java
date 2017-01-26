@@ -31,7 +31,6 @@ public enum AirportType implements IAirportType {
     },
 
 
-
     OPERATING_ON_ALL_DATES {
 
         // interface methods not called
@@ -45,5 +44,4 @@ public enum AirportType implements IAirportType {
             return false;
         }
     };
-
 }
