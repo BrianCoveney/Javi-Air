@@ -23,6 +23,10 @@ public class Consts {
     public static final int NO_OF_COL = 1;
     public static final int NO_OF_ROWS = 8;
     public static double WEEKEND_RATE = 0.2;
+    public static final String FRI = "FRIDAY";
+    public static final String SAT = "SATURDAY";
+    public static final String SUN = "SUNDAY";
+    public static final String TUE = "TUESDAY";
 
     // constants - flight airports
     public static final String CORK = "ORK";

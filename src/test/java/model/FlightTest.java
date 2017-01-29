@@ -1,13 +1,11 @@
 package model;
 
-import helpers.Consts;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotSame;
 
 /**
  * Created by brian on 15/12/16.
@@ -29,11 +27,7 @@ public class FlightTest {
     }
 
 
-    @Test
-    public void flightSelection() throws Exception {
-        assertEquals(Consts.ONE_HND, flight.flightSelection(Consts.CORK, Consts.MADRID));
-        assertNotSame(Consts.ONE_HND, flight.flightSelection(Consts.CORK, Consts.MADRID)); // should be 120.0
-    }
+
 
     @Test
     public void isDateValid() throws Exception {

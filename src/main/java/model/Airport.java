@@ -5,14 +5,13 @@ package model;
  */
 public enum Airport {
 
-    CDG(AirportType.NOT_OPERATING_ON_DATES),
-    STN(AirportType.NOT_OPERATING_ON_DATES),
-    SBK(AirportType.NOT_OPERATING_ON_DATES),
-
-    ORK(AirportType.OPERATING_ON_ALL_DATES),
-    MAD(AirportType.OPERATING_ON_ALL_DATES),
-    JER(AirportType.OPERATING_ON_ALL_DATES),
-    AGP(AirportType.OPERATING_ON_ALL_DATES);
+    CDG(AirportType.AIRPORT_LOCATION),
+    STN(AirportType.AIRPORT_LOCATION),
+    SBK(AirportType.AIRPORT_LOCATION),
+    ORK(AirportType.AIRPORT_LOCATION),
+    MAD(AirportType.AIRPORT_LOCATION),
+    JER(AirportType.AIRPORT_LOCATION),
+    AGP(AirportType.AIRPORT_LOCATION);
 
     private final AirportType airportType;
 

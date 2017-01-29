@@ -5,7 +5,10 @@ package model;
  */
 public interface IAirportType {
 
-    abstract boolean selectedFlightsParisOrStansted(String origin, String destination);
+    boolean selectedFlightsParisOrStansted(String origin, String destination);
 
-    abstract boolean selectedFlightsStBrieucOrStansted(String origin, String destination);
+    boolean selectedFlightsStBrieucOrStansted(String origin, String destination);
+
+    double flightSelection(String dptFlight, String rtnFlight);
+
 }

@@ -499,17 +499,15 @@ public class MainScene extends Application {
                             setStyle("-fx-background-color: #ffc0cb;");
                         }
 
+                        if (AirportType.AIRPORT_LOCATION.selectedFlightsStBrieucOrStansted(dptFlight, rtnFlight)) {
 
-                        Flight f = new AdultFlight();
-
-                        if (f.isFlightStanstedOrStBrieuc(dptFlight, rtnFlight)) {
 
                             if (item.getMonth().equals(Month.APRIL) || item.getMonth().equals(Month.MARCH)) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #ffc0cb;");
                             }
                         }
-                        else if(f.isFlightParisOrStansted(dptFlight, rtnFlight)){
+                        else if (AirportType.AIRPORT_LOCATION.selectedFlightsParisOrStansted(dptFlight, rtnFlight)) {
 
                             if (item.getMonth().equals(Month.APRIL)) {
                                 setDisable(true);
@@ -528,13 +526,17 @@ public class MainScene extends Application {
     private Double getSelectDate(ActionEvent event) {
         ldDepartDate = datePickerDeparture.getValue();
         ldReturnDate = datePickerReturn.getValue();
+        String day = ldDepartDate.getDayOfWeek().name();
+
 
         if (event.getSource().equals(datePickerDeparture)) {
             if (ldDepartDate != null) {
+
                 dateDepartPrice = flightAdult.calculateExtraForWeekend(ldDepartDate.getDayOfWeek().name(), flightPrice);
             }
         } else if (event.getSource().equals(datePickerReturn)) {
             if (ldReturnDate != null) {
+
                 dateReturnPrice = flightAdult.calculateExtraForWeekend(ldReturnDate.getDayOfWeek().name(), flightPrice);
             }
         }
@@ -564,7 +566,9 @@ public class MainScene extends Application {
         rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
 
         Flight f = new AdultFlight();
-        flightPrice = f.flightSelection(dptFlight, rtnFlight);
+//        flightPrice = f.flightSelection(dptFlight, rtnFlight);
+
+        flightPrice = AirportType.AIRPORT_LOCATION.flightSelection(dptFlight, rtnFlight);
 
         // Disable March and/or April in the DatePicker.
         // Also disable date before current time and after 6 months from now.
@@ -573,7 +577,7 @@ public class MainScene extends Application {
         datePickerDeparture.setDayCellFactory(monthCellFactory);
         datePickerReturn.setDayCellFactory(monthCellFactory);
 
-        return this.flightPrice;
+        return flightPrice;
     }
 
 
