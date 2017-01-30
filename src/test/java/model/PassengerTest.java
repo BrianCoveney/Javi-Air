@@ -27,7 +27,6 @@ public class PassengerTest {
     protected String inValidDNI = Consts.SPANISH_INVALID_DNI;
     protected String validFirstName = "Brian";
     protected String inValidFirstName = "111";
-    protected String inValidFirstName2 = "brian"; // first letter must be a capital letter
     protected String validLastName = "Coveney";
     protected String inValidLastName = "11Coveney";
     protected String dob;
@@ -57,7 +56,6 @@ public class PassengerTest {
         passenger2.setNumberDNI(Consts.SPANISH_INVALID_DNI);
 
         passenger3 = new Passenger();
-        passenger3.setFirstName(inValidFirstName2);
         passenger3.setDateOfBirth(over18);
 
         passenger4 = new Passenger(validFirstName, validLastName,
@@ -136,8 +134,7 @@ public class PassengerTest {
     @Test
     public void validateFirstName() throws Exception {
         assertEquals(true, passenger4.validateFirstName(validFirstName));
-        assertEquals(false, passenger5.validateFirstName(inValidFirstName));
-        assertEquals(false, passenger3.validateFirstName(inValidFirstName2));
+        assertEquals(false, passenger5.validateFirstName(inValidFirstName));;
         assertThat(passenger4.validateFirstName(validFirstName), is(true));
 
     }

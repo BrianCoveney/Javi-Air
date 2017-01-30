@@ -107,7 +107,7 @@ public class Passenger {
 
 
     public boolean validateFirstName(String fName) {
-        if (getFirstName().matches(Consts.LAST_NAME_VALID)) {
+        if (getFirstName().matches(Consts.VALID_NAME)) {
             return true;
         }
         return false;
@@ -115,7 +115,7 @@ public class Passenger {
 
 
     public boolean validateLastName(String lName) {
-        if (getLastName().matches(Consts.FIRST_NAME_VALID)) {
+        if (getLastName().matches(Consts.VALID_NAME)) {
             return true;
         }
         return false;

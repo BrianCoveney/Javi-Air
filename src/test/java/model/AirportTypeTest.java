@@ -1,5 +1,6 @@
 package model;
 
+import helpers.Consts;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -13,6 +14,8 @@ public class AirportTypeTest {
     String paris = String.valueOf(Airport.CDG);
     String stansted = String.valueOf(Airport.STN);
     String st_brieuc = String.valueOf(Airport.SBK);
+
+
     
 
     @Test
@@ -41,6 +44,19 @@ public class AirportTypeTest {
 
         assertEquals(false,
                 AirportType.AIRPORT_LOCATION.selectedFlightsStBrieucOrStansted(st_brieuc, paris));
+
+    }
+
+
+    @Test
+    public void flightSelection() {
+
+        assertEquals(Consts.ONE_HND,
+                AirportType.AIRPORT_LOCATION.flightSelection(String.valueOf(Airport.ORK), String.valueOf(Airport.MAD)));
+
+        assertEquals(Consts.TWO_HND_FIFTY,
+                AirportType.AIRPORT_LOCATION.flightSelection(String.valueOf(Airport.JER), String.valueOf(Airport.CDG)));
+
 
     }
 

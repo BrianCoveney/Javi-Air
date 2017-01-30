@@ -1,5 +1,6 @@
 package model;
 
+import helpers.Consts;
 import helpers.UtilityClass;
 
 import java.time.LocalDate;
@@ -35,15 +36,13 @@ public class CreditCard {
     }
 
 
-    private String validateName(String input) {
-        String validText = "^[\\p{L} .'-]+$";
-
+    public boolean validateName(String input) {
         if(input != null) {
-            if (!input.matches(validText)) {
-                UtilityClass.errorMessageName();
+            if (input.matches(Consts.VALID_NAME)) {
+                return true;
             }
         }
-        return input;
+        return false;
     }
 
 

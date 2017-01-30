@@ -265,6 +265,7 @@ public class MainScene extends Application {
 
     private void createCreditCard() {
         String cardNum = tfCCNumber.getText();
+        String name = tfCCName.getText();
 
         creditCard = new CreditCard(
                 tfCCName.getText(),
@@ -276,10 +277,17 @@ public class MainScene extends Application {
                 dpCCExpiryDate.getValue(),
                 tfCCVNumber.getText());
 
-        if(!cardNum.isEmpty() && creditCard.validateCreditCardNumber(cardNum)) {
-            UtilityClass.orderReceived();
-        } else {
-            UtilityClass.errorMessageCreditCardNumber();
+        if(!cardNum.isEmpty()) {
+
+            if(!creditCard.validateCreditCardNumber(cardNum)) {
+                UtilityClass.errorMessageCreditCardNumber();
+            }
+            else if (!creditCard.validateName(name)) {
+                UtilityClass.errorMessageName();
+            }
+            else {
+                UtilityClass.orderReceived();
+            }
         }
     }
 

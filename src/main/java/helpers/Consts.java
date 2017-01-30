@@ -13,8 +13,7 @@ public class Consts {
     public static final Double CHILD_PRICE = 60.0;
     public static final double SPANISH_REBATE = 5.0;
     public static final double SPANISH_REBATE_DOUBLED = 10.0;
-    public static final String FIRST_NAME_VALID = "[a-zA-z]+([ '-][a-zA-Z]+)*";
-    public static final String LAST_NAME_VALID = "[A-Z][a-zA-Z]*";
+    public static final String VALID_NAME = "[a-zA-z]+([ '-][a-zA-Z]+)*";
     public static final String CREDIT_VALID_VALID_NO = "4929766254319102";
     public static final String CREDIT_INVALID_VALID_NO = "3556737586899855";
     public static final String SPANISH_VALID_DNI = "00000010-X";
