@@ -207,7 +207,6 @@ public class MainScene extends Application {
         gridPane.add(buttonPurchase, 0, 6, 3, 3);
         GridPane.setMargin(buttonPurchase, new Insets(0, 0, 0, 155));
 
-
         return gridPane;
     }
 
