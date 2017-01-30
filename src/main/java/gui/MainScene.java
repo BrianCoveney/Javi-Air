@@ -98,7 +98,6 @@ public class MainScene extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
         JaviairController.getInstance().setPersistor(new DBPersistor());
 
         window = primaryStage;
@@ -139,9 +138,8 @@ public class MainScene extends Application {
         System.out.println(iPassengerAdult.speak());
         System.out.println(iPassengerAdult + "\n");
 
-
-
     }
+
 
     private GridPane nextSceneCreditCardContainer() {
 
