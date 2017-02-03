@@ -11,6 +11,7 @@ public class ChildFlight extends Flight implements IFlight {
 
     private double price;
     private LocalDate dateOfBirth;
+    public double departPrice;
 
 
     public ChildFlight() {}
@@ -40,6 +41,7 @@ public class ChildFlight extends Flight implements IFlight {
     }
 
 
+
     @Override
     public void setPrice(Double price) {
         this.price = Consts.CHILD_PRICE * 2;
@@ -51,5 +53,7 @@ public class ChildFlight extends Flight implements IFlight {
         dateOfBirth = passenger.getDateOfBirth();
         return dateOfBirth;
     }
+
+
 
 }

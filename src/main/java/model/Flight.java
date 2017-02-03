@@ -164,7 +164,7 @@ public abstract class Flight implements IFlight{
         return "\tDepart: \t\t\t" + displayDeptDetails() +
                 "\n\tReturn: \t\t\t"+ displayReturnDetails() +
                 "\n\tDepart Time: \t\t"+ this.departTime + "\n\tReturn Time: \t\t" + this.returnTime +
-                       "\n\tFlight Price: \t\t\t"+ displayTotalPrice() + "\n";
+                "\n\tFlight Price: \t\t\t"+ displayTotalPrice() + "\n";
     }
 
     public String toStringSingleFlight() {

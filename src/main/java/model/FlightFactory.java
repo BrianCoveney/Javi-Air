@@ -6,22 +6,30 @@ package model;
 public class FlightFactory {
 
 
-    public static IFlight getFlightType(Passenger passenger) {
+    public static IFlight getInstance(Passenger passenger, String origin, String destination, Double deapartPrice, Double returnPrice, Double price,
+                                      String flightTime, String returnTime, String departDate, String returnDate) {
 
-        if(passenger == null) {
+        if (passenger == null) {
             return null;
         }
-        else if(passenger.isPassengerInfant()) {
-            System.out.println("Infant Flight");
+
+        else if (passenger.isPassengerInfant()) {
             return new InfantFlight();
         }
-        else if(passenger.isPassengerAChild()) {
-            System.out.println("Child Flight");
-            return new ChildFlight();
+
+        else if (passenger.isPassengerAChild()) {
+
+            return new ChildFlight(
+                    origin, destination, deapartPrice, returnPrice,
+                    price, flightTime, returnTime, departDate, returnDate
+            );
         }
-        else if(passenger.isPassengerOver18()) {
-            System.out.println("Adult Flight");
-            return new AdultFlight();
+
+        else if (passenger.isPassengerOver18()) {
+            return new AdultFlight(
+                    origin, destination, deapartPrice, returnPrice,
+                    price, flightTime, returnTime, departDate, returnDate
+            );
         }
 
         return null;

@@ -86,10 +86,11 @@ public class MainScene extends Application {
     private FlightTimes flightTimes;
     private InfantFlight infantFlight;
     private ChildFlight childFlight;
-    private double x;
-
+    private ArrayList<Flight> flights;
     private IPassenger  iPassengerInfant, iPassengerChild, iPassengerAdult;
-    private IFlight iFlightInfant, iFlightChild, iFlight;
+    private IFlight iFlightInfant, iFlightChild, iFlightAdult;
+
+    private Flight chFlight;
 
 
     public static void main(String[] args) { launch(args); }
@@ -125,18 +126,6 @@ public class MainScene extends Application {
         primaryStage.show();
 
 
-        iPassengerInfant = PassengerFactory.getPassenger(LocalDate.now().minusMonths(9));
-        System.out.println(iPassengerInfant.speak());
-        System.out.println(iPassengerInfant + "\n");
-
-        iPassengerChild = PassengerFactory.getPassenger(LocalDate.now().minusYears(3));
-        System.out.println(iPassengerChild.speak());
-        System.out.println(iPassengerChild + "\n");
-
-
-        iPassengerAdult = PassengerFactory.getPassenger(LocalDate.now().minusYears(19));
-        System.out.println(iPassengerAdult.speak());
-        System.out.println(iPassengerAdult + "\n");
 
     }
 
@@ -211,8 +200,8 @@ public class MainScene extends Application {
 
 
     private TextArea displayPurchase() {
-        double bPrice;
-        double sPrice;
+        double bagagePrice;
+        double spanishRebatePrice;
         double runningTotalFlightPrice = 0;
         double runningTotalBagPrice = 0;
         double runningTotalSpanishPrice = 0;
@@ -237,10 +226,10 @@ public class MainScene extends Application {
 
 
         for (Passenger passenger : passengerList) {
-            bPrice = passenger.getBaggagePrice();
-            sPrice = passenger.getSpaRebate();
-            runningTotalBagPrice += bPrice;
-            runningTotalSpanishPrice += sPrice;
+            bagagePrice = passenger.getBaggagePrice();
+            spanishRebatePrice = passenger.getSpaRebate();
+            runningTotalBagPrice += bagagePrice;
+            runningTotalSpanishPrice += spanishRebatePrice;
         }
 
 
@@ -253,6 +242,18 @@ public class MainScene extends Application {
                 "Total Flight Price \t\t" + valueOf(runningTotalFlightPrice) + "\n\n" +
                 "Total \t\t\t\t" + finalPrice
         );
+
+
+
+
+        if(flightAdult != null) {
+
+
+            Booking booking = new Booking();
+
+            double price = booking.getFlightPrice(flightAdult);
+            System.out.println(price);
+        }
 
         return textAreaScene3;
     }
@@ -934,28 +935,55 @@ public class MainScene extends Application {
     }
 
 
-    public Flight createFlight() {
+    public void createFlight() {
+        String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
+        String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+        String departDate = valueOf(ldDepartDate);
+        String returnDate = valueOf(ldReturnDate);
 
-        iFlight = FlightFactory.getFlightType(passenger);
 
-        if (passenger != null) {
+        for(Passenger mPassenger :passengerList) {
+
+            iFlightAdult = FlightFactory.getInstance(
+                    mPassenger,
+                    dptFlight,
+                    rtnFlight,
+                    dateDepartPrice,
+                    dateReturnPrice,
+                    currentPrice,
+                    selectedDeptTime,
+                    selectedReturnTime,
+                    departDate,
+                    returnDate
+                    );
 
 
-            iFlight.setOrigin(dptFlight);
-            iFlight.setDestination(rtnFlight);
-            iFlight.setDepartPrice(dateDepartPrice);
-            iFlight.setReturnPrice(dateReturnPrice);
-            iFlight.setPrice(currentPrice);
-            iFlight.setDepartTime(selectedDeptTime);
-            iFlight.setReturnTime(selectedReturnTime);
-            iFlight.setBagPrice(passenger);
 
-            System.out.println(iFlight);
-            System.out.println(iFlight.getDateOfBirth(passenger));
+            if(mPassenger.isPassengerAChild()) {
+                iFlightChild = FlightFactory.getInstance(
+                        mPassenger,
+                        dptFlight,
+                        rtnFlight,
+                        Consts.CHILD_PRICE,
+                        Consts.CHILD_PRICE,
+                        Consts.CHILD_PRICE * 2,
+                        selectedDeptTime,
+                        selectedReturnTime,
+                        departDate,
+                        returnDate
 
+                );
+            }
         }
 
-        return (Flight) iFlight;
+        System.out.println("Adult Flight");
+        System.out.println(iFlightAdult.toString());
+
+        System.out.println("Child Flight");
+        System.out.println(iFlightChild.toString());
+
+
+
     }
 
 
@@ -1020,6 +1048,9 @@ public class MainScene extends Application {
             infantFlight.setBagPrice(passenger);
         }
     }
+
+
+
 
 
     // get spanish rebate value from the Passenger object, based on the criteria of flights being to or from MAD / AGP
@@ -1096,6 +1127,9 @@ public class MainScene extends Application {
         double adultPrice = calculateAdultFinalPrice();
         double sRebate = spanishRebateSelected();
 
+        flights = new ArrayList<>();
+
+        createFlight();
 
         int i = 0;
         for (Passenger passenger : passengerList) {
@@ -1106,10 +1140,16 @@ public class MainScene extends Application {
                 window.setScene(scene2);
 
 
+
+
+
+
                 // add Passenger and Flight objects to the ListView displayed in the next scene (after Continue button is clicked)
                 if (passenger.isPassengerInfant()) {
 
                     setFlightPriceInfants();
+                    flights.add(flightInfant);
+
 
                     if (radioButtonReturn.isSelected()) {
                         listView.getItems().addAll(
@@ -1127,6 +1167,8 @@ public class MainScene extends Application {
                 } else if (passenger.isPassengerAChild()) {
 
                     setFlightPriceChild();
+
+                    flights.add(flightChild);
 
                     if (radioButtonReturn.isSelected()) {
                         listView.getItems().addAll(
@@ -1146,6 +1188,8 @@ public class MainScene extends Application {
                 } else if (passenger.isPassengerOver5()) {
 
                     setFlightPriceAdult();
+
+                    flights.add(flightAdult);
 
                     if (radioButtonReturn.isSelected()) {
                         listView.getItems().addAll(
@@ -1257,7 +1301,6 @@ public class MainScene extends Application {
                         {
                             // go to next scene
                             writeDetails();
-                            createFlight();
                         }
                     }
                 }
@@ -1376,7 +1419,11 @@ public class MainScene extends Application {
 
 
     private ObservableList<Flight> getFlightList() {
-        ObservableList<Flight> fList = FXCollections.observableArrayList(flightAdult);
+        ObservableList<Flight> fList = FXCollections.observableArrayList();
+
+        for(Flight flight : flights) {
+            fList.add(flight);
+        }
 
         return fList;
     }
