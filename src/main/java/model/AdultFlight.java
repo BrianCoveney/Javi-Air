@@ -1,15 +1,13 @@
 package model;
 
-import java.time.LocalDate;
-
 /**
  * Created by brian on 12/12/16.
  */
-public class AdultFlight extends Flight{
+public class AdultFlight extends Flight implements IFlight{
 
 
-    private double price;
-    private LocalDate dateOfBirth;
+    public double departPrice;
+    public double returnPrice;
 
 
     public AdultFlight() {}
@@ -18,16 +16,18 @@ public class AdultFlight extends Flight{
                        String flightTime, String returnTime, String departDate, String returnDate) {
         super(origin, destination, deapartPrice, returnPrice, price, flightTime, returnTime, departDate, returnDate);
         setPrice(price);
+
+
     }
 
     @Override
     public double setPriceSingle() {
-        return this.price = price;
+        return this.departPrice;
     }
 
     @Override
     public double setPriceReturn() {
-        return this.price = price;
+        return this.returnPrice;
     }
 
     public static AdultFlight createAdultFlight(String origin, String destination, Double deapartPrice, Double returnPrice,
@@ -39,14 +39,17 @@ public class AdultFlight extends Flight{
 
 
     @Override
-    public String speak() {
-        return "Adult Flight";
+    public String printAdultSingleFlightDetails() {
+        return "\tDepart: \t\t\t" + this.setPriceSingle() +
+                "\n\tDepart Time: \t\t"+ getDepartTime();
     }
 
+
     @Override
-    public LocalDate getDateOfBirth(Passenger passenger) {
-        dateOfBirth = passenger.getDateOfBirth();
-        return dateOfBirth;
+    public String printAdultReturnFlightDetails() {
+        return  this.departPrice +
+                this.returnPrice +
+                getDepartTime() + "\n";
     }
 
 }

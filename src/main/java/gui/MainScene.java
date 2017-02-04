@@ -957,30 +957,11 @@ public class MainScene extends Application {
                     returnDate
                     );
 
-
-
-            if(mPassenger.isPassengerAChild()) {
-                iFlightChild = FlightFactory.getInstance(
-                        mPassenger,
-                        dptFlight,
-                        rtnFlight,
-                        Consts.CHILD_PRICE,
-                        Consts.CHILD_PRICE,
-                        Consts.CHILD_PRICE * 2,
-                        selectedDeptTime,
-                        selectedReturnTime,
-                        departDate,
-                        returnDate
-
-                );
-            }
         }
 
         System.out.println("Adult Flight");
-        System.out.println(iFlightAdult.toString());
+        System.out.println(iFlightAdult.printAdultReturnFlightDetails());
 
-        System.out.println("Child Flight");
-        System.out.println(iFlightChild.toString());
 
 
 
@@ -988,36 +969,57 @@ public class MainScene extends Application {
 
 
 
-
     private void setFlightPriceChild() {
-        String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
-        String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
+
+//        String dptFlight = comboOrigin.getSelectionModel().getSelectedItem();
+//        String rtnFlight = comboDestination.getSelectionModel().getSelectedItem();
         String departDate = valueOf(ldDepartDate);
         String returnDate = valueOf(ldReturnDate);
 
 
-        // ChildFlight object
-        childFlight = new ChildFlight();
+        for(Passenger mPassenger :passengerList) {
 
+            iFlightChild = FlightFactory.getInstance(
+                    mPassenger,
+                    dptFlight,
+                    rtnFlight,
+                    dateDepartPrice,
+                    dateReturnPrice,
+                    currentPrice,
+                    selectedDeptTime,
+                    selectedReturnTime,
+                    departDate,
+                    returnDate
 
-        double childPrice = childFlight.setPriceSingle();
-        double childTotalPrice = childFlight.setPriceReturn();
-
-        // constructor
-        flightChild = new ChildFlight(
-                dptFlight,
-                rtnFlight,
-                childPrice,
-                childPrice,
-                childTotalPrice,
-                selectedDeptTime,
-                selectedReturnTime,
-                departDate,
-                returnDate);
-
-        if(childFlight != null  && passenger != null) {
-            childFlight.setBagPrice(passenger);
+            );
         }
+
+        System.out.println("Child Flight");
+        System.out.println(iFlightChild.printChildReturnFlightDetails());
+
+
+//        // ChildFlight object
+//        childFlight = new ChildFlight();
+//
+//
+//        double childPrice = childFlight.setPriceSingle();
+//        double childTotalPrice = childFlight.setPriceReturn();
+//
+//        // constructor
+//        flightChild = new ChildFlight(
+//                dptFlight,
+//                rtnFlight,
+//                childPrice,
+//                childPrice,
+//                childTotalPrice,
+//                selectedDeptTime,
+//                selectedReturnTime,
+//                departDate,
+//                returnDate);
+//
+//        if(childFlight != null  && passenger != null) {
+//            childFlight.setBagPrice(passenger);
+//        }
 
     }
 
@@ -1087,8 +1089,8 @@ public class MainScene extends Application {
 
 
     private double calculateChildFinalPrice() {
-        if(childFlight != null) {
-            double cPrice = childFlight.setPriceReturn();
+        if(iFlightChild!= null) {
+            double cPrice = iFlightChild.setPriceReturn();
             bagPrice = calculateBagPrice();
             spanishRebate = spanishRebateSelected();
             childFinalPrice = cPrice + bagPrice - spanishRebate;
@@ -1160,7 +1162,7 @@ public class MainScene extends Application {
 
                         listView.getItems().addAll(
                                 "\nPassenger " + i + passenger.toStringSingleFlight(),
-                                infantFlight.toStringSingleFlight(),
+                                infantFlight.printChildSingleFlightDetails(),
                                 "\tTotal: \t\t\t\t\t\t = €" + flightInfant.setPriceReturn());
                     }
 
@@ -1168,20 +1170,20 @@ public class MainScene extends Application {
 
                     setFlightPriceChild();
 
-                    flights.add(flightChild);
+                    flights.add((Flight) iFlightChild);
 
                     if (radioButtonReturn.isSelected()) {
                         listView.getItems().addAll(
                                 "\nPassenger " + i + passenger.toString(),
                                 "\t" + "Spanish Rebate: \t €" + sRebate + "\n" +
-                                        flightChild.toString(),
+                                        iFlightChild.printChildReturnFlightDetails(),
                                 "\tTotal: \t\t\t\t\t\t = €" + calculateChildFinalPrice());
                     } else if (radioButtonOneWay.isSelected()) {
 
                         listView.getItems().addAll(
                                 "\nPassenger " + i + passenger.toStringSingleFlight(),
                                 "\t" + "Spanish Rebate: \t €" + sRebate + "\n" +
-                                        flightChild.toStringSingleFlight(),
+                                        iFlightChild.printChildSingleFlightDetails(),
                                 "\tTotal: \t\t\t\t\t\t = €" + calculateChildFinalPrice());
                     }
 
@@ -1195,13 +1197,13 @@ public class MainScene extends Application {
                         listView.getItems().addAll(
                                 "\nPassenger " + i + passenger.toString(),
                                 "\t" + "Spanish Rebate: \t €" + sRebate + "\n" +
-                                        flightAdult.toString(),
+                                        iFlightAdult.printAdultReturnFlightDetails(),
                                 "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                     } else if (radioButtonOneWay.isSelected()) {
                         listView.getItems().addAll(
                                 "\nPassenger " + i + passenger.toStringSingleFlight(),
                                 "\t" + "Spanish Rebate: \t €" + sRebate + "\n" +
-                                        flightAdult.toStringSingleFlight(),
+                                        iFlightAdult.printAdultSingleFlightDetails(),
                                 "\tTotal: \t\t\t\t\t\t = €" + adultPrice);
                     }
 

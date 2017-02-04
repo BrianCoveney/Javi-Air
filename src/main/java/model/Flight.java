@@ -159,19 +159,32 @@ public abstract class Flight implements IFlight{
         this.returnDate = returnDate;
     }
 
-    @Override
-    public String toString() {
-        return "\tDepart: \t\t\t" + displayDeptDetails() +
-                "\n\tReturn: \t\t\t"+ displayReturnDetails() +
-                "\n\tDepart Time: \t\t"+ this.departTime + "\n\tReturn Time: \t\t" + this.returnTime +
-                "\n\tFlight Price: \t\t\t"+ displayTotalPrice() + "\n";
+
+    public String printChildReturnFlightDetails() {
+        return "\tDepart: \t\t\t" + this.origin +" > "+ this.destination +" = €"+ this.departPrice +
+                "\n\tReturn: \t\t\t"+ this.destination +" > "+ this.origin +" = €"+ this.returnPrice +
+                "\n\tDepart Time: \t\t"+ this.departTime;
     }
 
-    public String toStringSingleFlight() {
+    public String printChildSingleFlightDetails() {
         return "\tDepart: \t\t\t" + displayDeptDetails() +
                 "\n\tDepart Time: \t\t"+ this.departTime +
                 "\n\tFlight Price: \t\t\t"+ displayTotalPrice() + "\n";
     }
 
+
+    public String printAdultSingleFlightDetails() {
+        return "\tDepart: \t\t\t" + displayDeptDetails() +
+                "\n\tDepart Time: \t\t"+ this.departTime ;
+    }
+
+
+    public String printAdultReturnFlightDetails() {
+        return "\tDepartT: \t\t\t" + this.origin +" > "+ this.destination +" = €"+ this.departPrice +
+                "\n\tReturn: \t\t\t"+ this.destination +" > "+ this.origin +" = €"+ this.returnPrice +
+                "\n\tFlight Price:\t\t\t\t\t€"+ this.price +
+                "\n\tDepart Time: \t\t"+ this.departTime +
+                "\n\tReturn Time: \t\t"+ this.returnTime;
+    }
 
 }

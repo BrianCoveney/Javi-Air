@@ -32,16 +32,4 @@ public class InfantFlight extends Flight  {
     }
 
 
-    @Override
-    public String speak() {
-        return "Infant Flight";
-    }
-
-
-    @Override
-    public LocalDate getDateOfBirth(Passenger passenger) {
-        dateOfBirth = passenger.getDateOfBirth();
-        return dateOfBirth;
-    }
-
 }
